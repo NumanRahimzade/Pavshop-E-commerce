@@ -18,7 +18,8 @@ from django.urls import path
 from core.views import home, about, contact
 from blog.views import blog_list
 from blog.views import blog_detail
-from order.views import checkout
+from order.views import checkout, shoppingcart
+from account.views import login,register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,9 @@ urlpatterns = [
     path('blog-detail/', blog_detail, name='blog_detail'),
     path('contact/', contact, name='contact'),
     path('checkout/', checkout, name='checkout'),
+    path('shoppingcart/',shoppingcart,name="shoppingcart"),
+    path('login/',login,name="login"),
+    path('register/',register,name="register")
+
 ]
+
