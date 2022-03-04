@@ -20,6 +20,7 @@ from blog.views import blog_list
 from blog.views import blog_detail
 from order.views import checkout, shoppingcart
 from account.views import login,register
+from product.views import productdetail,productlist
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +32,9 @@ urlpatterns = [
     path('checkout/', checkout, name='checkout'),
     path('shoppingcart/',shoppingcart,name="shoppingcart"),
     path('login/',login,name="login"),
-    path('register/',register,name="register")
+    path('register/',register,name="register"),
+    path('productdetail/',productdetail,name="productdetail"),
+    path('productlist/',productlist,name="productlist"),
 
 ]
 
