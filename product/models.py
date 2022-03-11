@@ -1,3 +1,5 @@
+from pyexpat import model
+from unicodedata import category
 from django.db import models
 
 
@@ -10,6 +12,8 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
+    subcategory=models.ForeignKey('self',related_name='categories',on_delete=models.CASCADE)
+
     name=models.CharField('Name',max_length=70)
     
 
@@ -21,7 +25,13 @@ class Category(AbstractModel):
         return self.name
 
 
+class Product(AbstractModel):
+    category=models.ForeignKey(Category,related_name='products',on_delete=models.CASCADE)
+
+
 class PropertyName(AbstractModel):
+    category=models.ForeignKey(Category,related_name='propertynames',on_delete=models.CASCADE)
+
     name=models.CharField('Name',max_length=70)
 
 
@@ -46,6 +56,8 @@ class PropertyValues(AbstractModel):
 
 
 class ProductVersion(AbstractModel):
+    product=models.ForeignKey(Product,)
+
     title=models.CharField('Title', max_length=50)
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
