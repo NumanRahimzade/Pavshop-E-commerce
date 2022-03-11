@@ -46,7 +46,6 @@ class PropertyName(AbstractModel):
 class PropertyValues(AbstractModel):
     value=models.CharField('Value',max_length=100)
 
-
     class Meta:
         verbose_name = 'Property Value'
         verbose_name_plural = 'Property Values'
