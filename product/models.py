@@ -1,7 +1,10 @@
+from itertools import product
 from pyexpat import model
 from unicodedata import category
 from django.db import models
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -12,7 +15,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    subcategory=models.ForeignKey('self',related_name='categories',on_delete=models.CASCADE)
+    subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE)
 
     name=models.CharField('Name',max_length=70)
     
@@ -26,11 +29,12 @@ class Category(AbstractModel):
 
 
 class Product(AbstractModel):
-    category=models.ForeignKey(Category,related_name='products',on_delete=models.CASCADE)
+    brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
 
 
 class PropertyName(AbstractModel):
-    category=models.ForeignKey(Category,related_name='propertynames',on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.CASCADE)
 
     name=models.CharField('Name',max_length=70)
 
@@ -44,6 +48,8 @@ class PropertyName(AbstractModel):
 
 
 class PropertyValues(AbstractModel):
+    propertyname=models.ForeignKey(PropertyName,related_name='propertyvalues',default="", on_delete=models.CASCADE)
+
     value=models.CharField('Value',max_length=100)
 
     class Meta:
@@ -55,7 +61,9 @@ class PropertyValues(AbstractModel):
 
 
 class ProductVersion(AbstractModel):
-    product=models.ForeignKey(Product,)
+    product=models.ForeignKey(Product, related_name='productversions',default="", on_delete=models.CASCADE)
+    discount=models.ForeignKey('Discount',related_name='productdiscount',default="", on_delete=models.CASCADE)
+    property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
     code=models.CharField('Code',max_length=50)
@@ -74,6 +82,8 @@ class Brand(AbstractModel):
 
 
 class ProductImages(AbstractModel):
+    version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
+
     image = models.ImageField(upload_to='media/product_images/')
     is_main=models.BooleanField(default=False)
 
@@ -91,6 +101,9 @@ class Discount(AbstractModel):
         return self.title
         
 
+class WishList(AbstractModel):
+    productversion=models.ManyToManyField(ProductVersion,blank=True)
+    user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
 
 
 
