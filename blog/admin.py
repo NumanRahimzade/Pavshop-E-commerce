@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Blog, Tag, CategoryBlog
+from blog.models import Blog, Tag
 
 
-admin.site.register([Blog, Tag, CategoryBlog])
+admin.site.register([Blog, Tag])

@@ -1,6 +1,3 @@
-from itertools import product
-from pyexpat import model
-from unicodedata import category
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -15,7 +12,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE)
+    # subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE)
 
     name=models.CharField('Name',max_length=70)
     
