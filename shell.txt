@@ -1,0 +1,25 @@
+                        CREATING BLOGS!!!!!
+>>> from blog.models import *
+>>> user = User.objects.first()
+tag = Tag(title='travel')
+>>> tag.save()
+>>> creating.tags.add(tag)
+>>> creating.save()
+tag = Tag(title='sport')
+>>> tag.save()
+>>> tag = Tag(title='beauty')
+>>> tag.save()
+creating = Blog(author=user, title='Norway winter trip', description='amazing view')
+>>> creating.save()
+>>> creating.tags.add(Tag.objects.all()[1])
+>>> creating = Blog(author=user, title='Finland winter trip', description='amazing view')
+>>> creating.save()
+>>> creating.tags.add(Tag.objects.all()[0])
+>>> creating = Blog(author=user, title='Sweden winter trip', description='amazing view')
+>>> creating.save()
+>>> creating.tags.add(Tag.objects.all()[0])
+>>> creating = Blog.objects.create(author=user, title='Finland winter trip', description='amazing view')
+>>> creating = Blog.objects.create(author=user, title='Greece winter trip', description='amazing view')
+>>> creating.tags.add(Tag.objects.all()[2])
+
+
