@@ -57,11 +57,9 @@ Type "help", "copyright", "credits" or "license" for more information.
             assignment5
 
 a = Blog.objects.all()
->>> b = a[1]
->>> b
-<Blog: Norway winter trip>
->>> b.category.name
-'beauty'
+>>> for i in a:
+        print(i.category.name)
+
 
 
             assignment6
