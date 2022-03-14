@@ -73,9 +73,9 @@ a = Blog.objects.all()
 
             assignment7
 
->>> Blog.objects.filter(description__icontains='country')
+>>> Blog.objects.filter(description__icontains='country').order_by('-created_at')[:8]
 <QuerySet [<Blog: Italy trip>, <Blog: Spain trip>, <Blog: Turkey trip>]>
 
 
->>> Blog.objects.filter(description__icontains='view')
+>>> Blog.objects.filter(description__icontains='view').order_by('-created_at')[:8]
 <QuerySet [<Blog: Finland winter trip>, <Blog: Norway winter trip>, <Blog: Sweden winter trip>]>
