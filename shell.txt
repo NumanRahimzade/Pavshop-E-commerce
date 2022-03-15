@@ -51,7 +51,13 @@ Type "help", "copyright", "credits" or "license" for more information.
             assignment3
 
 
+ Blog.objects.annotate(cnt=models.Count('tags')).order_by('-cnt').values_list('tags__title')[:1]
+<QuerySet [('sport',)]>
 
+            assignment4
+
+ ProductVersion.objects.annotate(cnt=models.Count('tags')).order_by('-cnt').values_list('tags__title')[:1]
+<QuerySet [('sport',)]>
 
 
             assignment5
