@@ -1,6 +1,3 @@
-from itertools import product
-from pyexpat import model
-from unicodedata import category
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -15,7 +12,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    # subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE)
+    subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
     
@@ -94,8 +91,8 @@ class ProductImages(AbstractModel):
 
 class Discount(AbstractModel):
     title=models.CharField('Title', max_length=80)
-    percentage=models.CharField('Percentage', max_length=20)
-    value=models.IntegerField('Value')
+    percentage=models.CharField('Percentage', max_length=20,null=True,blank=True)
+    value=models.IntegerField('Value',null=True,blank=True)
 
     def __str__(self):
         return self.title
@@ -104,6 +101,15 @@ class Discount(AbstractModel):
 class WishList(AbstractModel):
     productversion=models.ManyToManyField(ProductVersion,blank=True)
     user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
+
+
+class Review(AbstractModel):
+    user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE, default=1)
+    productversion=models.ForeignKey(ProductVersion,related_name='productreview', on_delete=models.CASCADE)
+
+
+    comment=models.CharField('Comment', max_length=300)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
 
 
