@@ -19,8 +19,8 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('', include('blog.urls')),
@@ -31,3 +31,6 @@ urlpatterns = [
     
 ]
 
+admin.site.site_header = "PAVSHOP Admin"
+admin.site.site_title = "PAVSHOP Admin Portal"
+admin.site.index_title = "Welcome to PAVSHOP Portal"

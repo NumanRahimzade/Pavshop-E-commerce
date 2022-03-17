@@ -12,7 +12,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    # subcategory=models.ForeignKey('self',related_name='categories',default='', on_delete=models.CASCADE, null=True, blank=True)
+    subcategory=models.ForeignKey('self',related_name='categories',default='', on_delete=models.CASCADE, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
     
@@ -28,6 +28,9 @@ class Category(AbstractModel):
 class Product(AbstractModel):
     brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
     category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
+
+    def __str__(self):
+            return self.brand.name
 
 
 class PropertyName(AbstractModel):
@@ -45,7 +48,7 @@ class PropertyName(AbstractModel):
 
 
 class PropertyValues(AbstractModel):
-    propertyname=models.ForeignKey(PropertyName,related_name='propertyvalues',default="", on_delete=models.CASCADE)
+    propertyname=models.ForeignKey(PropertyName, related_name='propertyvalues',default="", on_delete=models.CASCADE, verbose_name="Property Name")
 
     value=models.CharField('Value',max_length=100)
 

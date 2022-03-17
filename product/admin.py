@@ -3,18 +3,17 @@ from django.contrib import admin
 from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList
 
 
-class ProductVersionInlineAdmin(admin.TabularInline):
-    model = ProductVersion
+class ProductImagesInlineAdmin(admin.TabularInline):
+    model = ProductImages
 
-    
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('brand', 'created_at')
     list_filter = ('brand__name', 'created_at')
     search_fields = ('brand__name', )
-    inlines = [ProductVersionInlineAdmin, ]
     
-
+    
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at')
@@ -42,15 +41,12 @@ class BrandAdmin(admin.ModelAdmin):
     list_filter = ('name','created_at')
     search_fields = ('name', )
 
+
 @admin.register(ProductImages)
 class ProductImagesAdmin(admin.ModelAdmin):
     list_display = ('version','created_at', 'image', 'cover_image')
     list_filter = ('version','created_at')
     search_fields = ('version__title', )
-
-
-class ProductImagesInlineAdmin(admin.TabularInline):
-    model = ProductImages
 
 
 @admin.register(ProductVersion)
@@ -59,15 +55,7 @@ class ProductVersionAdmin(admin.ModelAdmin):
     list_filter = ('product__category__name', 'created_at')
     search_fields = ('title', 'price', 'code')
     inlines = [ProductImagesInlineAdmin, ]
-    # fieldsets = [
-    #     ('Standard info', {
-    #         'fields': ('title', 'created_at'),
-    #         'classes': ('wide',)
-    #     }),
-    #     ('Other', {
-    #         'fields': ('price', 'code', 'stock' )
-    #     }),
-    # ]
+
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
