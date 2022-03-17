@@ -6,10 +6,27 @@ from product.models import Category,Product,PropertyName,PropertyValues,ProductV
 class ProductVersionInlineAdmin(admin.TabularInline):
     model = ProductVersion
 
+class PropertyValueInlineAdmin(admin.TabularInline):
+    model = PropertyValues
+
+class DiscountInlineAdmin(admin.TabularInline):
+    model = Discount
+
+class PropertyNameInlineAdmin(admin.TabularInline):
+    model = PropertyName
+
+class ProductImageInlineAdmin(admin.TabularInline):
+    model = ProductImages
+
+class ProductInlineAdmin(admin.TabularInline):
+    model = Product
+
+
 # admin.site.register([WishList])
 
 @admin.register(ProductVersion)
 class ProductVersionAdmin(admin.ModelAdmin):
+    inlines = [ProductImageInlineAdmin, ]
     list_display = ('title', 'code', 'price','stock', 'created_at')
     list_filter = ( 'created_at', )
     search_fields = ('title', 'code')
@@ -17,6 +34,7 @@ class ProductVersionAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    # inlines = [ProductInlineAdmin, PropertyNameInlineAdmin, ]
     list_display = ('name', 'created_at')
     list_filter = ( 'name','created_at')
     search_fields = ['name']
@@ -24,12 +42,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductVersionInlineAdmin, ]
     list_display = ('brand', 'created_at')
     list_filter = ( 'brand','category','created_at')
     search_fields = ['brand__name', 'category__name']
 
 @admin.register(PropertyName)
 class PropertyNameAdmin(admin.ModelAdmin):
+    inlines = [PropertyValueInlineAdmin, ]
     list_display = ('name', 'category','created_at')
     list_filter = ( 'name','category','created_at')
     search_fields = ['name', 'category__name']
@@ -44,6 +64,7 @@ class PropertyValuesAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
+    # inlines = [ProductInlineAdmin, ]
     list_display = ('name','created_at')
     list_filter = ('name','created_at')
     search_fields = ['name', ]
@@ -57,6 +78,7 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
+    # inlines = [ProductVersionInlineAdmin, ]
     list_display = ('title','percentage','value','created_at')
     list_filter = ('title','created_at')
     search_fields = ['title', 'percentage','value']
@@ -72,4 +94,7 @@ class WishListAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user','productversion','comment','created_at')
+    list_filter = ('productversion','user','created_at')
+    search_fields = [ 'user__username','productversion__title','comment']
+    

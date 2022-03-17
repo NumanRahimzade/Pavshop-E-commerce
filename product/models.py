@@ -111,6 +111,9 @@ class Review(AbstractModel):
     comment=models.CharField('Comment', max_length=300)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
+    def __str__(self):
+        return self.productversion.title
+ 
 
 
 
