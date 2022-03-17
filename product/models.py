@@ -12,7 +12,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    # subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE)
+    # subcategory=models.ForeignKey('self',related_name='categories',default='', on_delete=models.CASCADE, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
     
@@ -82,6 +82,7 @@ class ProductImages(AbstractModel):
     version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='media/product_images/')
+    cover_image = models.ImageField('cover image', upload_to='media/product_images/')
     is_main=models.BooleanField(default=False)
 
     class Meta:
@@ -91,8 +92,8 @@ class ProductImages(AbstractModel):
 
 class Discount(AbstractModel):
     title=models.CharField('Title', max_length=80)
-    percentage=models.CharField('Percentage', max_length=20)
-    value=models.IntegerField('Value')
+    percentage=models.CharField('Percentage', max_length=20, null=True, blank=True)
+    value=models.IntegerField('Value', null=True, blank=True)
 
     def __str__(self):
         return self.title

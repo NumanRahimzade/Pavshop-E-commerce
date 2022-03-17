@@ -2,10 +2,12 @@ asgiref==3.5.0
 autopep8==1.6.0
 backports.zoneinfo==0.2.1
 Django==4.0.2
+django-4-jet==1.0.8
 engineering-notation==0.6.0
 Pillow==9.0.1
 psycopg2-binary==2.9.3
 pycodestyle==2.8.0
+six==1.16.0
 sqlparse==0.4.2
 tk-tools==0.14.0
 toml==0.10.2
