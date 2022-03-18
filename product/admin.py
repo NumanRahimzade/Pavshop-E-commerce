@@ -34,7 +34,7 @@ class ProductVersionAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    # inlines = [ProductInlineAdmin, PropertyNameInlineAdmin, ]
+    inlines = [ProductInlineAdmin, PropertyNameInlineAdmin, ]
     list_display = ('name', 'created_at')
     list_filter = ( 'name','created_at')
     search_fields = ['name']
@@ -64,7 +64,7 @@ class PropertyValuesAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    # inlines = [ProductInlineAdmin, ]
+    inlines = [ProductInlineAdmin, ]
     list_display = ('name','created_at')
     list_filter = ('name','created_at')
     search_fields = ['name', ]
@@ -78,7 +78,7 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
-    # inlines = [ProductVersionInlineAdmin, ]
+    inlines = [ProductVersionInlineAdmin, ]
     list_display = ('title','percentage','value','created_at')
     list_filter = ('title','created_at')
     search_fields = ['title', 'percentage','value']
