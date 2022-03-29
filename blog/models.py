@@ -17,7 +17,7 @@ class Tag(AbstractModel):
 class Blog(AbstractModel):
     category = models.ForeignKey(Category, related_name='blogs', on_delete=models.CASCADE)
     author = models.ForeignKey(User, default='', on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='blog_tags')
     
     title = models.CharField('Title', max_length=50, db_index=True)
     description = models.TextField('Description')

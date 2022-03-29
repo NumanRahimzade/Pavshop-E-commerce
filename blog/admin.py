@@ -5,7 +5,7 @@ from blog.models import Blog, Tag
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('author', 'title','created_at')
+    list_display = ('author', 'title','created_at',)
     list_filter = ( 'author__username','title','created_at')
     search_fields = ('author__username', )
 
