@@ -1,9 +1,34 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.contrib import messages
+from product.models import *
+from blog.models import Tag
+from product.forms import ReviewForm
 # Create your views here.
 
 def productdetail(request):
-    return render(request,'product-detail.html')
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
+            return redirect(reverse_lazy('contact'))
+    context = {
+        'form': form
+    }
+    return render(request,'product-detail.html', context)
 
 def productlist(request):
-    return render(request,'product-list.html')
+    category_list = Category.objects.all()
+    popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
+    product_list = Product.objects.all()
+
+    context = {
+        'categories': category_list,
+        'tags': popular_tags,
+        'products': product_list
+    }
+    return render(request,'product-list.html', context)
+
+

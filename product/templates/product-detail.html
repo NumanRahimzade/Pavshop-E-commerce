@@ -190,31 +190,35 @@
               
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
-              <form>
+              <form class="contact-form" method="POST">
                 <ul class="row">
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+                  {% for field in form %}
                   <li class="col-sm-6">
-                    <label> *NAME
-                      <input type="text" value="" placeholder="">
+                    <label>{{ field.label_tag }}
+                      {{ field }}
                     </label>
                   </li>
-                  <li class="col-sm-6">
-                    <label> *EMAIL
-                      <input type="email" value="" placeholder="">
-                    </label>
-                  </li>
-                  <li class="col-sm-12">
-                    <label> *YOUR REVIEW
-                      <textarea></textarea>
-                    </label>
-                  </li>
-                  <li class="col-sm-6"> 
-                    <!-- Rating Stars -->
-                    <div class="stars"> <span>YOUR RATING</span> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-                  </li>
-                  <li class="col-sm-6">
-                    <button type="submit" class="btn btn-dark btn-small pull-right no-margin">POST REVIEW</button>
-                  </li>
+                  
+                  {% if field.errors %}
+                  <ul>
+                    {% for error in field.errors %}
+                    <li class="alert-danger">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  
+                  {% endif %}
+                  {% endfor %}
+                 
                 </ul>
+                <li class="col-sm-6"> 
+                  <!-- Rating Stars -->
+                  <div class="stars"> <span>YOUR RATING</span> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                </li>
+                <li class="col-sm-6">
+                  <button type="submit" class="btn btn-dark btn-small pull-right no-margin">POST REVIEW</button>
+                </li>
               </form>
             </div>
             

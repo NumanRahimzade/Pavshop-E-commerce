@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList
+from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList, ProductReview
 
 
 class ProductImagesInlineAdmin(admin.TabularInline):
@@ -69,5 +69,12 @@ class WishListAdmin(admin.ModelAdmin):
     list_display = ('user','created_at')
     list_filter = ('productversion','user','created_at')
     search_fields = ( 'user__username', )
+
+
+@admin.register(ProductReview)
+class ProductReview(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'review','created_at')
+    list_filter = ('full_name', 'email', 'created_at')
+    search_fields = ( 'full_name', 'email',  )
 
 # admin.site.register([ProductVersion])

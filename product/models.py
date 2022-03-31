@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -12,7 +13,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    subcategory=models.ForeignKey('self',related_name='categories',default='', on_delete=models.CASCADE, null=True, blank=True)
+    subcategory=models.ForeignKey('self',related_name='categories', default='', on_delete=models.CASCADE, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
     
@@ -31,6 +32,10 @@ class Product(AbstractModel):
 
     def __str__(self):
             return self.brand.name
+
+    @property
+    def main_version(self):
+        return self.productversions.first()
 
 
 class PropertyName(AbstractModel):
@@ -73,6 +78,9 @@ class ProductVersion(AbstractModel):
     def __str__(self):
         return self.title
 
+    def main_image(self):
+        return self.productimage.all().order_by('is_main').first()
+
 
 class Brand(AbstractModel):
     name=models.CharField('Name',max_length=70)
@@ -84,8 +92,8 @@ class Brand(AbstractModel):
 class ProductImages(AbstractModel):
     version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
 
-    image = models.ImageField(upload_to='media/product_images/')
-    cover_image = models.ImageField('cover image', upload_to='media/product_images/')
+    image = models.ImageField(upload_to='product_images/')
+    cover_image = models.ImageField('cover image', upload_to='product_images/', null=True, blank=True)
     is_main=models.BooleanField(default=False)
 
     class Meta:
@@ -107,5 +115,11 @@ class WishList(AbstractModel):
     user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
 
 
+class ProductReview(AbstractModel):
+    productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
+    full_name = models.CharField('Full Name', max_length=50)
+    email = models.EmailField('Email', max_length=40)
+    review = models.TextField()
+    
 
-
+   

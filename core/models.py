@@ -22,6 +22,26 @@ class Contact(AbstractModel):
         return self.full_name
 
 
+class NewsLatest(AbstractModel):
+    
+    title = models.CharField('TITLE', max_length=50)
+    description = models.TextField('DESCRIPTION', )
+
+    def __str__(self):
+        return self.title
+
+
+class Subscription(AbstractModel):
+
+    newslatest = models.ManyToManyField(NewsLatest, blank=True, related_name='news')
+    
+    email = models.EmailField('EMAIL', max_length=40)
+
+    def __str__(self):
+        return self.email
+
+
+
 
 
 

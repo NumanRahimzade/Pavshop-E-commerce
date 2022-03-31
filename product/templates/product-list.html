@@ -60,187 +60,26 @@
             <div class="papular-block row single-img-demos"> 
               
               <!-- Item -->
+              {% for item in products %}
               <div class="col-md-4">
                 <div class="item"> 
                   <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-2-1.jpg' %}" alt="" >
+                  <div class="item-img"> <img class="img-1" src="{{ item.main_version.main_image.image.url }}" alt="" >
                     <!-- Overlay -->
                     <div class="overlay">
                       <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-2-1.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
+                        <div class="inn"><a href="" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
                       </div>
                     </div>
                   </div>
                   <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">stone cup</a>
-                    <p>Lorem ipsum dolor sit amet</p>
+                  <div class="item-name"> <a href=""> {{ item.main_version.title }} </a>
+                    <p> {{ item.main_version.code }} </p>
                   </div>
                   <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
+                  <span class="price"><small></small> {{ item.main_version.price }} </span> </div>
               </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Sale Tags -->
-                  <div class="on-sale"> 10% <span>OFF</span> </div>
-                  
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-2-2.jpg' %}" alt="" >
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-2-2.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">gray bag</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-2-3.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-2-3.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">chiar</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-2-4.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-2-4.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">STool</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-5.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-5.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">stone cup</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-6.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-6.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">gray bag</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-7.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-7.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">chiar</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-8.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-8.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">STool</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
-              
-              <!-- Item -->
-              <div class="col-md-4">
-                <div class="item"> 
-                  <!-- Item img -->
-                  <div class="item-img"> <img class="img-1" src="{% static 'images/product-9.jpg' %}" alt="" > 
-                    <!-- Overlay -->
-                    <div class="overlay">
-                      <div class="position-center-center">
-                        <div class="inn"><a href="{% static 'images/product-9.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="item-name"> <a href="#.">stone cup</a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                  <!-- Price --> 
-                  <span class="price"><small>$</small>299</span> </div>
-              </div>
+              {% endfor %}
             </div>
             
             <!-- Pagination -->
@@ -260,17 +99,10 @@
               <!-- Category -->
               <h5 class="shop-tittle margin-bottom-30">category</h5>
               <ul class="shop-cate">
-                <li><a href="#."> Chair <span>24</span></a></li>
-                <li><a href="#."> Bag <span>122</span></a></li>
-                <li><a href="#."> Soffa <span>09</span></a></li>
-                <li><a href="#."> Bed <span>12</span></a></li>
-                <li><a href="#."> Shoes <span>98</span></a></li>
-                <li><a href="#."> Table <span>34</span></a></li>
-                <li><a href="#."> Bedsheets <span>23</span></a></li>
-                <li><a href="#."> Curtains <span>43</span></a></li>
-                <li><a href="#."> TV Cabinets <span>12</span></a></li>
-                <li><a href="#."> Clocks <span>18</span></a></li>
-                <li><a href="#."> Towels <span>25</span></a></li>
+                {% for category in categories %}
+                <li><a href=""> {{ category.name }} <span></span></a></li>
+                
+                {% endfor %}
               </ul>
               
               <!-- FILTER BY PRICE -->
@@ -302,15 +134,10 @@
               <!-- TAGS -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
               <ul class="shop-tags">
-                <li><a href="#.">Towels</a></li>
-                <li><a href="#.">Chair</a></li>
-                <li><a href="#.">Bedsheets</a></li>
-                <li><a href="#.">Shoe</a></li>
-                <li><a href="#.">Curtains</a></li>
-                <li><a href="#.">Clocks</a></li>
-                <li><a href="#.">TV Cabinets</a></li>
-                <li><a href="#.">Best Seller</a></li>
-                <li><a href="#.">Top Selling</a></li>
+                {% for tag in tags %}
+                <li><a href=""> {{ tag.title }} </a></li>
+                
+                {% endfor %}
               </ul>
               
               <!-- BRAND -->
