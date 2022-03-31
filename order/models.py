@@ -1,3 +1,5 @@
+from pyexpat import model
+from statistics import mode
 from core.models import AbstractModel
 from product.models import ProductVersion
 from django.db import models
@@ -35,3 +37,16 @@ class BasketItem(AbstractModel):
 
     def __str__(self):
         return str(self.sub_total)
+
+
+class BillingDetail(AbstractModel):
+    firstname=models.CharField('First Name',max_length=70)
+    lastname=models.CharField('Last Name',max_length=70)
+    companyname=models.CharField('Company Name',max_length=80)
+    address=models.CharField('Address', max_length=100)
+    town=models.CharField('Town/City',max_length=70)
+    country=models.CharField('Country',max_length=70)
+    email=models.EmailField('Email Address',max_length=50)
+    phone=models.CharField('Phone', max_length=40)
+
+  
