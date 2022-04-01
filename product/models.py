@@ -67,7 +67,7 @@ class PropertyValues(AbstractModel):
 
 class ProductVersion(AbstractModel):
     product=models.ForeignKey(Product, related_name='productversions',default="", on_delete=models.CASCADE)
-    discount=models.ForeignKey('Discount',related_name='productdiscount',default="", on_delete=models.CASCADE)
+    discount=models.ForeignKey('Discount',related_name='productdiscount',default="", on_delete=models.CASCADE, blank=True, null=True)
     property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
