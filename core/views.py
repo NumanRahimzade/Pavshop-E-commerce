@@ -17,7 +17,7 @@ def about(request):
 
 def contact(request):
     form = ContactForm()
-    if request.method == 'POST':
+    if request.method == 'POST' and 'contactform' in request.POST:
         form = ContactForm(data=request.POST)
         if form.is_valid():
             form.save()
@@ -29,16 +29,5 @@ def contact(request):
     return render(request, 'contact.html', context)
 
 
-def newsletter(request):
-    form = SubscribeForm()
-    if request.method == 'POST':
-        form = SubscribeForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Email qeyde alindi!')
-            return redirect(reverse_lazy(''))
-    context = {
-        'form': form
-    }
-    return render(request, 'newsletter.html', context)
+
  

@@ -8,12 +8,12 @@ from product.forms import ReviewForm
 
 def productdetail(request):
     form = ReviewForm()
-    if request.method == 'POST':
+    if request.method == 'POST' and 'detailed_product' in request.POST:
         form = ReviewForm(data=request.POST)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
-            return redirect(reverse_lazy('contact'))
+            return redirect(reverse_lazy('productdetail'))
     context = {
         'form': form
     }

@@ -31,7 +31,7 @@
               <!-- <div id="contact_message" class="success-msg"> <i class="fa fa-paper-plane-o"></i>Thank You. Your Message has been Submitted</div> -->
               
               <!--======= FORM  =========-->
-              <form role="form" id="contact_form" class="contact-form" method="POST" onSubmit="">
+              <form role="form" id="contact_form" class="contact-form" method="POST" onSubmit="" name="contactform">
                 
                  
                 <ul class="row">
@@ -55,7 +55,7 @@
                   {% endfor %}
                   
                   <li class="col-sm-12">
-                    <button type="submit" value="submit" class="btn" id="btn_submit" onClick="proceed();">SEND MAIL</button>
+                    <button name="contactform" type="submit" value="submit" class="btn" id="btn_submit" onClick="proceed();">SEND MAIL</button>
                   </li>
                 </ul>
               </form>

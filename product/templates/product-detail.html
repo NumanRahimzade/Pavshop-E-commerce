@@ -190,7 +190,7 @@
               
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
-              <form class="contact-form" method="POST">
+              <form class="contact-form" method="POST" name="detailed_product">
                 <ul class="row">
                   {% csrf_token %}
                   {{ form.non_field_errors }}
@@ -218,7 +218,7 @@
                   <div class="stars"> <span>YOUR RATING</span> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
                 </li>
                 <li class="col-sm-6">
-                  <button type="submit" class="btn btn-dark btn-small pull-right no-margin">POST REVIEW</button>
+                  <button name="detailed_product" type="submit" class="btn btn-dark btn-small pull-right no-margin">POST REVIEW</button>
                 </li>
               </form>
             </div>
