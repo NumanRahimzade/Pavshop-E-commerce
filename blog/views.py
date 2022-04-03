@@ -12,8 +12,8 @@ def blog_list(request):
 def blog_detail(request, id):
     detailed = get_object_or_404(Blog, id=id)
     blogDetail = Blog.objects.all()
-    popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
-    categoryList = Category.objects.all()
+    # popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
+    # categoryList = Category.objects.all()
     blogTag = Blog.objects.filter(id=id).first().tags.all()
     mainBlog = Blog.objects.filter(id=id).first()
     get_category = mainBlog.category.name
@@ -22,8 +22,8 @@ def blog_detail(request, id):
     # youMayLike = Product.objects.filter(category__name = 'wear)')
 
     context = {
-        'categories': categoryList,
-        'tags': popular_tags,
+        # 'categories': categoryList,
+        # 'tags': popular_tags,
         'blog': detailed,
         'bt': blogTag,
         'blg': blogDetail,

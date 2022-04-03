@@ -20,13 +20,13 @@ def productdetail(request):
     return render(request,'product-detail.html', context)
 
 def productlist(request):
-    category_list = Category.objects.all()
-    popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
+    # category_list = Category.objects.all()
+    # popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
     product_list = Product.objects.all()
 
     context = {
-        'categories': category_list,
-        'tags': popular_tags,
+        # 'categories': category_list,
+        # 'tags': popular_tags,
         'products': product_list
     }
     return render(request,'product-list.html', context)

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static tags %}
 {% block content %}
 <!--======= SUB BANNER =========-->
 <section class="sub-bnr" data-stellar-background-ratio="0.5">
@@ -221,6 +221,7 @@
             <!-- Category -->
             <h5 class="shop-tittle margin-bottom-30">category</h5>
             <ul class="shop-cate">
+              {% get_categories as categories %}
               {% for category in categories %}
               <li><a href="#."> {{ category.name }} </a></li>
               {% endfor %}
@@ -243,6 +244,7 @@
             <!-- TAGS -->
             <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
             <ul class="shop-tags">
+              {% get_popular_tags as tags %}
               {% for tag in tags %}
 
               <li><a href="#."> {{ tag.title }} </a></li>
