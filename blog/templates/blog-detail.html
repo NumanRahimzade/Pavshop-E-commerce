@@ -148,28 +148,40 @@
                 
                 <!--=======  LEAVE COMMENTS =========-->
                 <h5 class="shop-tittle margin-top-80">POST YOUR COMMENTS</h5>
-                <form class="padding-left-15">
+                <form action="" method="POST" class="padding-left-15">
+                  {% csrf_token %}
                   <ul class="row">
+
                     <li class="col-sm-4">
                       <label>Name
-                        <input type="text" class="form-control" name="name" placeholder="">
+                        <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
+                        {{form.name}}
+                        {{form.name.errors}}
+                        
                       </label>
                     </li>
                     <li class="col-sm-4">
                       <label>Email
-                        <input type="text" class="form-control" name="name" placeholder="">
+                        <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
+                        {{form.email}}
+                        {{form.email.errors}}
                       </label>
                     </li>
                     <li class="col-sm-4">
                       <label>Subject
-                        <input type="text" class="form-control" name="name" placeholder="">
+                        <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
+                        {{form.subject}}
+                        {{form.subject.errors}}
                       </label>
                     </li>
                     <li class="col-sm-12">
                       <label>COMMENTS
-                        <textarea class="form-control" placeholder=""></textarea>
+                        <!-- <textarea class="form-control" placeholder=""></textarea> -->
+                        {{form.review}}
+                        {{form.review.errors}}
+                      
                       </label>
-                    </li>
+                    </li> 
                     <li class="col-sm-12">
                       <button type="submit" class="btn margin-top-30">Submit Comment </button>
                     </li>

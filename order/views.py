@@ -7,7 +7,7 @@ from order.forms import BillingDetailForm
 
 def checkout(request):
     form=BillingDetailForm()
-    if request.method=='POST':
+    if request.method=='POST':  
         form=BillingDetailForm(data=request.POST)
         if form.is_valid():
             form.save()

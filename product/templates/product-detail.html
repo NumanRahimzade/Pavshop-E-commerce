@@ -22,7 +22,7 @@
   
   <!-- Content -->
   <div id="content"> 
-    
+    {% for product in products %}
     <!-- Popular Products -->
     <section class="padding-top-100 padding-bottom-100">
       <div class="container"> 
@@ -37,23 +37,27 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
+               
                   <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{% static 'images/large-img-1.jpg' %}"  alt=""> </li>
                   <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{% static 'images/large-img-2.jpg' %}"  alt=""> </li>
-                  <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li>
+                  <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li> 
+                 
+                
                 </ul>
               </div>
             </div>
             
             <!-- COntent -->
             <div class="col-md-5">
-              <h4>wood chair</h4>
-              <span class="price"><small>$</small>299</span> 
+              <!-- <h4>wood chair</h4> -->
+              <h4>{{product.title}}</h4>
+              <span class="price"><small>$</small>{{product.price}}</span> 
               
               <!-- Sale Tags -->
-              <div class="on-sale"> 10% <span>OFF</span> </div>
+              <div class="on-sale"> {{product.discount.percentage}} <span>OFF</span> </div>
               <ul class="item-owner">
                 <li>Designer :<span> ABC Art</span></li>
-                <li>Brand:<span> LimeWood</span></li>
+                <li>Brand:<span> {{product.product.brand.name}}</span></li>
               </ul>
               
               <!-- Item Detail -->
@@ -77,6 +81,8 @@
                   <li class="col-xs-8">
                     <ul class="colors-shop">
                       <li><span class="margin-right-20">Colors</span></li>
+                    
+                      <!-- <li><a href="#." style="background:{{ product_propertyvalues__value }};"></a></li> -->
                       <li><a href="#." style="background:#958170;"></a></li>
                       <li><a href="#." style="background:#c9a688;"></a></li>
                       <li><a href="#." style="background:#c9c288;"></a></li>
@@ -85,6 +91,7 @@
                       <li><a href="#." style="background:#6bd6b1;"></a></li>
                       <li><a href="#." style="background:#82c2dc;"></a></li>
                       <li><a href="#." style="background:#8295dc;"></a></li>
+                
                     </ul>
                   </li>
                   
@@ -115,7 +122,7 @@
             </div>
           </div>
         </div>
-        
+        {% endfor %}
         <!--======= PRODUCT DESCRIPTION =========-->
         <div class="item-decribe"> 
           <!-- Nav tabs -->
@@ -234,7 +241,7 @@
           <h4>YOU MAY LIKE IT</h4>
           <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula. 
           Sed feugiat, tellus vel tristique posuere, diam</span> </div>
-        
+          <!-- {% for product in products %} -->
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
           
@@ -310,6 +317,7 @@
             <!-- Price --> 
             <span class="price"><small>$</small>299</span> </div>
         </div>
+        <!-- {% endfor %} -->
       </div>
     </section>
     

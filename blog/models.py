@@ -1,3 +1,5 @@
+import email
+from pyexpat import model
 from unicodedata import category
 from core.models import AbstractModel
 from django.db import models
@@ -31,15 +33,17 @@ class Blog(AbstractModel):
 
 
 class Comment(AbstractModel):
-    user=models.ForeignKey(User, related_name='commentuser',on_delete=models.CASCADE, default=1)
-    blog=models.ForeignKey(Blog,related_name='blogcomment', on_delete=models.CASCADE)
+    # user=models.ForeignKey(User, related_name='commentuser',on_delete=models.CASCADE, default=1)
+    # blog=models.ForeignKey(Blog,related_name='blogcomment', on_delete=models.CASCADE)
 
-
-    review=models.CharField('Comment', max_length=300)
+    name=models.CharField('Name', max_length=50)
+    email=models.EmailField('Email Address',max_length=50)
+    subject = models.CharField('subject', max_length=80, db_index=True)
+    review=models.TextField('Comments')
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.blog.title
+        return self.name
 
 
 

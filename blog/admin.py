@@ -8,7 +8,7 @@ admin.site.register([Blog,Tag])
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('user','blog','review','created_at')
-    list_filter = ('blog','user','created_at')
-    search_fields = [ 'user__username','blog__title','review']
+    list_display = ('name','review','created_at')
+    list_filter = ('name','created_at')
+    search_fields = [ 'name','review']
     
