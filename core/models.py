@@ -33,7 +33,7 @@ class NewsLatest(AbstractModel):
 
 class Subscription(AbstractModel):
 
-    newslatest = models.ManyToManyField(NewsLatest, blank=True, related_name='news')
+    # newslatest = models.ManyToManyField(NewsLatest, blank=True, related_name='news')
     
     email = models.EmailField('EMAIL', max_length=40)
 
