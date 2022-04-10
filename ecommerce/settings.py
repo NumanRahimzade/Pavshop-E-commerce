@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'order',
     'account',
     'product',
-    
+    # 'django_countries',     #country ucun
 ]
 
 MIDDLEWARE = [
