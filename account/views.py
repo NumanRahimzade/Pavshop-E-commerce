@@ -44,6 +44,7 @@ def login(request):
 @login_required
 def user_profile(request):
     return render(request, 'user-profile.html')
+    
 
 
 @login_required

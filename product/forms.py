@@ -9,6 +9,11 @@ class ReviewForm(forms.ModelForm):
         
     }))
 
+    # user = forms.CharField(label='*NAME', label_suffix="", widget=forms.TextInput(attrs={
+    #     'class': 'form-control',
+        
+    # }))
+
     email = forms.EmailField(label='*EMAIL', label_suffix="", widget=forms.EmailInput(attrs={
         'class': 'form-control',
     }))
@@ -24,6 +29,7 @@ class ReviewForm(forms.ModelForm):
        
         fields = (
             'full_name',
+            # 'user',
             'email',
             'review',
             

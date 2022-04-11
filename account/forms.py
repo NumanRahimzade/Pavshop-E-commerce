@@ -1,5 +1,6 @@
 from django import forms
 from django_countries.widgets import CountrySelectWidget
+from django_countries import countries
 from django.contrib.auth import get_user_model
 
 
@@ -15,10 +16,10 @@ class RegisterForm(forms.ModelForm):
                 'class': 'form-control',
     }))
 
-    # country = forms.CharField(label='*COUNTRY', label_suffix="", max_length=50, widget=CountrySelectWidget(attrs={
-    #     'class': 'form-control',
+    country = forms.ChoiceField(label='*COUNTRY', choices=countries, label_suffix="", widget=CountrySelectWidget(attrs={
+        'class': 'selectpicker',
         
-    # }))     #country ucun
+    }))     #country ucun
 
     first_name = forms.CharField(label='*FIRST NAME', label_suffix="", max_length=50, widget=forms.TextInput(attrs={
         'class': 'form-control',
@@ -60,7 +61,7 @@ class RegisterForm(forms.ModelForm):
             'phone',
             'password',
             'confirm_password',
-            # 'country',    #country ucun
+            'country',    #country ucun
             'address',
             'town_city'
 
@@ -104,7 +105,7 @@ class RegisterForm(forms.ModelForm):
     def clean(self):
         data = self.cleaned_data
         if data['password'] != data['confirm_password']:
-            raise forms.ValidationError("//// Confirm_password does not match")
+            raise forms.ValidationError("Confirm_password does not match")
         return super().clean()
 
 

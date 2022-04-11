@@ -32,17 +32,12 @@
             <!-- Tittle -->
             <div class="post-tittle left"> <a href="#." class="tittle"> {{ mainblog.title }} </a> 
               <!-- Post Info --> 
-              <span><i class="primary-color icon-user"></i> {{ mainblog.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ mainblog.created_at }}</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div>
+              <span><i class="primary-color icon-user"></i> {{ mainblog.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ mainblog.created_at|date:"F d, Y" }}</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div>
             <!-- Post Content -->
             <div class="text-left">
               <p> {{ mainblog.description }} </p>
                 <br>
-                Nam sit amet sapien vitae enim vehicula tincidunt. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc faucibus imperdiet vulputate. Morbi volutpat leo iaculis elit vehicula, eu convallis magna finibus. Suspendisse tristique ullamcorper erat a elementum. Cras eget elit non nunc aliquam ullamcorper quis sed metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada, erat in ullamcorper bibendum, elit lacus mattis lorem, quis luctus diam lorem vel ligula.</p>
-              <h6 class="margin-top-80 margin-bottom-30">proeduct history</h6>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus. Morbi ac scelerisque mauris. Etiam sodales a nulla ornare viverra. <br>
-                <br>
-                Nam sit amet sapien vitae enim vehicula tincidunt. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc faucibus imperdiet vulputate. Morbi volutpat leo iaculis elit vehicula, eu convallis magna finibus.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada, erat in ullamcorper bibendum, elit lacus mattis lorem, quis luctus diam lorem vel ligula.</p>
-              
+                
               <!-- Post Img --> 
               <img class="img-responsive margin-top-50 margin-bottom-50" src="{% static 'images/blog-list-img-1.jpg' %}" alt="" >
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus. Morbi ac scelerisque mauris. Etiam sodales a nulla ornare viverra. Nunc at blandit neque, bibendum varius purus. <br>
@@ -190,14 +185,13 @@
                   <img class="img-responsive" src="{{ l.main_version.main_image.image.url }}" alt="" > </div>
                 <div class="col-sm-7"> 
                   <!-- Tittle -->
-                  <div class="post-tittle left"> <a href="#." class="tittle">{{ l.main_version.title }}</a> 
+                  <div class="post-tittle left"> <a href="#." class="tittle">{{ l.title }}</a> 
                     <!-- Post Info --> 
-                    <span><i class="primary-color icon-user"></i> {{ l.brand.name }} </span> <span><i class="primary-color icon-calendar"></i> {{ l.main_version.created_at }} </span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div>
+                    <span><i class="primary-color icon-user"></i> </span> {{l.author.username}} <span><i class="primary-color icon-calendar"></i> {{ l.created_at|date:"F d, Y" }} </span> </div>
                   <!-- Post Content -->
                   <div class="text-left">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus.  
+                    <p>{{ l.description }}</p>                      
                       
-                      Nunc at blandit neque, bibendum varius purus.</p>
                     <a href="#." class="red-more">READ MORE</a> </div>
                 </div>
                 
@@ -234,7 +228,7 @@
               <li class="media">
                 <div class="media-left"> <a href="#"> <img class="media-object" src="{% static 'images/sm-post-1.jpg' %}" alt=""></a> </div>
                 <div class="media-body"> <a class="media-heading" href="#.">{{ i.title }} 
-                </a> <span> {{ i.created_at }} </span> </div>
+                </a> <span> {{ i.created_at|date:"F d, Y" }} </span> </div>
               </li>
               {% endfor %}
               

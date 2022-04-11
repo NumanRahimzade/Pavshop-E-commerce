@@ -76,5 +76,8 @@ class ProductReview(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'review','created_at')
     list_filter = ('full_name', 'email', 'created_at')
     search_fields = ( 'full_name', 'email',  )
+    # list_display = ('user', 'email', 'review','created_at')
+    # list_filter = ('user', 'email', 'created_at')
+    # search_fields = ( 'user', 'email',  )
 
 # admin.site.register([ProductVersion])

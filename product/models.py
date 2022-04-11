@@ -116,10 +116,14 @@ class WishList(AbstractModel):
 
 
 class ProductReview(AbstractModel):
+    # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
     productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
     full_name = models.CharField('Full Name', max_length=50)
     email = models.EmailField('Email', max_length=40)
     review = models.TextField()
+
+    # def __str__(self):
+    #     return self.user.username
     
 
    

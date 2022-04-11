@@ -163,12 +163,16 @@
                 <!-- USER INFO -->
                 <li class="dropdown user-acc"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" ><i class="icon-user"></i> </a>
                   <ul class="dropdown-menu">
+                    {% if request.user.is_authenticated %}
                     <li>
-                      <h6>HELLO! Jhon Smith</h6>
+                      <h6>HELLO! {{ user.get_full_name }}</h6>
                     </li>
                     <li><a href="#">MY CART</a></li>
                     <li><a href="#">ACCOUNT INFO</a></li>
-                    <li><a href="#">LOG OUT</a></li>
+                    <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">LOG IN</a></li>
+                    {% endif %}
                   </ul>
                 </li>
                 

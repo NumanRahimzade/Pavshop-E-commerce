@@ -17,7 +17,9 @@ def blog_detail(request, id):
     blogTag = Blog.objects.filter(id=id).first().tags.all()
     mainBlog = Blog.objects.filter(id=id).first()
     get_category = mainBlog.category.name
-    f = Product.objects.filter(category__name__iexact = get_category).order_by('-created_at')[:3]
+    f = Blog.objects.filter(category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3]   #eger blog producta yazilarsa bu
+    # f = Product.objects.filter(category__name__iexact = get_category).order_by('-created_at')[:3]
+
     
     # youMayLike = Product.objects.filter(category__name = 'wear)')
 

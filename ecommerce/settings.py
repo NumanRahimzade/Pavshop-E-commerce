@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'order',
     'account',
     'product',
-    # 'django_countries',     #country ucun
+    'django_countries',     #country ucun
 ]
 
 MIDDLEWARE = [
@@ -135,6 +135,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 MEDIA_URL = '/media/'
 
