@@ -40,13 +40,13 @@ class BasketItem(AbstractModel):
 
 
 class BillingDetail(AbstractModel):
-    firstname=models.CharField('First Name',max_length=70)
-    lastname=models.CharField('Last Name',max_length=70)
-    companyname=models.CharField('Company Name',max_length=80)
-    address=models.CharField('Address', max_length=100)
-    town=models.CharField('Town/City',max_length=70)
-    country=models.CharField('Country',max_length=70)
-    email=models.EmailField('Email Address',max_length=50)
-    phone=models.CharField('Phone', max_length=40)
+    firstname=models.CharField('FIRST NAME',max_length=70)
+    lastname=models.CharField('LAST NAME',max_length=70)
+    companyname=models.CharField('COMPANY NAME',max_length=80)
+    address=models.CharField('ADDRESS', max_length=100)
+    town=models.CharField('TOWN/CITY',max_length=70)
+    country=models.CharField('COUNTRY',max_length=70)
+    email=models.EmailField('EMAIL ADDRESS',max_length=50)
+    phone=models.CharField('PHONE', max_length=40)
 
   

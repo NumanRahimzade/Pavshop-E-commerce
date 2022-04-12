@@ -24,10 +24,23 @@ class Category(AbstractModel):
     def __str__(self):
         return self.name
 
+class Brand(AbstractModel):
+    name=models.CharField('Name',max_length=70)
+
+    def __str__(self):
+        return self.name
+
 
 class Product(AbstractModel):
     brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
     category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
+
+    def __str__(self):
+            return self.brand.name
+
+    @property
+    def main_version(self):
+        return self.productversions.first()
 
 
 class PropertyName(AbstractModel):
@@ -70,12 +83,11 @@ class ProductVersion(AbstractModel):
     def __str__(self):
         return self.title
 
+    def main_image(self):
+       return self.productimage.all().order_by('is_main').first()
 
-class Brand(AbstractModel):
-    name=models.CharField('Name',max_length=70)
 
-    def __str__(self):
-        return self.name
+
 
 
 class ProductImages(AbstractModel):

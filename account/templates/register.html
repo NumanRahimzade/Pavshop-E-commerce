@@ -38,76 +38,98 @@
               <!-- ESTIMATE SHIPPING & TAX -->
               <div class="col-sm-12">
                 <h6>REGISTER</h6>
-                <form>
+                <form action="" method="POST">
+                  {{form.non_field_errors}}
+                  {% csrf_token %}
                   <ul class="row">
                     
                     <!-- Name -->
                     <li class="col-md-6">
                       <label> *FIRST NAME
-                        <input type="text" name="first-name" value="" placeholder="">
+                        <!-- <input type="text" name="first-name" value="" placeholder=""> -->
+                        {{form.first_name}}
+                        {{form.first_name.errors}}
                       </label>
                     </li>
                     <!-- LAST NAME -->
                     <li class="col-md-6">
                       <label> *LAST NAME
-                        <input type="text" name="last-name" value="" placeholder="">
+                        <!-- <input type="text" name="last-name" value="" placeholder=""> -->
+                        {{form.last_name}}
+                        {{form.last_name.errors}}
                       </label>
                     </li>
                     
                     <!-- EMAIL ADDRESS -->
                     <li class="col-md-6">
                       <label> *EMAIL ADDRESS
-                        <input type="text" name="contry-state" value="" placeholder="">
+                        <!-- <input type="text" name="contry-state" value="" placeholder=""> -->
+                        {{form.email}}
+                        {{form.email.errors}}
                       </label>
                     </li>
                     <!-- PHONE -->
                     <li class="col-md-6">
                       <label> *PHONE
-                        <input type="text" name="postal-code" value="" placeholder="">
+                        <!-- <input type="text" name="postal-code" value="" placeholder=""> -->
+                        {{form.phone_number}}
+                        {{form.phone_number.errors}}
+                      </label>
+                    </li> 
+                    
+                    <!-- LAST NAME -->
+                    <li class="col-md-6">
+                      <label> *PASSWORD
+                        <!-- <input type="password" name="last-name" value="" placeholder=""> -->
+                        {{form.password}}
+                        {{form.password.errors}}
                       </label>
                     </li>
                     
                     <!-- LAST NAME -->
                     <li class="col-md-6">
-                      <label> *PASSWORD
-                        <input type="password" name="last-name" value="" placeholder="">
-                      </label>
-                    </li>
-                    
-                    <!-- LAST NAME -->
-                    <li class="col-md-6">
-                      <label> *PASSWORD
-                        <input type="password" name="last-name" value="" placeholder="">
+                      <label> *CONFIRM PASSWORD
+                        <!-- <input type="password" name="last-name" value="" placeholder=""> -->
+                        {{form.confirm_password}}
+                        {{form.confirm_password.errors}}
                       </label>
                     </li>
                     <li class="col-md-6"> 
                       <!-- ADDRESS -->
                       <label>*ADDRESS
-                        <input type="text" name="address" value="" placeholder="">
+                        <!-- <input type="text" name="address" value="" placeholder=""> -->
+                        {{form.address}}
+                        {{form.address.errors}}
                       </label>
                     </li>
                     <li class="col-md-6"> 
                       <!-- ADDRESS -->
-                      <label>*ADDRESS
-                        <input type="text" name="address" value="" placeholder="">
+                      <label>*USERNAME
+                        <!-- <input type="text" name="address" value="" placeholder=""> -->
+                        {{form.username}}
+                        {{form.username.errors}}
                       </label>
                     </li>
                     
                     <!-- COUNTRY -->
                     <li class="col-md-6">
                       <label> COUNTRY
-                        <select class="selectpicker" name="contry-state">
+                        {{form.country}}
+                        {{form.country.errors}}
+                        <!-- <select class="selectpicker" name="contry-state">
                           <option>COUNTRY</option>
                           <option>Country 2</option>
                           <option>Country 3</option>
-                        </select>
+                        </select> -->
                       </label>
                     </li>
                     
                     <!-- TOWN/CITY -->
                     <li class="col-md-6">
                       <label>*TOWN/CITY
-                        <input type="text" name="town" value="" placeholder="">
+                        <!-- <input type="text" name="town" value="" placeholder=""> -->
+                        {{form.city}}
+                        {{form.city.errors}}
                       </label>
                     </li>
                     

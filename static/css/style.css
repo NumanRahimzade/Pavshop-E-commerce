@@ -112,6 +112,9 @@ img {
 	transition: 0.4s ease-in-out;
 	display: inline-block !important;
 }
+
+
+
 ul {
 	margin-bottom: 0px;
 }
@@ -2727,9 +2730,12 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 }
 .shopping-cart .bootstrap-select.btn-group .dropdown-menu li {
 	min-height: inherit;
+	
 }
+
 .shopping-cart img {
 	width: 100%;
+
 }
 .shopping-cart li {
 	position: relative;

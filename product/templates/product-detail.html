@@ -22,7 +22,7 @@
   
   <!-- Content -->
   <div id="content"> 
-    {% for product in products %}
+   
     <!-- Popular Products -->
     <section class="padding-top-100 padding-bottom-100">
       <div class="container"> 
@@ -30,18 +30,17 @@
         <!-- SHOP DETAIL -->
         <div class="shop-detail">
           <div class="row"> 
-            
             <!-- Popular Images Slider -->
             <div class="col-md-7"> 
               
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-               
-                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{% static 'images/large-img-1.jpg' %}"  alt=""> </li>
-                  <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{% static 'images/large-img-2.jpg' %}"  alt=""> </li>
-                  <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li> 
-                 
+                {% for i in products.productimage.all %}
+                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{{ i.image.url }}"  alt=""> </li>
+                  <!-- <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{{ i.image.url }}"  alt=""> </li> -->
+                  <!-- <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li>  -->
+                {% endfor %}
                 
                 </ul>
               </div>
@@ -50,14 +49,14 @@
             <!-- COntent -->
             <div class="col-md-5">
               <!-- <h4>wood chair</h4> -->
-              <h4>{{product.title}}</h4>
-              <span class="price"><small>$</small>{{product.price}}</span> 
+              <h4>{{products.title}}</h4>
+              <span class="price"><small>$</small>{{products.price}}</span> 
               
               <!-- Sale Tags -->
-              <div class="on-sale"> {{product.discount.percentage}} <span>OFF</span> </div>
+              <div class="on-sale"> {{products.discount.percentage}} <span>OFF</span> </div>
               <ul class="item-owner">
                 <li>Designer :<span> ABC Art</span></li>
-                <li>Brand:<span> {{product.product.brand.name}}</span></li>
+                <li>Brand:<span> {{products.product.brand.name}}</span></li>
               </ul>
               
               <!-- Item Detail -->
@@ -69,10 +68,17 @@
                   <li class="col-xs-4">
                     <div class="quinty"> 
                       <!-- QTY -->
-                      <select class="selectpicker">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                      <select id="stock" class="selectpicker" data-value="{{products.stock}}">
+                      
+                        
+                        
+                        <!-- <option>1</option> -->
+               
+                        
+                      
+                        <!-- <option>2</option>
+                        <option>3</option> -->
+                      
                       </select>
                     </div>
                   </li>
@@ -81,16 +87,18 @@
                   <li class="col-xs-8">
                     <ul class="colors-shop">
                       <li><span class="margin-right-20">Colors</span></li>
-                    
-                      <!-- <li><a href="#." style="background:{{ product_propertyvalues__value }};"></a></li> -->
-                      <li><a href="#." style="background:#958170;"></a></li>
+                    {% for color in products.property.all %}
+                      <li><a href="#." style="background: {{ color.value}};"></a></li>
+                    {% endfor %}
+
+                      <!-- <li><a href="#." style="background:#958170;"></a></li>
                       <li><a href="#." style="background:#c9a688;"></a></li>
                       <li><a href="#." style="background:#c9c288;"></a></li>
                       <li><a href="#." style="background:#a7c988;"></a></li>
                       <li><a href="#." style="background:#9ed66b;"></a></li>
                       <li><a href="#." style="background:#6bd6b1;"></a></li>
                       <li><a href="#." style="background:#82c2dc;"></a></li>
-                      <li><a href="#." style="background:#8295dc;"></a></li>
+                      <li><a href="#." style="background:#8295dc;"></a></li> -->
                 
                     </ul>
                   </li>
@@ -122,7 +130,7 @@
             </div>
           </div>
         </div>
-        {% endfor %}
+       
         <!--======= PRODUCT DESCRIPTION =========-->
         <div class="item-decribe"> 
           <!-- Nav tabs -->
@@ -241,83 +249,84 @@
           <h4>YOU MAY LIKE IT</h4>
           <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula. 
           Sed feugiat, tellus vel tristique posuere, diam</span> </div>
-          <!-- {% for product in products %} -->
+          
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
           
           <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-1.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-1.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">stone cup</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
-          
+          {% for p in like %}
+                <div class="item"> 
+                  <!-- Item img -->
+                  <div class="item-img"> <img class="img-1" src="{{p.main_image.image.url }}" alt="" > 
+                    <!-- Overlay -->
+                    <div class="overlay">
+                      <div class="position-center-center">
+                        <div class="inn"><a href="{{p.main_image.image.url }}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Item Name -->
+                  <div class="item-name"> <a href="#.">{{p.title}}</a>
+                    <p>Lorem ipsum dolor sit amet</p>
+                  </div>
+                  <!-- Price --> 
+                  <span class="price"><small>$</small>{{p.price}}</span> </div>
+          {% endfor %}
           <!-- Item -->
-          <div class="item"> 
+          <!-- <div class="item">  -->
             <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-2.jpg' %}" alt="" > 
+            <!-- <div class="item-img"> <img class="img-1" src="{% static 'images/product-2.jpg' %}" alt="" >  -->
               <!-- Overlay -->
-              <div class="overlay">
+              <!-- <div class="overlay">
                 <div class="position-center-center">
                   <div class="inn"><a href="{% static 'images/product-2.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Item Name -->
-            <div class="item-name"> <a href="#.">gray bag</a>
+            <!-- <div class="item-name"> <a href="#.">gray bag</a>
               <p>Lorem ipsum dolor sit amet</p>
-            </div>
+            </div> -->
             <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+            <!-- <span class="price"><small>$</small>299</span> </div> -->
           
           <!-- Item -->
-          <div class="item"> 
+          <!-- <div class="item">  -->
             <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-3.jpg' %}" alt="" > 
+            <!-- <div class="item-img"> <img class="img-1" src="{% static 'images/product-3.jpg' %}" alt="" >  -->
               <!-- Overlay -->
-              <div class="overlay">
+              <!-- <div class="overlay">
                 <div class="position-center-center">
                   <div class="inn"><a href="{% static 'images/product-3.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Item Name -->
-            <div class="item-name"> <a href="#.">chiar</a>
+            <!-- <div class="item-name"> <a href="#.">chiar</a>
               <p>Lorem ipsum dolor sit amet</p>
-            </div>
+            </div> -->
             <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+            <!-- <span class="price"><small>$</small>299</span> </div> -->
           
           <!-- Item -->
-          <div class="item"> 
+          <!-- <div class="item">  -->
             <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-4.jpg' %}" alt="" > 
+            <!-- <div class="item-img"> <img class="img-1" src="{% static 'images/product-4.jpg' %}" alt="" >  -->
               <!-- Overlay -->
-              <div class="overlay">
+              <!-- <div class="overlay">
                 <div class="position-center-center">
                   <div class="inn"><a href="{% static 'images/product-4.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Item Name -->
-            <div class="item-name"> <a href="#.">STool</a>
+            <!-- <div class="item-name"> <a href="#.">STool</a>
               <p>Lorem ipsum dolor sit amet</p>
-            </div>
+            </div> -->
             <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+            <!-- <span class="price"><small>$</small>299</span> </div> -->
         </div>
-        <!-- {% endfor %} -->
+        
       </div>
     </section>
     
