@@ -11,7 +11,7 @@ def blog_list(request):
 
 def blog_detail(request, id):
     detailed = get_object_or_404(Blog, id=id)
-    blogDetail = Blog.objects.all()
+    blogDetail = Blog.objects.all().exclude(id=id).order_by('-created_at')[:3]
     # popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
     # categoryList = Category.objects.all()
     blogTag = Blog.objects.filter(id=id).first().tags.all()

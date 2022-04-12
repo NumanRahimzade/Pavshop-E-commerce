@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_django',
+
     'core',
     'blog',
     'order',
@@ -75,6 +78,20 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '720891829993-2lfueg4vkjbgarmatrpji0bvll8polsm.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_FACEBOOK_KEY = '667685387860037'      
+SOCIAL_AUTH_FACEBOOK_SECRET = '750bbce4e040d3c0cdfae4b482653b51'
+
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
@@ -114,6 +131,31 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_PIPELINE = (
+
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'account.pipeline.get_avatar', # This is the path of your pipeline.py
+    #and get_avatar is the function.
+)
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -135,12 +177,13 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

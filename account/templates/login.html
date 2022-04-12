@@ -87,19 +87,19 @@
                 
                 <ul class="login-with">
                 	<li>
-                    	<a href="#."><i class="fa fa-facebook"></i>FACEBOOK</a>
+                    	<a href="{% url 'social:begin' 'facebook' %}"><i class="fa fa-facebook"></i>FACEBOOK</a>
                     
                     </li>
                     
                     <li>
-                    	<a href="#."><i class="fa fa-google"></i>GOOGLE</a>
+                    	<a href="{% url 'social:begin' 'google-oauth2' %}"><i class="fa fa-google"></i>GOOGLE</a>
                     
                     </li>
-                    
+<!--                     
                     <li>
                     	<a href="#."><i class="fa fa-twitter"></i>TWITTER</a>
                     
-                    </li>
+                    </li> -->
                 
                 </ul>
                 
