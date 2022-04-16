@@ -8,4 +8,4 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('profile/', user_profile, name='user_profile'),
 
-]
+] 

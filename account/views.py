@@ -50,4 +50,4 @@ def user_profile(request):
 @login_required
 def logout(request):
     django_logout(request)
-    return redirect('/')
+    return redirect('/') 

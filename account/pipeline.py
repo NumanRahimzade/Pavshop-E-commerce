@@ -12,4 +12,4 @@ def get_avatar(backend, strategy, details, response,
         url = response['picture']
     if url:
         user.image = download_image(url)
-        user.save()
+        user.save() 

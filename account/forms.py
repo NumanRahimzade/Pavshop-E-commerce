@@ -117,4 +117,4 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='PASSWORD', label_suffix="", widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         
-    }))
+    })) 

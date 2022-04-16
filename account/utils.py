@@ -9,4 +9,4 @@ def download_image(url):
     with open(file_path, 'wb') as f:
         f.write(response.content)
     return file_name
-    
+     
