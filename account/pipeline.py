@@ -1,4 +1,4 @@
-from accounts.utils import download_image
+from account.utils import download_image
 
 
 def get_avatar(backend, strategy, details, response,
