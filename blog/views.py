@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from product.models import Product
 from django.shortcuts import get_object_or_404
 
 

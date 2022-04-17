@@ -46,14 +46,15 @@
             
             <!-- COntent -->
             <div class="col-md-5">
-              <h4>wood chair</h4>
-              <span class="price"><small>$</small>299</span> 
+             
+              <h4>{{ pp.title }}</h4>
+              <span class="price"><small>$</small>{{ pp.price }}</span> 
               
               <!-- Sale Tags -->
               <div class="on-sale"> 10% <span>OFF</span> </div>
               <ul class="item-owner">
-                <li>Designer :<span> ABC Art</span></li>
-                <li>Brand:<span> LimeWood</span></li>
+                <li>Designer :<span> {{ pp.product.category.name }}</span></li>
+                <li>Brand:<span>{{ pp.product.brand.name }}</span></li>
               </ul>
               
               <!-- Item Detail -->
@@ -242,7 +243,7 @@
         
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
-          
+          {% for y in f %}
           <!-- Item -->
           <div class="item"> 
             <!-- Item img -->
@@ -255,65 +256,16 @@
               </div>
             </div>
             <!-- Item Name -->
-            <div class="item-name"> <a href="#.">stone cup</a>
-              <p>Lorem ipsum dolor sit amet</p>
+            <div class="item-name"> <a href="#."></a>
+              <p>{{ y.title }}</p>
             </div>
             <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+            <span class="price"><small>$</small>{{ y.price }}</span> </div>
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-2.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-2.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">gray bag</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+          {% endfor %}
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-3.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-3.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">chiar</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-4.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-4.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">STool</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+          
         </div>
       </div>
     </section>

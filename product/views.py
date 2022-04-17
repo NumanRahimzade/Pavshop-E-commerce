@@ -7,6 +7,15 @@ from product.forms import ReviewForm
 # Create your views here.
 
 def productdetail(request):
+
+    ###for myself ----- product and you may like   ####  ---- to run code below i have to add 'id' near request and <int:id> in urls #####
+    # pp = ProductVersion.objects.filter(id=id).first()
+    # get_category = pp.product.category.name
+    # print(get_category)
+    # f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
+    
+    ###### code above for myself
+
     form = ReviewForm()
     if request.method == 'POST' and 'detailed_product' in request.POST:
         form = ReviewForm(data=request.POST)
@@ -15,9 +24,12 @@ def productdetail(request):
             messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
             return redirect(reverse_lazy('productdetail'))
     context = {
-        'form': form
+        'form': form,
+        # 'pp' : pp,
+        # 'f' : f
     }
     return render(request,'product-detail.html', context)
+
 
 def productlist(request):
     # category_list = Category.objects.all()
@@ -31,4 +43,4 @@ def productlist(request):
     }
     return render(request,'product-list.html', context)
 
-    
+
