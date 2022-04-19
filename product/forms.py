@@ -32,5 +32,7 @@ class ReviewForm(forms.ModelForm):
             # 'user',
             'email',
             'review',
+            # 'productreview'
             
         )
+    

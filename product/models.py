@@ -75,11 +75,19 @@ class ProductVersion(AbstractModel):
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')
 
+
     def __str__(self):
         return self.title
 
+
     def main_image(self):
         return self.productimage.all().order_by('is_main').first()
+
+
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'pk': self.id
+        })
 
 
 class Brand(AbstractModel):
@@ -126,4 +134,7 @@ class ProductReview(AbstractModel):
     #     return self.user.username
     
 
-   
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'pk': self.productreview.id
+        })
