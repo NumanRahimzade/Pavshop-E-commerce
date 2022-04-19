@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'core',
     'blog',
     'order',
@@ -80,6 +81,17 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '389127115-q06fnrdp9dicbj3jominihrl8aa8gklu.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_FACEBOOK_KEY = '1039996136588345'       
+SOCIAL_AUTH_FACEBOOK_SECRET = '3e4c1f7ac5673fe01df383e5b0cc9b8d'  
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
@@ -117,6 +129,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

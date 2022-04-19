@@ -168,7 +168,11 @@
                     </li>
                     <li><a href="#">MY CART</a></li>
                     <li><a href="#">ACCOUNT INFO</a></li>
-                    <li><a href="#">LOG OUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+                    {% else %}
+                       <li><a href="{% url 'login' %}">LOG IN</a></li>
+                    {% endif %}
                   </ul>
                 </li>
                 
