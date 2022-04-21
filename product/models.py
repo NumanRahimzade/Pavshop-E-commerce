@@ -24,6 +24,10 @@ class Category(AbstractModel):
     def __str__(self):
         return self.name
 
+    @property
+    def product_count(self):
+        return self.products.count()
+
 class Brand(AbstractModel):
     name=models.CharField('Name',max_length=70)
 

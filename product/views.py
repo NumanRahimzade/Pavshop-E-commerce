@@ -1,7 +1,14 @@
+from pyexpat import model
+from unicodedata import category
+from django.http import request
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import  ListView
 from django.template import context
 from .models import *
-from product.models import ProductVersion,ProductImages,Product,Category
+from product.models import ProductVersion,ProductImages,Product,Category,Brand
+from blog.models import Tag
+from django.db.models import Count
 
 # Create your views here.
 
@@ -23,5 +30,32 @@ def productdetail(request,id):
 
 def productlist(request):
     return render(request,'product-list.html')
+
+
+class ProductListView(ListView):
+    template_name='product-list.html'
+    model= ProductVersion
+    context_object_name='products'
+    ordering=('-created_at',)
+    paginate_by = 3
+
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        context['categories']= Category.objects.all()    #Category.objects.filter(products__isnull=False).distinct()
+        context['colors']=PropertyValues.objects.all()
+        context['tags']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
+        context['brands']=Brand.objects.all()
+        return context
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_id = self.request.GET.get('category_id') # 1
+        if category_id:
+            queryset = queryset.filter(category__id=category_id)
+        return queryset
+
+
+
 
 
