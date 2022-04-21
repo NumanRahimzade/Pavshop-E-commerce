@@ -1,3 +1,4 @@
+from unittest import result
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy
@@ -65,12 +66,7 @@ class ProductDetailView(CreateView, DetailView):
 
 
     def form_valid(self, form):
-        ##### test
-        # result = form.save()
-        # result.productreview = self.object
-        # result.save()
-        #####
-
+        result = super().form_valid(form)
         ProductReview.objects.create(
                 full_name=self.request.POST['full_name'],
                 email=self.request.POST['email'],
@@ -78,15 +74,13 @@ class ProductDetailView(CreateView, DetailView):
                 productreview=ProductVersion.objects.get(id=self.kwargs['pk'])
             )
         messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
-        return redirect('productdetail')
-        # return self.get_success_url()
+        
+        return result
 
     
-    # def get_success_url(self):
-    #       # if you are passing 'pk' from 'urls' to 'DeleteView' for company
-    #       # capture that 'pk' as companyid and pass it to 'reverse_lazy()' function
-    #     productversionid=self.kwargs['pk']
-    #     return reverse_lazy('productdetail', kwargs={'pk': productversionid})
+    def get_success_url(self):
+        productversionid=self.kwargs['pk']
+        return reverse_lazy('productdetail', kwargs={'pk': productversionid})
 
 
 
