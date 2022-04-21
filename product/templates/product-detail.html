@@ -122,7 +122,7 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs animate fadeInUp" data-wow-delay="0.4s" role="tablist">
             <li role="presentation" class="active"><a href="#descr" role="tab" data-toggle="tab">DESCRIPTION</a></li>
-            <li role="presentation"><a href="#review" role="tab" data-toggle="tab">REVIEW (03)</a></li>
+            <li role="presentation"><a href="#review" role="tab" data-toggle="tab">REVIEW {{ pp.review_count }}</a></li>
             <li role="presentation"><a href="#tags" role="tab" data-toggle="tab">INFORMATION</a></li>
           </ul>
           
@@ -158,36 +158,27 @@
             
             <!-- REVIEW -->
             <div role="tabpanel" class="tab-pane fade" id="review">
-              <h6>3 REVIEWS FOR SHIP YOUR IDEA</h6>
+              <h6>{{ pp.review_count }} REVIEWS FOR SHIP YOUR IDEA</h6>
               
               <!-- REVIEW PEOPLE 1 -->
+              {% for i in review_list %}
               <div class="media">
+                
                 <div class="media-left"> 
                   <!--  Image -->
                   <div class="avatar"> <a href="#"> <img class="media-object" src="{% static 'images/avatar-1.jpg' %}" alt=""> </a> </div>
                 </div>
                 <!--  Details -->
                 <div class="media-body">
-                  <p class="font-playfair">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.”</p>
-                  <h6>TYRION LANNISTER <span class="pull-right">MAY 10, 2016</span> </h6>
+                  <p class="font-playfair">{{ i.review }}</p>
+                  <h6>{{ i.full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
                 </div>
+                
               </div>
-              
+              {% endfor %}
               <!-- REVIEW PEOPLE 1 -->
               
-              <div class="media">
-                <div class="media-left"> 
-                  <!--  Image -->
-                  <div class="avatar"> <a href="#"> <img class="media-object" src="{% static 'images/avatar-2.jpg' %}" alt=""> </a> </div>
-                </div>
-                <!--  Details -->
-                <div class="media-body">
-                  <p class="font-playfair">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.”</p>
-                  <h6>TYRION LANNISTER <span class="pull-right">MAY 10, 2016</span> </h6>
-                </div>
-              </div>
+              
               
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>

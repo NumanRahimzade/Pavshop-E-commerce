@@ -12,7 +12,6 @@ def productdetail(request, id):
     ###for myself ----- product and you may like   ####  ---- to run code below i have to add 'id' near request and <int:id> in urls #####
     pp = ProductVersion.objects.filter(id=id).first()
     get_category = pp.product.category.name
-    print(get_category)
     f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
     
     ###### code above for myself
@@ -21,9 +20,23 @@ def productdetail(request, id):
     if request.method == 'POST' and 'detailed_product' in request.POST:
         form = ReviewForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            
+            a = form.save()
+            a.productreview = pp
+            a.save()
+
+            ############ may be second version of override
+            # review = ProductReview(
+            #     full_name=request.POST['full_name'],
+            #     email=request.POST['email'],
+            #     review=request.POST['review'],
+            # )
+            # review.productreview = pp
+            # review.save()
+            ############
+
             messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
-            return redirect(reverse_lazy('productdetail'))
+            return redirect(reverse_lazy('productdetail', kwargs={'id': pp.id}))
     context = {
         'form': form,
         'pp' : pp,
@@ -32,12 +45,12 @@ def productdetail(request, id):
     return render(request,'product-detail.html', context)
 
 
-class PrdoductDetailView(CreateView, DetailView):
+class ProductDetailView(CreateView, DetailView):
     template_name = 'product-detail.html'
     model = ProductVersion
     context_object_name = 'pp'
     form_class = ReviewForm
-    success_url = reverse_lazy('')
+    # success_url = reverse_lazy('')
 
 
     def get_context_data(self, **kwargs):
@@ -45,29 +58,34 @@ class PrdoductDetailView(CreateView, DetailView):
         get_category = self.object.product.category.name
         f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3] 
         context['f'] = f
+        reviews = self.object.reviews.all()
+        context['review_list'] = reviews
         return context
 
 
     def form_valid(self, form):
-        result = super().form_valid(form)
+        ##### test
+        # result = form.save()
+        # result.productreview = self.object
+        # result.save()
+        #####
+
+        ProductReview.objects.create(
+                full_name=self.request.POST['full_name'],
+                email=self.request.POST['email'],
+                review=self.request.POST['review'],
+                productreview=ProductVersion.objects.get(id=self.kwargs['pk'])
+            )
         messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
-        return result
+        return redirect('productdetail')
+        # return self.get_success_url()
 
-
-    ### error ####
-    # def form_valid(self, form):
-    #     """If the form is valid, save the associated model."""
-    #     self.object = form
-    #     self.object.productreview = ProductVersion.objects.get(id=self.kwargs['pk'])
-    #     # self.object.productreview = ProductVersion.objects.get(id=self.kwargs['pk'])
-    #     self.object.save()
-    #     print(self.request.POST)
-    #     messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
-    #     return super().form_valid(form)
     
     # def get_success_url(self):
-    #     print(self.object.productreview)
-    #     return reverse_lazy('productdetail', args=(self.object.productreview.id,))
+    #       # if you are passing 'pk' from 'urls' to 'DeleteView' for company
+    #       # capture that 'pk' as companyid and pass it to 'reverse_lazy()' function
+    #     productversionid=self.kwargs['pk']
+    #     return reverse_lazy('productdetail', kwargs={'pk': productversionid})
 
 
 
