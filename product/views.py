@@ -13,7 +13,7 @@ def productdetail(request, id):
     pp = ProductVersion.objects.filter(id=id).first()
     get_category = pp.product.category.name
     f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
-    
+    review_list = pp.reviews.all().order_by('-created_at')
     ###### code above for myself
 
     form = ReviewForm()
@@ -40,7 +40,8 @@ def productdetail(request, id):
     context = {
         'form': form,
         'pp' : pp,
-        'f' : f
+        'f' : f,
+        'review_list': review_list
     }
     return render(request,'product-detail.html', context)
 
@@ -58,7 +59,7 @@ class ProductDetailView(CreateView, DetailView):
         get_category = self.object.product.category.name
         f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3] 
         context['f'] = f
-        reviews = self.object.reviews.all()
+        reviews = self.object.reviews.all().order_by('-created_at')
         context['review_list'] = reviews
         return context
 
