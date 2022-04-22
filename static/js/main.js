@@ -262,4 +262,9 @@ jQuery(document).ready(function($){
 	});
 });
 
+stockvalue=document.getElementById('stock')
+console.log(stockvalue.getAttribute('data-value'));
+for (let i=1; i <=stockvalue.getAttribute('data-value') ; i++){
+	stockvalue.innerHTML+=`<option>${i}</option>`
+}
 
