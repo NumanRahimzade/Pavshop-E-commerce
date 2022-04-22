@@ -1,7 +1,6 @@
-import email
-from pyexpat import model
-from unicodedata import category
+from turtle import title
 from core.models import AbstractModel
+from product.models import Category
 from django.db import models
 from django.contrib.auth import get_user_model
 from product.models import Category
@@ -10,6 +9,13 @@ from core.models import Tag
 
 
 User = get_user_model()
+
+
+class Tag(AbstractModel):
+    title = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.title
 
 
 class Blog(AbstractModel):

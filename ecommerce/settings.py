@@ -32,26 +32,26 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'account.User'
-
-
-
+# Application definition
 
 INSTALLED_APPS = [
-    'jet.dashboard',
-    'jet',
+    # 'jet.dashboard',
+    # 'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'social_django',
+
     'core',
     'blog',
     'order',
     'account',
     'product',
-    
+    'django_countries',     #country ucun
 ]
 
 MIDDLEWARE = [
@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processor.subject_renderer',
             ],
         },
     },
@@ -88,10 +89,12 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '389127115-q06fnrdp9dicbj3jominihrl8aa8gklu.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-SOCIAL_AUTH_FACEBOOK_KEY = '1039996136588345'       
-SOCIAL_AUTH_FACEBOOK_SECRET = '3e4c1f7ac5673fe01df383e5b0cc9b8d'  
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '720891829993-2lfueg4vkjbgarmatrpji0bvll8polsm.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_FACEBOOK_KEY = '667685387860037'      
+SOCIAL_AUTH_FACEBOOK_SECRET = '750bbce4e040d3c0cdfae4b482653b51'
+
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
@@ -107,6 +110,7 @@ DATABASES = {
         'PASSWORD': '12345',
         'PORT': 5432,
         'HOST': 'localhost',
+        'DISABLE_SERVER_SIDE_CURSORS': True,
     }
 }
 
@@ -136,6 +140,31 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_PIPELINE = (
+
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'account.pipeline.get_avatar', # This is the path of your pipeline.py
+    #and get_avatar is the function.
+)
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -160,10 +189,12 @@ STATICFILES_DIRS = [
 ]
 
 
-
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -171,35 +202,35 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-JET_THEMES = [
-    {
-        'theme': 'default', # theme folder name
-        'color': '#47bac1', # color of the theme's button in user menu
-        'title': 'Default' # theme title
-    },
-    {
-        'theme': 'green',
-        'color': '#44b78b',
-        'title': 'Green'
-    },
-    {
-        'theme': 'light-green',
-        'color': '#2faa60',
-        'title': 'Light Green'
-    },
-    {
-        'theme': 'light-violet',
-        'color': '#a464c4',
-        'title': 'Light Violet'
-    },
-    {
-        'theme': 'light-blue',
-        'color': '#5EADDE',
-        'title': 'Light Blue'
-    },
-    {
-        'theme': 'light-gray',
-        'color': '#222',
-        'title': 'Light Gray'
-    }
-]
+# JET_THEMES = [
+#     {
+#         'theme': 'default', # theme folder name
+#         'color': '#47bac1', # color of the theme's button in user menu
+#         'title': 'Default' # theme title
+#     },
+#     {
+#         'theme': 'green',
+#         'color': '#44b78b',
+#         'title': 'Green'
+#     },
+#     {
+#         'theme': 'light-green',
+#         'color': '#2faa60',
+#         'title': 'Light Green'
+#     },
+#     {
+#         'theme': 'light-violet',
+#         'color': '#a464c4',
+#         'title': 'Light Violet'
+#     },
+#     {
+#         'theme': 'light-blue',
+#         'color': '#5EADDE',
+#         'title': 'Light Blue'
+#     },
+#     {
+#         'theme': 'light-gray',
+#         'color': '#222',
+#         'title': 'Light Gray'
+#     }
+# ]

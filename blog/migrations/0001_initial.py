@@ -51,9 +51,8 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(db_index=True, max_length=50, verbose_name='Title')),
                 ('description', models.TextField(verbose_name='Description')),
-                ('image', models.ImageField(upload_to='media/blog_images/')),
                 ('author', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='blogs', to='product.category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='blogs', to='product.category')),
                 ('tags', models.ManyToManyField(blank=True, related_name='blog_tags', to='blog.Tag')),
             ],
             options={

@@ -1,33 +1,29 @@
-from itertools import product
-from pyexpat import model
-from unicodedata import category
-from django.http import request
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic import  ListView
-from django.template import context
-from .models import *
-from product.models import ProductVersion,ProductImages,Product,Category,Brand
+from unittest import result
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, DetailView, ListView
+from django.urls import reverse_lazy
+from django.contrib import messages
+from product.models import *
 from blog.models import Tag
+from product.forms import ReviewForm
 from django.db.models import Count
-
 # Create your views here.
 
-def productdetail(request,id):
-    products=ProductVersion.objects.get(id=id)
-    images=ProductImages.objects.all()
-    mainproduct=ProductVersion.objects.filter(id=id).first()
-    # like = mainproduct.category.products.exclude(id=mainproduct.id).order_by('-created_at')[:3]
-    like = ProductVersion.objects.filter(product__category=mainproduct.product.category).exclude(id=mainproduct.id).order_by('-created_at')[:3]
-    # print(mainproduct.category.products.all())
-    context={
-        'products':products,
-        'images':images,
-        'like':like,
-        'mainproduct': mainproduct,
+# def productdetail(request,id):
+#     products=ProductVersion.objects.get(id=id)
+#     images=ProductImages.objects.all()
+#     mainproduct=ProductVersion.objects.filter(id=id).first()
+#     # like = mainproduct.category.products.exclude(id=mainproduct.id).order_by('-created_at')[:3]
+#     like = ProductVersion.objects.filter(product__category=mainproduct.product.category).exclude(id=mainproduct.id).order_by('-created_at')[:3]
+#     # print(mainproduct.category.products.all())
+#     context={
+#         'products':products,
+#         'images':images,
+#         'like':like,
+#         'mainproduct': mainproduct,
 
-    }
-    return render(request,'product-detail.html',context)
+#     }
+#     return render(request,'product-detail.html',context)
 
 def productlist(request):
     return render(request,'product-list.html')
@@ -66,6 +62,80 @@ class ProductListView(ListView):
         return queryset
 
 
+def productdetail(request, id):
+
+    ###for myself ----- product and you may like   ####  ---- to run code below i have to add 'id' near request and <int:id> in urls #####
+    pp = ProductVersion.objects.filter(id=id).first()
+    get_category = pp.product.category.name
+    f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
+    review_list = pp.reviews.all().order_by('-created_at')
+    ###### code above for myself
+
+    form = ReviewForm()
+    if request.method == 'POST' and 'detailed_product' in request.POST:
+        form = ReviewForm(data=request.POST)
+        if form.is_valid():
+            
+            a = form.save()
+            a.productreview = pp
+            a.save()
+
+            ############ may be second version of override
+            # review = ProductReview(
+            #     full_name=request.POST['full_name'],
+            #     email=request.POST['email'],
+            #     review=request.POST['review'],
+            # )
+            # review.productreview = pp
+            # review.save()
+            ############
+
+            messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
+            return redirect(reverse_lazy('productdetail', kwargs={'id': pp.id}))
+    context = {
+        'form': form,
+        'pp' : pp,
+        'f' : f,
+        'review_list': review_list
+    }
+    return render(request,'product-detail.html', context)
+
+
+class ProductDetailView(CreateView, DetailView):
+    template_name = 'product-detail.html'
+    model = ProductVersion
+    context_object_name = 'pp'
+    form_class = ReviewForm
+    # success_url = reverse_lazy('')
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        get_category = self.object.product.category.name
+        f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3] 
+        context['f'] = f
+        reviews = self.object.reviews.all().order_by('-created_at')
+        context['review_list'] = reviews
+        return context
+
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        Review.objects.create(
+                full_name=self.request.POST['full_name'],
+                email=self.request.POST['email'],
+                review=self.request.POST['review'],
+                productreview=ProductVersion.objects.get(id=self.kwargs['pk'])
+            )
+        messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
+        
+        return result
+
+    
+    def get_success_url(self):
+        productversionid=self.kwargs['pk']
+        return reverse_lazy('productdetail', kwargs={'pk': productversionid})
 
 
 
+    

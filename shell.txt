@@ -1,0 +1,84 @@
+                        CREATING BLOGS!!!!!
+
+
+(.venv) bash-3.2$ ./manage.py shell
+Python 3.9.10 (main, Jan 15 2022, 11:48:00) 
+[Clang 13.0.0 (clang-1300.0.29.3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import *
+>>> user = User.objects.first()
+>>> user
+<User: nn>
+>>> tag = Tag(title='travel')
+>>> tag.save()
+>>> tag = Tag(title='sport')
+>>> tag.save()
+>>> ag = Tag(title='beauty')
+>>> tag.save()
+>>> category = Category.objects.first()
+>>> category
+<Category: beauty>
+>>> creating = Blog.objects.create(category=category, author=user, title='Finland winter trip', description='amazing view')
+>>> creating.tags.add(Tag.objects.all()[2])
+>>> creating = Blog.objects.create(category=category, author=user, title='Norway winter trip', description='amazing view')
+>>> creating.tags.add(Tag.objects.all()[0])
+>>> creating = Blog.objects.create(category=category, author=user, title='Sweden winter trip', description='amazing view')
+>>> creating.tags.add(Tag.objects.all()[0])
+>>> creating = Blog.objects.create(category=category, author=user, title='Italy trip', description='amazing country')
+>>> creating.tags.add(Tag.objects.all()[1])
+>>> creating = Blog.objects.create(category=category, author=user, title='Spain trip', description='amazing country')
+>>> creating.tags.add(Tag.objects.all()[0])
+>>> creating = Blog.objects.create(category=category, author=user, title='Turkey trip', description='amazing country')
+>>> creating.tags.add(Tag.objects.all()[0])
+
+
+            assignment1
+
+>>> a = Blog.objects.all()
+>>> a
+<QuerySet [<Blog: Finland winter trip>, <Blog: Norway winter trip>, <Blog: Sweden winter trip>, <Blog: Italy trip>, <Blog: Spain trip>, <Blog: Turkey trip>]>
+>>> c = a.filter(tags=1).order_by('-created_at')[:3]
+>>> c
+<QuerySet [<Blog: Turkey trip>, <Blog: Spain trip>, <Blog: Sweden winter trip>]>
+
+
+            assignment2
+
+>>> Blog.objects.filter(title__icontains='winter')
+<QuerySet [<Blog: Finland winter trip>, <Blog: Norway winter trip>, <Blog: Sweden winter trip>]>
+
+            assignment3
+
+Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:1]
+<QuerySet [('sport',)]>
+
+            assignment4
+
+ ProductVersion.objects.annotate(cnt=models.Count('tags')).order_by('-cnt').values_list('tags__title')[:1]
+<QuerySet [('sport',)]>
+
+
+            assignment5
+
+a = Blog.objects.all()
+>>> for i in a:
+        print(i.category.name)
+
+
+
+            assignment6
+
+>>> q = Blog.objects.filter(category__name__icontains='beauty')
+>>> q
+<QuerySet [<Blog: Finland winter trip>, <Blog: Norway winter trip>, <Blog: Sweden winter trip>, <Blog: Italy trip>, <Blog: Spain trip>, <Blog: Turkey trip>]>
+
+
+            assignment7
+
+>>> Blog.objects.filter(description__icontains='country').order_by('-created_at')[:8]
+<QuerySet [<Blog: Turkey trip>, <Blog: Spain trip>, <Blog: Italy trip>]>
+
+
+>>> Blog.objects.filter(description__icontains='view').order_by('-created_at')[:8]
+<QuerySet [<Blog: Sweden winter trip>, <Blog: Norway winter trip>, <Blog: Finland winter trip>]>

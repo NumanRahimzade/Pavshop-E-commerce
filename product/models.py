@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from core.models import Tag
 
@@ -13,7 +14,7 @@ class AbstractModel(models.Model):
     
 
 class Category(AbstractModel):
-    subcategory=models.ForeignKey('self',related_name='categories',default="", on_delete=models.CASCADE, null=True, blank=True)
+    subcategory=models.ForeignKey('self',related_name='categories', default='', on_delete=models.CASCADE, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
     
@@ -48,6 +49,13 @@ class Product(AbstractModel):
     def main_version(self):
         return self.productversions.first()
 
+    def __str__(self):
+            return self.brand.name
+
+    @property
+    def main_version(self):
+        return self.productversions.first()
+
 
 class PropertyName(AbstractModel):
     category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.CASCADE)
@@ -64,7 +72,7 @@ class PropertyName(AbstractModel):
 
 
 class PropertyValues(AbstractModel):
-    propertyname=models.ForeignKey(PropertyName,related_name='propertyvalues',default="", on_delete=models.CASCADE)
+    propertyname=models.ForeignKey(PropertyName, related_name='propertyvalues',default="", on_delete=models.CASCADE, verbose_name="Property Name")
 
     value=models.CharField('Value',max_length=100)
 
@@ -78,7 +86,7 @@ class PropertyValues(AbstractModel):
 
 class ProductVersion(AbstractModel):
     product=models.ForeignKey(Product, related_name='productversions',default="", on_delete=models.CASCADE)
-    discount=models.ForeignKey('Discount',related_name='productdiscount',default="", on_delete=models.CASCADE)
+    discount=models.ForeignKey('Discount',related_name='productdiscount',default="", on_delete=models.CASCADE, blank=True, null=True)
     property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
@@ -92,16 +100,14 @@ class ProductVersion(AbstractModel):
         return self.title
 
     def main_image(self):
-       return self.productimage.all().order_by('is_main').first()
-
-
-
+        return self.productimage.all().order_by('is_main').first()
 
 
 class ProductImages(AbstractModel):
     version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
 
-    image = models.ImageField(upload_to='media/product_images/')
+    image = models.ImageField(upload_to='product_images/')
+    cover_image = models.ImageField('cover image', upload_to='product_images/', null=True, blank=True)
     is_main=models.BooleanField(default=False)
 
     class Meta:
@@ -111,8 +117,8 @@ class ProductImages(AbstractModel):
 
 class Discount(AbstractModel):
     title=models.CharField('Title', max_length=80)
-    percentage=models.CharField('Percentage', max_length=20,null=True,blank=True)
-    value=models.IntegerField('Value',null=True,blank=True)
+    percentage=models.CharField('Percentage', max_length=20, null=True, blank=True)
+    value=models.IntegerField('Value', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -124,10 +130,8 @@ class WishList(AbstractModel):
 
 
 class Review(AbstractModel):
-    user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE, default=1)
-    productversion=models.ForeignKey(ProductVersion,related_name='productreview', on_delete=models.CASCADE)
-
-
+    # user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE, default=1)
+    productversion=models.ForeignKey(ProductVersion,related_name='reviews', on_delete=models.CASCADE)
     comment=models.CharField('Comment', max_length=300)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
@@ -135,5 +139,15 @@ class Review(AbstractModel):
         return self.productversion.title
  
 
+# class ProductReview(AbstractModel):
+#     # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
+#     productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
+#     full_name = models.CharField('Full Name', max_length=50)
+#     email = models.EmailField('Email', max_length=40)
+#     review = models.TextField()
 
+    # def __str__(self):
+    #     return self.user.username
+    
 
+   

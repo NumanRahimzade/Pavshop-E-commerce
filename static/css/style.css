@@ -2738,6 +2738,15 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 	width: 100%;
 
 }
+
+#flag_id_country{
+	display: none!important;
+}
+
+ul.errorlist.nonfield {
+	margin-left: 15px;
+}
+
 .shopping-cart li {
 	position: relative;
 }

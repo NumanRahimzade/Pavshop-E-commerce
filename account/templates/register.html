@@ -38,106 +38,32 @@
               <!-- ESTIMATE SHIPPING & TAX -->
               <div class="col-sm-12">
                 <h6>REGISTER</h6>
-                <form action="" method="POST">
-                  {{form.non_field_errors}}
-                  {% csrf_token %}
+                <form action="" method="POST" >
                   <ul class="row">
-                    
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
                     <!-- Name -->
                     <li class="col-md-6">
-                      <label> *FIRST NAME
-                        <!-- <input type="text" name="first-name" value="" placeholder=""> -->
-                        {{form.first_name}}
-                        {{form.first_name.errors}}
+                      <label> 
+                        {{ field.label_tag }}
+                        {{field}}
                       </label>
+                      <ul>
+                      {% for error in field.errors %}
+                        <li>{{error}}</li>
+                      {% endfor %}
+                      </ul>
                     </li>
-                    <!-- LAST NAME -->
-                    <li class="col-md-6">
-                      <label> *LAST NAME
-                        <!-- <input type="text" name="last-name" value="" placeholder=""> -->
-                        {{form.last_name}}
-                        {{form.last_name.errors}}
-                      </label>
-                    </li>
+                    {% endfor %}
                     
-                    <!-- EMAIL ADDRESS -->
-                    <li class="col-md-6">
-                      <label> *EMAIL ADDRESS
-                        <!-- <input type="text" name="contry-state" value="" placeholder=""> -->
-                        {{form.email}}
-                        {{form.email.errors}}
-                      </label>
-                    </li>
-                    <!-- PHONE -->
-                    <li class="col-md-6">
-                      <label> *PHONE
-                        <!-- <input type="text" name="postal-code" value="" placeholder=""> -->
-                        {{form.phone_number}}
-                        {{form.phone_number.errors}}
-                      </label>
-                    </li> 
-                    
-                    <!-- LAST NAME -->
-                    <li class="col-md-6">
-                      <label> *PASSWORD
-                        <!-- <input type="password" name="last-name" value="" placeholder=""> -->
-                        {{form.password}}
-                        {{form.password.errors}}
-                      </label>
-                    </li>
-                    
-                    <!-- LAST NAME -->
-                    <li class="col-md-6">
-                      <label> *CONFIRM PASSWORD
-                        <!-- <input type="password" name="last-name" value="" placeholder=""> -->
-                        {{form.confirm_password}}
-                        {{form.confirm_password.errors}}
-                      </label>
-                    </li>
-                    <li class="col-md-6"> 
-                      <!-- ADDRESS -->
-                      <label>*ADDRESS
-                        <!-- <input type="text" name="address" value="" placeholder=""> -->
-                        {{form.address}}
-                        {{form.address.errors}}
-                      </label>
-                    </li>
-                    <li class="col-md-6"> 
-                      <!-- ADDRESS -->
-                      <label>*USERNAME
-                        <!-- <input type="text" name="address" value="" placeholder=""> -->
-                        {{form.username}}
-                        {{form.username.errors}}
-                      </label>
-                    </li>
-                    
-                    <!-- COUNTRY -->
-                    <li class="col-md-6">
-                      <label> COUNTRY
-                        {{form.country}}
-                        {{form.country.errors}}
-                        <!-- <select class="selectpicker" name="contry-state">
-                          <option>COUNTRY</option>
-                          <option>Country 2</option>
-                          <option>Country 3</option>
-                        </select> -->
-                      </label>
-                    </li>
-                    
-                    <!-- TOWN/CITY -->
-                    <li class="col-md-6">
-                      <label>*TOWN/CITY
-                        <!-- <input type="text" name="town" value="" placeholder=""> -->
-                        {{form.city}}
-                        {{form.city.errors}}
-                      </label>
-                    </li>
-                    
-                    <!-- PHONE -->
+                  </ul>
+                  <ul class="row">
                     <li class="col-md-6">
                       <button type="submit" class="btn">REGISTER NOW</button>
                     </li>
                   </ul>
+                  
                 </form>
               </div>
             </div>
@@ -146,40 +72,8 @@
       </div>
     </section>
     
-    <!-- About -->
-    <section class="small-about padding-top-150 padding-bottom-150">
-      <div class="container"> 
-        
-        <!-- Main Heading -->
-        <div class="heading text-center">
-          <h4>about PAVSHOP</h4>
-          <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odio luctus non. Nulla lacinia,
-            eros vel fermentum consectetur, risus purus tempc, et iaculis odio dolor in ex. </p>
-        </div>
-        
-        <!-- Social Icons -->
-        <ul class="social_icons">
-          <li><a href="#."><i class="icon-social-facebook"></i></a></li>
-          <li><a href="#."><i class="icon-social-twitter"></i></a></li>
-          <li><a href="#."><i class="icon-social-tumblr"></i></a></li>
-          <li><a href="#."><i class="icon-social-youtube"></i></a></li>
-          <li><a href="#."><i class="icon-social-dribbble"></i></a></li>
-        </ul>
-      </div>
-    </section>
-    
-    <!-- News Letter -->
-    <section class="news-letter padding-top-150 padding-bottom-150">
-      <div class="container">
-        <div class="heading light-head text-center margin-bottom-30">
-          <h4>NEWSLETTER</h4>
-          <span>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odi </span> </div>
-        <form>
-          <input type="email" placeholder="Enter your email address" required>
-          <button type="submit">SEND ME</button>
-        </form>
-      </div>
-    </section>
+    {% include 'partials/about.html'%}
+    {% include 'partials/newsletter.html'  %}
   </div>
   
   <!--======= FOOTER =========-->

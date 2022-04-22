@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Order',
+            name='BasketItem',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('sub_total', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Sub-Total')),
                 ('count', models.IntegerField(verbose_name='Count')),
                 ('basket', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to='order.basket')),
-                ('productVersion', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to='product.productversion')),
+                ('productVersion', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, to='product.productversion', verbose_name='Product Version')),
             ],
             options={
                 'abstract': False,

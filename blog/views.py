@@ -1,11 +1,13 @@
 from unicodedata import category
 from django.shortcuts import render
 from django.http import HttpResponse
-from blog.models import Blog, Comment
 from product.models import Category
 from django.db.models import Count
 from blog.forms import BlogCommentForm
 from core.models import Tag
+from .models import *
+# from product.models import Product
+from django.shortcuts import get_object_or_404
 
 
 def blog_list(request):
@@ -27,20 +29,27 @@ def blog_list(request):
     return render(request, 'blog-list.html',context)
 
 
-def blog_detail(request):
-    form=BlogCommentForm()
-    if request.method=='POST':  
-        print('post')
-        form=BlogCommentForm(data=request.POST)
-        if form.is_valid():
-            print('valid')
-            form.save()
-            print('save')
-            print('form is valid')
-        # else:
-        #     print('form is not valid')
-        
-    context={
-        'form':form
+def blog_detail(request, id):
+    detailed = get_object_or_404(Blog, id=id)
+    blogDetail = Blog.objects.all().exclude(id=id).order_by('-created_at')[:3]
+    # popular_tags = Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
+    # categoryList = Category.objects.all()
+    blogTag = Blog.objects.filter(id=id).first().tags.all()
+    mainBlog = Blog.objects.filter(id=id).first()
+    get_category = mainBlog.category.name
+    f = Blog.objects.filter(category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3]   #eger blog producta yazilarsa bu
+    # f = Product.objects.filter(category__name__iexact = get_category).order_by('-created_at')[:3]
+
+    
+    # youMayLike = Product.objects.filter(category__name = 'wear)')
+
+    context = {
+        # 'categories': categoryList,
+        # 'tags': popular_tags,
+        'blog': detailed,
+        'bt': blogTag,
+        'blg': blogDetail,
+        'mainblog': mainBlog,
+        'like': f
     }
-    return render(request, 'blog-detail.html',context)
+    return render(request,'blog-detail.html', context)
