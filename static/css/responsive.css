@@ -12,6 +12,11 @@
 	font-size: 20px;
 	letter-spacing: 1px;
 }
+
+#flag_id_country{
+	display: none !important;
+}
+
 }
 @media(min-width:1200px) and (max-width:1400px) {
 .latest-work .col-4 .item.filter-home {

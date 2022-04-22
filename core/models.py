@@ -22,6 +22,10 @@ class Contact(AbstractModel):
         return self.full_name
 
 
+class Tag(AbstractModel):
+    title=models.CharField(max_length=30)
+
+    
 class NewsLatest(AbstractModel):
     
     title = models.CharField('TITLE', max_length=50)

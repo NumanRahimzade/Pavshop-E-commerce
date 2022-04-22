@@ -1,0 +1,157 @@
+(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell   #Son uc blog postunu qaytaran
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Blog
+>>> Blog.objects.all()
+<QuerySet [<Blog: Travel>, <Blog: Food>, <Blog: Book>, <Blog: Country>, <Blog: Education>]>
+>>> Blog.objects.all().order_by('-id')[:3]
+<QuerySet [<Blog: Education>, <Blog: Country>, <Blog: Book>]>       
+
+
+
+
+(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell    #Mehsulun qiymet ve elave olunma tarixine gore sort eden  
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from product.models import ProductVersion
+>>> a=ProductVersion.objects.all()
+>>> a.values()
+<QuerySet [{'id': 2, 'created_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793325, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793345, tzinfo=datetime.timezone.utc), 'product_id': 2, 'discount_id': 1, 'title': 'T-shirt', 'code': 'hcusbu8', 'price': '80', 'stock': 22}, {'id': 3, 'created_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101107, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101131, tzinfo=datetime.timezone.utc), 'product_id': 3, 'discount_id': 1, 'title': 'Hat', 'code': 'usd7', 'price': '50', 'stock': 23}, {'id': 4, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903279, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903298, tzinfo=datetime.timezone.utc), 'product_id': 4, 'discount_id': 1, 'title': 'T-shirt', 'code': 'asd79', 'price': '90', 'stock': 20}, {'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+>>> from django.utils import timezone
+>>> now = timezone.now()
+>>> a=ProductVersion.objects.filter(created_at__lte=now).order_by('created_at')
+>>> a.values()
+<QuerySet [{'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}, {'id': 2, 'created_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793325, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793345, tzinfo=datetime.timezone.utc), 'product_id': 2, 'discount_id': 1, 'title': 'T-shirt', 'code': 'hcusbu8', 'price': '80', 'stock': 22}, {'id': 3, 'created_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101107, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101131, tzinfo=datetime.timezone.utc), 'product_id': 3, 'discount_id': 1, 'title': 'Hat', 'code': 'usd7', 'price': '50', 'stock': 23}, {'id': 4, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903279, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903298, tzinfo=datetime.timezone.utc), 'product_id': 4, 'discount_id': 1, 'title': 'T-shirt', 'code': 'asd79', 'price': '90', 'stock': 20}, {'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}]>
+>>> a=ProductVersion.objects.all().order_by('price')
+>>> a.values()
+<QuerySet [{'id': 3, 'created_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101107, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101131, tzinfo=datetime.timezone.utc), 'product_id': 3, 'discount_id': 1, 'title': 'Hat', 'code': 'usd7', 'price': '50', 'stock': 23}, {'id': 2, 'created_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793325, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793345, tzinfo=datetime.timezone.utc), 'product_id': 2, 'discount_id': 1, 'title': 'T-shirt', 'code': 'hcusbu8', 'price': '80', 'stock': 22}, {'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 4, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903279, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903298, tzinfo=datetime.timezone.utc), 'product_id': 4, 'discount_id': 1, 'title': 'T-shirt', 'code': 'asd79', 'price': '90', 'stock': 20}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+
+
+
+
+
+(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell         #Mehsullarin kateqoriyalarini qaytaran
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from product.models import ProductVersion
+>>> a=ProductVersion.objects.filter(title='Bag').first()
+>>> a.product.category
+<Category: Woman>
+
+
+
+
+
+
+
+^C(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell       #Daxil edilmis mehsulun review-larini qaytaran
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from product.models import ProductVersion
+>>> from product.models import Review
+>>> a=Review.objects.all()
+>>> a
+<QuerySet [<Review: Jacket>, <Review: Hat>, <Review: Bag>]>
+>>> a=Review.objects.get(productversion__title='Hat')
+>>> a.comment
+'cvbnm,kijuhyg'
+>>> 
+
+
+
+
+
+
+
+
+
+^C(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell        #Daxil edilmis blog postun commentlerini qaytaran
+Python 3.8.10 (default, Nov 26 2021, 20:14:08)  
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Blog,Comment
+>>> a=Blog.objects.all()
+>>> a
+<QuerySet [<Blog: Blog1>, <Blog: Main Blog>]>
+>>> a=Comment.objects.get(blog__title='Blog1')
+>>> a.review
+'oiuy7t6789ijn'
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+^C(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell            #Daxil edilmis melumata uygun mehsullari axtaris eden
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from product.models import ProductVersion
+>>> a=ProductVersion.objects.filter(price__gte=85)
+>>> a
+<QuerySet [<ProductVersion: T-shirt>, <ProductVersion: Bag>, <ProductVersion: Bag>]>
+>>> a.values()
+<QuerySet [{'id': 4, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903279, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903298, tzinfo=datetime.timezone.utc), 'product_id': 4, 'discount_id': 1, 'title': 'T-shirt', 'code': 'asd79', 'price': '90', 'stock': 20}, {'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+
+>>> a=ProductVersion.objects.filter(stock__lt=20)
+>>> a
+<QuerySet [<ProductVersion: Bag>, <ProductVersion: Bag>]>
+>>> a.values()
+<QuerySet [{'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+
+
+>>> a=ProductVersion.objects.filter(title__icontains='a')
+>>> a
+<QuerySet [<ProductVersion: Hat>, <ProductVersion: Bag>, <ProductVersion: Bag>]>
+
+
+>>> a=ProductVersion.objects.filter(title__istartswith='t')
+>>> a
+<QuerySet [<ProductVersion: T-shirt>, <ProductVersion: T-shirt>]>
+
+
+>>> a=ProductVersion.objects.filter(created_at__year__lt=2022)
+>>> a
+<QuerySet []>
+>>> a=ProductVersion.objects.filter(created_at__year__lte=2022)
+>>> a
+<QuerySet [<ProductVersion: T-shirt>, <ProductVersion: Hat>, <ProductVersion: T-shirt>, <ProductVersion: Bag>, <ProductVersion: Bag>]>
+>>> a.values()
+<QuerySet [{'id': 2, 'created_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793325, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 0, 32, 793345, tzinfo=datetime.timezone.utc), 'product_id': 2, 'discount_id': 1, 'title': 'T-shirt', 'code': 'hcusbu8', 'price': '80', 'stock': 22}, {'id': 3, 'created_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101107, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 1, 27, 101131, tzinfo=datetime.timezone.utc), 'product_id': 3, 'discount_id': 1, 'title': 'Hat', 'code': 'usd7', 'price': '50', 'stock': 23}, {'id': 4, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903279, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 7, 903298, tzinfo=datetime.timezone.utc), 'product_id': 4, 'discount_id': 1, 'title': 'T-shirt', 'code': 'asd79', 'price': '90', 'stock': 20}, {'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+
+
+
+
+
+
+
+
+
+
+(.venv) aysu@aysu-HP-Laptop-15-da0xxx:~/Desktop/E-commerce-Pavshop-Omega$ ./manage.py shell          
+Python 3.8.10 (default, Nov 26 2021, 20:14:08) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from product.models import ProductVersion
+>>> a=ProductVersion.objects.filter(title='Bag').values()
+>>> a
+<QuerySet [{'id': 5, 'created_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16514, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 13, 2, 44, 16531, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'jsdi8', 'price': '85', 'stock': 12}, {'id': 1, 'created_at': datetime.datetime(2022, 3, 12, 12, 59, 44, 97479, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 12, 14, 7, 53, 729218, tzinfo=datetime.timezone.utc), 'product_id': 1, 'discount_id': 1, 'title': 'Bag', 'code': 'dgygsy7', 'price': '99', 'stock': 13}]>
+

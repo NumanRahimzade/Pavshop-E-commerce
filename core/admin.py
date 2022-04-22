@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Contact, NewsLatest, Subscription
+from core.models import Contact, NewsLatest, Subscription, Tag
 
 
 @admin.register(Contact)
@@ -23,4 +23,10 @@ class SubscribeAdmin(admin.ModelAdmin):
     list_filter = ('email', 'created_at')
     search_fields = ('email', )
 
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('title','created_at')
+    list_filter = ( 'title','created_at')
+    search_fields = ('title', )
 # admin.site.register([Contact])

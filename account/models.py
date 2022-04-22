@@ -10,4 +10,4 @@ class User(AbstractUser):
     phone = models.CharField(max_length=30)
     address = models.CharField(max_length=50)
     country = CountryField()    #country ucun
-    town_city = models.CharField(max_length=50) 
+    town_city = models.CharField(max_length=50)
