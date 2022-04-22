@@ -132,7 +132,7 @@
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">FILTER BY COLORS</h5>
               <ul class="colors">
                 {% for color in colors %}
-                <li><a href="#." style="background:{{ color.value}};"></a></li>
+                <li><a href="{% url 'productlist' %}?color_id={{color.id}}" style="background:{{ color.value}};"></a></li>
 
                 {% endfor %}
 
@@ -160,7 +160,7 @@
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
               <ul class="shop-tags">
                 {% for tag in tags %}
-                <li><a href="#.">{{tag.title }}</a></li>
+                <li><a href="{% url 'productlist' %}?tag_id={{tag.id}}">{{tag.title }}</a></li>
                 {% endfor %}
                 <!-- <li><a href="#.">Towels</a></li>
                 <li><a href="#.">Chair</a></li>
@@ -177,7 +177,7 @@
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">brands</h5>
               <ul class="shop-cate">
                 {% for brand in brands %}
-                    <li><a href="#."> {{brand.name}}</a></li>
+                    <li><a href="{% url 'productlist' %}?brand_id={{brand.id}}"> {{brand.name}}</a></li>
                 {% endfor %}
                 <!-- <li><a href="#."> G-Furniture
                   BigYellow</a></li>

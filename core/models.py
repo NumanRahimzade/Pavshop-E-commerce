@@ -22,6 +22,13 @@ class Contact(AbstractModel):
         return self.full_name
 
 
+class Tag(AbstractModel):
+    title=models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.title
+
+
 
 
 

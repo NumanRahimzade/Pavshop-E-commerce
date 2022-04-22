@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from core.models import Tag
 
 User = get_user_model()
 
@@ -38,7 +39,8 @@ class Brand(AbstractModel):
 class Product(AbstractModel):
     brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
     category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
-
+    
+    
     def __str__(self):
             return self.brand.name
 
@@ -83,6 +85,8 @@ class ProductVersion(AbstractModel):
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')
+    tags=models.ManyToManyField(Tag,blank=True,related_name='product_tags')
+    
 
     def __str__(self):
         return self.title

@@ -1,10 +1,11 @@
 from unicodedata import category
 from django.shortcuts import render
 from django.http import HttpResponse
-from blog.models import Blog, Comment,Tag
+from blog.models import Blog, Comment
 from product.models import Category
 from django.db.models import Count
 from blog.forms import BlogCommentForm
+from core.models import Tag
 
 
 def blog_list(request):

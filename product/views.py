@@ -1,3 +1,4 @@
+from itertools import product
 from pyexpat import model
 from unicodedata import category
 from django.http import request
@@ -51,8 +52,17 @@ class ProductListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         category_id = self.request.GET.get('category_id') # 1
+        color_id=self.request.GET.get('color_id')
+        tag_id=self.request.GET.get('tag_id')
+        brand_id=self.request.GET.get('brand_id')
+        if color_id:
+            queryset = queryset.filter(property__propertyname__name='color',property__id=color_id)
         if category_id:
-            queryset = queryset.filter(category__id=category_id)
+            queryset = queryset.filter(product__category__id=category_id)
+        if tag_id:
+            queryset=queryset.filter(tags__id=tag_id)
+        if brand_id:
+            queryset=queryset.filter(product__brand_id=brand_id)
         return queryset
 
 

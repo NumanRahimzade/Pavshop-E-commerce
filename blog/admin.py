@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from blog.models import Blog, Comment,Tag
+from blog.models import Blog, Comment
 
 
-admin.site.register([Blog,Tag])
+admin.site.register(Blog)
 
 
 @admin.register(Comment)
