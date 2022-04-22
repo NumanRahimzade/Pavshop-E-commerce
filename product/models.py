@@ -75,11 +75,24 @@ class ProductVersion(AbstractModel):
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')
 
+
     def __str__(self):
         return self.title
 
+
     def main_image(self):
         return self.productimage.all().order_by('is_main').first()
+
+
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'pk': self.id
+        })
+
+
+    # @property
+    def review_count(self):
+        return self.reviews.count()
 
 
 class Brand(AbstractModel):
@@ -117,7 +130,7 @@ class WishList(AbstractModel):
 
 class ProductReview(AbstractModel):
     # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
-    productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
+    productreview=models.ForeignKey(ProductVersion, related_name='reviews',blank=True, null=True, on_delete=models.CASCADE)
     full_name = models.CharField('Full Name', max_length=50)
     email = models.EmailField('Email', max_length=40)
     review = models.TextField()
@@ -126,4 +139,7 @@ class ProductReview(AbstractModel):
     #     return self.user.username
     
 
-   
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'pk': self.productreview.id
+        })

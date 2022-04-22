@@ -8,18 +8,21 @@ from account.forms import RegisterForm, LoginForm
 
 
 def register(request):
-    form = RegisterForm()
-    if request.method == 'POST':
-        form = RegisterForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            user = form.save()
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            return redirect('login')
-    context = {
-        'form': form
-    }   
-    return render(request,'register.html', context)
+    if not request.user.is_authenticated:
+        form = RegisterForm()
+        if request.method == 'POST':
+            form = RegisterForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                user = form.save()
+                user.set_password(form.cleaned_data['password'])
+                user.save()
+                return redirect('login')
+        context = {
+            'form': form
+        }   
+        return render(request,'register.html', context)
+    else:
+        return redirect('')
 
 
 def login(request):
@@ -50,4 +53,4 @@ def user_profile(request):
 @login_required
 def logout(request):
     django_logout(request)
-    return redirect('/')
+    return redirect('/') 

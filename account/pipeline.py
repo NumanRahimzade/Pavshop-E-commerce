@@ -1,4 +1,4 @@
-from accounts.utils import download_image
+from account.utils import download_image
 
 
 def get_avatar(backend, strategy, details, response,
@@ -12,4 +12,4 @@ def get_avatar(backend, strategy, details, response,
         url = response['picture']
     if url:
         user.image = download_image(url)
-        user.save()
+        user.save() 

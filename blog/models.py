@@ -21,6 +21,7 @@ class Blog(AbstractModel):
     
     title = models.CharField('Title', max_length=50, db_index=True)
     description = models.TextField('Description')
+    image = models.ImageField('image', null=True, blank=True, upload_to='blog_images/')
 
     def __str__(self):
         return self.title
