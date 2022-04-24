@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static tags %}
 {% block content %}
   <!--======= SUB BANNER =========-->
   <section class="sub-bnr" data-stellar-background-ratio="0.5">
@@ -26,7 +26,7 @@
           <div class="col-md-9"> 
             
             <!-- Article -->
-            {% for blog in blogs %}
+            {% for blog in blog_list %}
             <article>
               <div class="row">
                 <div class="col-sm-5"> 
@@ -40,103 +40,30 @@
                   <!-- Post Content -->
                   <div class="text-left">
                     <p> {{ blog.description }}</p>
-                    <a href="#." class="red-more">READ MORE</a> </div>
+                    <a href="{% url 'blog_detail' blog.id  %}" class="red-more">READ MORE</a> </div>
                 </div>
               </div>
             </article>
             {% endfor %}
             
-            <!-- Article -->
-            <!-- <article>
-              <div class="row">
-                <div class="col-sm-5">  -->
-                  <!-- Post Img --> 
-                  <!-- <img class="img-responsive" src="{% static 'images/blog-list-img-1-3.jpg' %}" alt="" > </div>
-                <div class="col-sm-7">  -->
-                  <!-- Tittle -->
-                  <!-- <div class="post-tittle left"> <a href="#." class="tittle">The unique Chair By PAVSHOP</a>  -->
-                    <!-- Post Info --> 
-                    <!-- <span><i class="primary-color icon-user"></i> by admin</span> <span><i class="primary-color icon-calendar"></i> April 27, 2016</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div> -->
-                  <!-- Post Content -->
-                  <!-- <div class="text-left">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus.  
-                      
-                      Nunc at blandit neque, bibendum varius purus.</p>
-                    <a href="#." class="red-more">READ MORE</a> </div>
-                </div>
-              </div>
-            </article> -->
-            
-            <!-- Article -->
-            <!-- <article>
-              <div class="row">
-                <div class="col-sm-5">  -->
-                  <!-- Post Img --> 
-                  <!-- <img class="img-responsive" src="{% static 'images/blog-list-img-1-4.jpg' %}" alt="" > </div>
-                <div class="col-sm-7">  -->
-                  <!-- Tittle -->
-                  <!-- <div class="post-tittle left"> <a href="#." class="tittle">We Craft An Awesome for you</a>  -->
-                    <!-- Post Info --> 
-                    <!-- <span><i class="primary-color icon-user"></i> by admin</span> <span><i class="primary-color icon-calendar"></i> April 27, 2016</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div> -->
-                  <!-- Post Content -->
-                  <!-- <div class="text-left">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus.  
-                      
-                      Nunc at blandit neque, bibendum varius purus.</p>
-                    <a href="#." class="red-more">READ MORE</a> </div>
-                </div>
-              </div>
-            </article> -->
-            
-            <!-- Article -->
-            <!-- <article>
-              <div class="row">
-                <div class="col-sm-5">  -->
-                  <!-- Post Img --> 
-                  <!-- <img class="img-responsive" src="{% static 'images/blog-list-img-1-5.jpg' %}" alt="" > </div>
-                <div class="col-sm-7">  -->
-                  <!-- Tittle -->
-                  <!-- <div class="post-tittle left"> <a href="#." class="tittle">The Classic Razor for Man</a>  -->
-                    <!-- Post Info --> 
-                    <!-- <span><i class="primary-color icon-user"></i> by admin</span> <span><i class="primary-color icon-calendar"></i> April 27, 2016</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div> -->
-                  <!-- Post Content -->
-                  <!-- <div class="text-left">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus.  
-                      
-                      Nunc at blandit neque, bibendum varius purus.</p>
-                    <a href="#." class="red-more">READ MORE</a> </div>
-                </div>
-              </div>
-            </article> -->
-            <!-- Article -->
-            <!-- <article>
-              <div class="row">
-                <div class="col-sm-5">  -->
-                  <!-- Post Img --> 
-                  <!-- <img class="img-responsive" src="{% static 'images/blog-list-img-1-6.jpg' %}" alt="" > </div>
-                <div class="col-sm-7">  -->
-                  <!-- Tittle -->
-                  <!-- <div class="post-tittle left"> <a href="#." class="tittle">Graffiti Art on White Tshirt</a>  -->
-                    <!-- Post Info --> 
-                    <!-- <span><i class="primary-color icon-user"></i> by admin</span> <span><i class="primary-color icon-calendar"></i> April 27, 2016</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div> -->
-                  <!-- Post Content -->
-                  <!-- <div class="text-left">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui at lacus aliquet, a consequat enim aliquet. Integer molestie sit amet sem et faucibus. Nunc ornare pharetra dui, vitae auctor orci fringilla eget. Pellentesque in placerat felis. Etiam mollis venenatis luctus.  
-                      
-                      Nunc at blandit neque, bibendum varius purus.</p>
-                    <a href="#." class="red-more">READ MORE</a> </div>
-                </div>
-              </div>
-            </article> -->
             
             <!-- Pagination -->
             <ul class="pagination in-center">
-              <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+              {% if page_obj.has_previous %}
+                 <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+              {% endif %}
+              {% for page in page_obj.paginator.page_range %}
+                 {% if page is page_obj.number %}
+                    <li class="active"><a href="#">{{page}}</a></li>
+                 {% else %}
+                    <li><a href="?page={{page}}">{{page}}</a></li>
+                  {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+                 <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+              {% endif %}
             </ul>
+            
           </div>
           
           <!-- Sider Bar -->
@@ -152,9 +79,9 @@
               <!-- Category -->
               <h5 class="shop-tittle margin-bottom-30">category</h5>
               <ul class="shop-cate">
+                {% get_categories as categories %}
                 {% for category in categories %}
-                <li><a href="#."> {{ category.name }} <span>24</span></a></li>
-
+                  <li><a href=""> {{ category.name }} {{ category.blog_count }}</a></li>
                 {% endfor %}
                 <!-- <li><a href="#."> Chair <span>24</span></a></li>
                 <li><a href="#."> Bag <span>122</span></a></li>
@@ -198,8 +125,10 @@
               <!-- TAGS -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
               <ul class="shop-tags">
+                {% get_popular_tags as tags %}
                 {% for tag in tags %}
-                <li><a href="#.">{{tag}}</a></li>
+
+                  <li><a href="#."> {{ tag.title }} </a></li>
                 {% endfor %}
 <!--           
                 <li><a href="#.">Towels</a></li>

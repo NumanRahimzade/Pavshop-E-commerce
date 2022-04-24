@@ -11,8 +11,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name','review','created_at')
     list_filter = ('name','created_at')
     search_fields = [ 'name','review']
-    
-from blog.models import Blog, Tag
 
 
 @admin.register(Blog)

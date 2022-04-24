@@ -13,19 +13,21 @@ from django.contrib.auth.views import LoginView, PasswordChangeView
 
 
 def register(request):
-    form=RegisterForm()
-    if request.method == 'POST':
-        form = RegisterForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            user = form.save()
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            return redirect('/login')
-        print(form)
-    context={
-        'form': form
-    }
-    return render(request,'register.html',context)
+    if not request.user.is_authenticated:
+        form = RegisterForm()
+        if request.method == 'POST':
+            form = RegisterForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                user = form.save()
+                user.set_password(form.cleaned_data['password'])
+                user.save()
+                return redirect('login')
+        context = {
+            'form': form
+        }   
+        return render(request,'register.html', context)
+    else:
+        return redirect('')
 
 
 class RegisterView(CreateView):
@@ -56,13 +58,13 @@ def login(request):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 django_login(request, user)
-                print('1')
+                
                 messages.add_message(request, messages.SUCCESS, 'Ugurla login oldunuz')
                 return redirect(next_page)
             else:
                 
                 messages.add_message(request, messages.ERROR, 'Username ve ya password sehvdir!')
-                print('2')
+                
     context={
         'form':form
     }
