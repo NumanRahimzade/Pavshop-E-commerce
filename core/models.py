@@ -23,6 +23,7 @@ class Contact(AbstractModel):
 
 
 class Tag(AbstractModel):
+    
     title=models.CharField(max_length=30)
 
     def __str__(self):

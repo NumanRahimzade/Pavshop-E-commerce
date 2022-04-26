@@ -52,16 +52,21 @@
                     <!-- GRID & LIST --> 
                     <a href="#." class="grid-style"><i class="icon-grid"></i></a> <a href="#." class="list-style"><i class="icon-list"></i></a> </div>
                 </div>
-                <div class="col-xs-6 text-right"> <span class="product-num">Showing 1 - 10 of 30 products</span> </div>
+                <!-- <div class="col-xs-6 text-right"> <span class="product-num">Showing 1 - 10 of 30 products</span> </div> -->
+
+                <div class="col-xs-6 text-right"> <span class="product-num">Showing 1 - 10 of {{last.id}} products</span> </div>
+
               </div>
             </div>
             
             <!-- Popular Item Slide -->
+            
             <div class="papular-block row single-img-demos"> 
               
               <!-- Item -->
               {% for item in products %}
               <div class="col-md-4">
+                
                 <div class="item"> 
                   <!-- Item img -->
                   <div class="item-img"> <img class="img-1" src="{{ item.main_image.image.url }}" alt="" >
@@ -74,11 +79,12 @@
                     </div>
                   </div>
                   <!-- Item Name -->
-                  <div class="item-name"> <a href=""> {{ item.title }} </a>
+                  <div class="item-name"> <a href="#."> {{ item.title }} </a>
                     <p> {{ item.code }} </p>
                   </div>
                   <!-- Price --> 
                   <span class="price"><small></small> {{ item.price }} </span> </div>
+                 
               </div>
               {% endfor %}
 
@@ -109,6 +115,7 @@
               <!-- Category -->
               <h5 class="shop-tittle margin-bottom-30">category</h5>
               <ul class="shop-cate">
+                {% get_categories as categories %}
                 {% for category in categories %}
                    <li><a href="{% url 'productlist' %}?category_id={{category.id}}"> {{category.name}} <span>{{category.product_count}}</span></a></li>
                 {% endfor %}

@@ -78,14 +78,17 @@
                   <li class="col-xs-8">
                     <ul class="colors-shop">
                       <li><span class="margin-right-20">Colors</span></li>
-                      <li><a href="#." style="background:#958170;"></a></li>
+                      {% for color in products.property.all %}
+                      <li><a href="#." style="background: {{ color.value}};"></a></li>
+                    {% endfor %}
+                      <!-- <li><a href="#." style="background:#958170;"></a></li>
                       <li><a href="#." style="background:#c9a688;"></a></li>
                       <li><a href="#." style="background:#c9c288;"></a></li>
                       <li><a href="#." style="background:#a7c988;"></a></li>
                       <li><a href="#." style="background:#9ed66b;"></a></li>
                       <li><a href="#." style="background:#6bd6b1;"></a></li>
                       <li><a href="#." style="background:#82c2dc;"></a></li>
-                      <li><a href="#." style="background:#8295dc;"></a></li>
+                      <li><a href="#." style="background:#8295dc;"></a></li> -->
                     </ul>
                   </li>
                   

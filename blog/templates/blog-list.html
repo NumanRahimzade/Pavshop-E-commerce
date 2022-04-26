@@ -36,7 +36,7 @@
                   <!-- Tittle -->
                   <div class="post-tittle left"> <a href="#." class="tittle">{{ blog.title }}</a> 
                     <!-- Post Info --> 
-                    <span><i class="primary-color icon-user"></i> {{ blog.author }}</span> <span><i class="primary-color icon-calendar"></i> {{ blog.created_at }} </span> <span><i class="primary-color icon-bubble"></i> {{ blog.blogcomment.count }}</span> <span><i class="primary-color icon-tag"></i> {{ blog.category }}</span> </div>
+                    <span><i class="primary-color icon-user"></i> {{ blog.author }}</span> <span><i class="primary-color icon-calendar"></i> {{ blog.created_at|date:"F d, Y" }} </span> <span><i class="primary-color icon-bubble"></i> {{ blog.blogcomment.count }}</span> <span><i class="primary-color icon-tag"></i> {{ blog.category }}</span> </div>
                   <!-- Post Content -->
                   <div class="text-left">
                     <p> {{ blog.description }}</p>
@@ -81,7 +81,12 @@
               <ul class="shop-cate">
                 {% get_categories as categories %}
                 {% for category in categories %}
+<<<<<<< HEAD
                   <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }} {{ category.blog_count }}</a></li>
+=======
+                <li><a href="#."> {{ category.name }} <span>{{category.product_count}}</span></a></li>
+
+>>>>>>> aysu_new
                 {% endfor %}
                 <!-- <li><a href="#."> Chair <span>24</span></a></li>
                 <li><a href="#."> Bag <span>122</span></a></li>
@@ -102,7 +107,7 @@
                 {% for newblog in newblogs %}
                 <li class="media">
                   <div class="media-left"> <a href="#"> <img class="media-object" src="{{ newblog.image.url }}" alt=""></a> </div>
-                  <div class="media-body"> <a class="media-heading" href="#.">{{ newblog.description }}</a> <span>Posted on {{ newblog.created_at }}</span> </div>
+                  <div class="media-body"> <a class="media-heading" href="#.">{{ newblog.title }}</a> <span>Posted on {{ newblog.created_at|date:"F d, Y"}}</span> </div>
                 </li>
                 {% endfor %}
                 <!-- <li class="media">
@@ -127,8 +132,12 @@
               <ul class="shop-tags">
                 {% get_popular_tags as tags %}
                 {% for tag in tags %}
+<<<<<<< HEAD
 
                   <li><a href="#."> {{ tag.title }} </a></li>
+=======
+                <li><a href="#.">{{tag.title}}</a></li>
+>>>>>>> aysu_new
                 {% endfor %}
 <!--           
                 <li><a href="#.">Towels</a></li>
