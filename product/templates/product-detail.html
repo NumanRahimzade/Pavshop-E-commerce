@@ -171,7 +171,7 @@
                 <!--  Details -->
                 <div class="media-body">
                   <p class="font-playfair">{{ i.comment }}</p>
-                  <h6>{{ i.full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
+                  <h6>{{ i.user.get_full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
                 </div>
                 
               </div>
