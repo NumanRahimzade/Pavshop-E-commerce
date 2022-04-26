@@ -7,20 +7,20 @@ class BlogCommentForm(forms.ModelForm):
     class Meta:
         model=Comment
         fields = (
-            'name',
-            'email',
+            # 'name',
+            # 'email',
             'subject',
             'review'
         )
         widgets = {
-            'name': forms.TextInput(attrs={
-                'class': 'form-control',
+            # 'name': forms.TextInput(attrs={
+            #     'class': 'form-control',
                    
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
+            # }),
+            # 'email': forms.EmailInput(attrs={
+            #     'class': 'form-control',
              
-            }),
+            # }),
             'subject': forms.TextInput(attrs={
                 'class': 'form-control',
             }),

@@ -28,14 +28,14 @@
           <!-- Article -->
           <article> 
             <!-- Post Img --> 
-            <img class="img-responsive" src="{{ mainblog.image.url }}" alt="" > 
+            <img class="img-responsive" src="{{ blogs.image.url }}" alt="" > 
             <!-- Tittle -->
-            <div class="post-tittle left"> <a href="#." class="tittle"> {{ mainblog.title }} </a> 
+            <div class="post-tittle left"> <a href="#." class="tittle"> {{ blogs.title }} </a> 
               <!-- Post Info --> 
-              <span><i class="primary-color icon-user"></i> {{ mainblog.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ mainblog.created_at|date:"F d, Y" }}</span> <span><i class="primary-color icon-bubble"></i> 05</span> <span><i class="primary-color icon-tag"></i> Furniture</span> </div>
+              <span><i class="primary-color icon-user"></i> {{ blogs.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ blogs.created_at|date:"F d, Y" }}</span> <span><i class="primary-color icon-bubble"></i> {{blogs.blogcomment.count}}</span> <span><i class="primary-color icon-tag"></i> {{blogs.category}}</span> </div>
             <!-- Post Content -->
             <div class="text-left">
-              <p> {{ mainblog.description }} </p>
+              <p> {{ blogs.description }} </p>
                 <br>
                 
               <!-- Post Img --> 
@@ -67,8 +67,8 @@
                 <div class="col-md-8">
                   <h5 class="shop-tittle">PRODUCT TAGS</h5>
                   <ul class="shop-tags padding-left-15">
-                    {% for tag in bt %}
-                    <li><a href="#."> {{ tag.title }} </a></li>
+                    {% for i in mainBlog.tags.all %}
+                    <li><a href="#."> {{ i }} </a></li>
                     {% endfor %}
                   </ul>
                 </div>
@@ -86,11 +86,11 @@
               <!-- ADMIN info -->
               <div class="admin-info">
                 <div class="media-left">
-                  <div class="admin-pic"> <img src="{% static 'images/admin-avatar.jpg' %}" alt=""> </div>
+                  <div class="admin-pic"> <img src="{{ blogs.author.image.url}}" alt=""> </div>
                 </div>
                 <div class="media-body">
-                  <h6>NATASHA S. <span>Co-Founder</span></h6>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. NullamMorbi ac scelerisque mauris. Etiam sodales a nulla ornare viverra. Nunc at blandit neque, bociis natoque penatcing e scelerisque miscing elit. </p>
+                  <h6> {{blogs.author.username}} <span>Co-Founder</span></h6>
+                  <p>{{blogs.description}} </p>
                   <div class="admin-social"> <a href="#."><i class="icon-social-facebook"></i></a> <a href="#."><i class="icon-social-twitter"></i></a> <a href="#."><i class="icon-social-dribbble"></i></a> <a href="#."><i class="icon-envelope"></i></a> </div>
                 </div>
               </div>
@@ -100,41 +100,43 @@
                 <h5 class="shop-tittle margin-bottom-30">COMMENTS</h5>
                 <ul class="media-list padding-left-15">
                   <!--=======  COMMENTS =========-->
+                  {% for comment in comments %}
                   <li class="media">
                     <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{% static 'images/avatar-1.jpg' %}" alt=""> <br>
                       </a> </div>
                     <div class="media-body">
-                      <h6 class="media-heading">William Saron <span><i class="icon-clock primary-color"></i> April 27, 2016 - 10:00 am</span></h6>
-                      <p>Crack commando unit was sent to prison by a military court for a crime they didn't commit. ese men promptly escaped from a maximum security stockade to the Los Angeles. </p>
+                      <h6 class="media-heading">{{comment.user.username}} <span><i class="icon-clock primary-color"></i> {{comment.created_at|date:"F d,Y - H:m" }}</span></h6>
+                      <p>{{comment.review}} </p>
                       <a href="#." class="raply"><i class="icon-bubble primary-color"></i> Reply</a> </div>
                   </li>
+                  {% endfor %}
                   <!--=======  COMMENTS =========-->
-                  <li class="media">
+                  <!-- <li class="media">
                     <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{% static 'images/avatar-3.jpg' %}" alt=""> <br>
                       </a> </div>
                     <div class="media-body">
                       <h6 class="media-heading">William Saron <span><i class="icon-clock primary-color"></i> April 27, 2016 - 10:00 am</span></h6>
                       <p>Crack commando unit was sent to prison by a military court for a crime they didn't commit. ese men promptly escaped from a maximum security stockade to the Los Angeles. </p>
                       <a href="#." class="raply"><i class="icon-bubble primary-color"></i> Reply</a> </div>
-                  </li>
+                  </li> -->
                   <!--=======  COMMENTS =========-->
-                  <li class="media padding-left-100">
+                  <!-- <li class="media padding-left-100">
                     <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{% static 'images/avatar-2.jpg' %}" alt=""> <br>
                       </a> </div>
                     <div class="media-body">
                       <h6 class="media-heading">William Saron <span><i class="icon-clock primary-color"></i> April 27, 2016 - 10:00 am</span></h6>
                       <p>Crack commando unit was sent to prison by a military court for a crime they didn't commit. ese men promptly escaped from a maximum security stockade to the Los Angeles. </p>
                       <a href="#." class="raply"><i class="icon-bubble primary-color"></i> Reply</a> </div>
-                  </li>
+                  </li> -->
                   <!--=======  COMMENTS =========-->
-                  <li class="media">
+                  <!-- <li class="media">
                     <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{% static 'images/avatar-3.jpg' %}" alt=""> <br>
                       </a> </div>
                     <div class="media-body">
                       <h6 class="media-heading">William Saron <span><i class="icon-clock primary-color"></i> April 27, 2016 - 10:00 am</span></h6>
                       <p>Crack commando unit was sent to prison by a military court for a crime they didn't commit. ese men promptly escaped from a maximum security stockade to the Los Angeles. </p>
                       <a href="#." class="raply"><i class="icon-bubble primary-color"></i> Reply</a> </div>
-                  </li>
+                  </li> -->
                 </ul>
                 <hr>
                 
@@ -143,22 +145,6 @@
                 <form action="" method="POST" class="padding-left-15">
                   {% csrf_token %}
                   <ul class="row">
-
-                    <li class="col-sm-4">
-                      <label>Name
-                        <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
-                        {{form.name}}
-                        {{form.name.errors}}
-                        
-                      </label>
-                    </li>
-                    <li class="col-sm-4">
-                      <label>Email
-                        <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
-                        {{form.email}}
-                        {{form.email.errors}}
-                      </label>
-                    </li>
                     <li class="col-sm-4">
                       <label>Subject
                         <!-- <input type="text" class="form-control" name="name" placeholder=""> -->
@@ -194,7 +180,7 @@
                 
                 <div class="col-sm-5"> 
                   <!-- Post Img --> 
-                  <img class="img-responsive" src="{{ l.main_version.main_image.image.url }}" alt="" > </div>
+                  <img class="img-responsive" src="{{ l.image.url }}" alt="" > </div>
                 <div class="col-sm-7"> 
                   <!-- Tittle -->
                   <div class="post-tittle left"> <a href="#." class="tittle">{{ l.title }}</a> 
@@ -227,18 +213,17 @@
             <!-- Category -->
             <h5 class="shop-tittle margin-bottom-30">category</h5>
             <ul class="shop-cate">
-              {% get_categories as categories %}
               {% for category in categories %}
-              <li><a href="#."> {{ category.name }} </a></li>
+              <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }}  </a></li>
               {% endfor %}
             </ul>
             
             <!-- Recent Post -->
             <h5 class="shop-tittle margin-top-60 margin-bottom-30">recent post</h5>
             <ul class="papu-post margin-top-20">
-              {% for i in blg %}
+              {% for i in recentpost %}
               <li class="media">
-                <div class="media-left"> <a href="#"> <img class="media-object" src="{% static 'images/sm-post-1.jpg' %}" alt=""></a> </div>
+                <div class="media-left"> <a href="#"> <img class="media-object" src="{{i.image.url}}" alt=""></a> </div>
                 <div class="media-body"> <a class="media-heading" href="#.">{{ i.title }} 
                 </a> <span> {{ i.created_at|date:"F d, Y" }} </span> </div>
               </li>
@@ -250,21 +235,23 @@
             <!-- TAGS -->
             <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
             <ul class="shop-tags">
-              {% get_popular_tags as tags %}
-              {% for tag in tags %}
+              {% for tag in tagss %}
 
-              <li><a href="#."> {{ tag.title }} </a></li>
+              <li><a href="{% url 'blog_list' %}?tag_id={{tag.id}}"> {{ tag.title }} </a></li>
               {% endfor %}
             </ul>
             
             <!-- BRAND -->
             <h5 class="shop-tittle margin-top-60 margin-bottom-30">archives</h5>
             <ul class="shop-cate">
-              <li><a href="#."> January 2015 </a></li>
+              {% for archives in created %}
+              <li><a href="#."> {{archives.created_at|date:"F  Y"}} </a></li>
+              {% endfor %}
+              <!-- <li><a href="#."> January 2015 </a></li>
               <li><a href="#."> February 2015 </a></li>
               <li><a href="#."> March 2015 </a></li>
               <li><a href="#."> April 2015 </a></li>
-              <li><a href="#."> May 2015 </a></li>
+              <li><a href="#."> May 2015 </a></li> -->
             </ul>
             
             <!-- SIDE BACR BANER -->
@@ -291,7 +278,7 @@
       <li> <img src="{% static 'images/cultur-img-4.jpg' %}" alt="" > </li>
     </ul>
     
-    <!-- Culture Text -->
+    <!-- Culture Text -->blogs
     <div class="position-center-center">
       <div class="container">
         <div class="col-sm-6 center-block">

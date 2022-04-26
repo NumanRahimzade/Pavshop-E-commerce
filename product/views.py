@@ -1,4 +1,3 @@
-from unittest import result
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView
 from django.urls import reverse_lazy
@@ -9,21 +8,21 @@ from product.forms import ReviewForm
 from django.db.models import Count
 # Create your views here.
 
-# def productdetail(request,id):
-#     products=ProductVersion.objects.get(id=id)
-#     images=ProductImages.objects.all()
-#     mainproduct=ProductVersion.objects.filter(id=id).first()
-#     # like = mainproduct.category.products.exclude(id=mainproduct.id).order_by('-created_at')[:3]
-#     like = ProductVersion.objects.filter(product__category=mainproduct.product.category).exclude(id=mainproduct.id).order_by('-created_at')[:3]
-#     # print(mainproduct.category.products.all())
-#     context={
-#         'products':products,
-#         'images':images,
-#         'like':like,
-#         'mainproduct': mainproduct,
+def productdetail(request,id):
+    products=ProductVersion.objects.get(id=id)
+    images=ProductImages.objects.all()
+    mainproduct=ProductVersion.objects.filter(id=id).first()
+    # like = mainproduct.category.products.exclude(id=mainproduct.id).order_by('-created_at')[:3]
+    like = ProductVersion.objects.filter(product__category=mainproduct.product.category).exclude(id=mainproduct.id).order_by('-created_at')[:3]
+    # print(mainproduct.category.products.all())
+    context={
+        'products':products,
+        'images':images,
+        'like':like,
+        'mainproduct': mainproduct,
 
-#     }
-#     return render(request,'product-detail.html',context)
+    }
+    return render(request,'product-detail.html',context)
 
 def productlist(request):
     return render(request,'product-list.html')
@@ -34,10 +33,11 @@ class ProductListView(ListView):
     model= ProductVersion
     context_object_name='products'
     ordering=('-created_at',)
-    paginate_by = 3
+    paginate_by = 10
 
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
+        context['last']=ProductVersion.objects.last()
         context['categories']= Category.objects.all()    #Category.objects.filter(products__isnull=False).distinct()
         context['colors']=PropertyValues.objects.all()
         context['tags']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
@@ -62,23 +62,23 @@ class ProductListView(ListView):
         return queryset
 
 
-def productdetail(request, id):
+# def productdetail(request, id):
 
     ###for myself ----- product and you may like   ####  ---- to run code below i have to add 'id' near request and <int:id> in urls #####
-    pp = ProductVersion.objects.filter(id=id).first()
-    get_category = pp.product.category.name
-    f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
-    review_list = pp.reviews.all().order_by('-created_at')
-    ###### code above for myself
+    # pp = ProductVersion.objects.filter(id=id).first()
+    # get_category = pp.product.category.name
+    # f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=id).order_by('-created_at')[:3] 
+    # review_list = pp.reviews.all().order_by('-created_at')
+    # ###### code above for myself
 
-    form = ReviewForm()
-    if request.method == 'POST' and 'detailed_product' in request.POST:
-        form = ReviewForm(data=request.POST)
-        if form.is_valid():
+    # form = ReviewForm()
+    # if request.method == 'POST' and 'detailed_product' in request.POST:
+    #     form = ReviewForm(data=request.POST)
+    #     if form.is_valid():
             
-            a = form.save()
-            a.productreview = pp
-            a.save()
+    #         a = form.save()
+    #         a.productreview = pp
+    #         a.save()
 
             ############ may be second version of override
             # review = ProductReview(
@@ -90,15 +90,15 @@ def productdetail(request, id):
             # review.save()
             ############
 
-            messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
-            return redirect(reverse_lazy('productdetail', kwargs={'id': pp.id}))
-    context = {
-        'form': form,
-        'pp' : pp,
-        'f' : f,
-        'review_list': review_list
-    }
-    return render(request,'product-detail.html', context)
+    #         messages.add_message(request, messages.SUCCESS, 'Review qeyde alindi!')
+    #         return redirect(reverse_lazy('productdetail', kwargs={'id': pp.id}))
+    # context = {
+    #     'form': form,
+    #     'pp' : pp,
+    #     'f' : f,
+    #     'review_list': review_list
+    # }
+    # return render(request,'product-detail.html', context)
 
 
 class ProductDetailView(CreateView, DetailView):
@@ -137,5 +137,3 @@ class ProductDetailView(CreateView, DetailView):
         return reverse_lazy('productdetail', kwargs={'pk': productversionid})
 
 
-
-    

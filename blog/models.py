@@ -1,21 +1,14 @@
-from turtle import title
 from core.models import AbstractModel
 from product.models import Category
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
 from product.models import Category
 from core.models import Tag
 
 
 
 User = get_user_model()
-
-
-class Tag(AbstractModel):
-    title = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.title
 
 
 class Blog(AbstractModel):
@@ -32,19 +25,27 @@ class Blog(AbstractModel):
         return self.title
 
 
+        
+
+
 class Comment(AbstractModel):
-    # user=models.ForeignKey(User, related_name='commentuser',on_delete=models.CASCADE, default=1)
-    # blog=models.ForeignKey(Blog,related_name='blogcomment', on_delete=models.CASCADE)
+    user=models.ForeignKey(User, related_name='commentuser',on_delete=models.CASCADE, default=1)
+    blog=models.ForeignKey(Blog,related_name='blogcomment', on_delete=models.CASCADE)
 
     name=models.CharField('Name', max_length=50)
     email=models.EmailField('Email Address',max_length=50)
     subject = models.CharField('subject', max_length=80, db_index=True)
     review=models.TextField('Comments')
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse_lazy('blog_detail', kwargs={
+            'pk': self.blogcomment.id
+        })
 
 
 

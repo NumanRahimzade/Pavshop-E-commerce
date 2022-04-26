@@ -44,6 +44,25 @@ class ShopLoginView(LoginView):
     form_class = LoginForm
     template_name = 'login.html'
 
+    # def get(self, request):
+    #     form = self.form_class()
+    #     message = ''
+    #     return render(request, self.template_name, context={'form': form, 'message': message})
+        
+    # def post(self, request):
+    #     form = self.form_class(request.POST)
+    #     if form.is_valid():
+    #         user = authenticate(
+    #             username=form.cleaned_data['username'],
+    #             password=form.cleaned_data['password'],
+    #         )
+    #         if user is not None:
+    #             login(request, user)
+    #             return redirect('')
+    #     message = 'Login failed!'
+    #     return render(request, self.template_name, context={'form': form, 'message': message})
+    
+
 
 
 
@@ -83,8 +102,8 @@ def logout(request):
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = CustomPasswordChangeForm
-    template_name = 'login.html'
-    success_url = reverse_lazy('login')
+    template_name = 'change-password.html'
+    success_url = reverse_lazy('')
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS, 'Ugurla sifreniz deyisdi')
