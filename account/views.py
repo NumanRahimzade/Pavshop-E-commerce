@@ -165,4 +165,4 @@ class Activate(View):
             return redirect(reverse_lazy('login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Mail hesabiniz tesdiq olunmadi')
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy(''))
