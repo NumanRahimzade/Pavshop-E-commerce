@@ -52,7 +52,7 @@ class RegisterView(CreateView):
         user.save()
         current_site = self.request.META['HTTP_HOST']
         send_email_confirmation(user, current_site)
-        return 
+        return response
 
 
 class ShopLoginView(LoginView):
