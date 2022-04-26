@@ -3,12 +3,33 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext, gettext_lazy as _
 from django_countries.widgets import CountrySelectWidget
 from django_countries import countries
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 
 
 
 USER = get_user_model()
 
+
+#forget password#
+class CustomSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+                                    widget=forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'New Password'
+            }))
+    new_password2 = forms.CharField(
+                                    widget=forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Confirm New Password'
+            }))
+
+
+class ResetPasswordForm(PasswordResetForm):
+    email = forms.EmailField(label=_("Email"), widget=forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email'
+            }), max_length=254)
+#forget password#
 
 class RegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(label='*CONFIRM PASSWORD', label_suffix="", max_length=50, widget=forms.PasswordInput(attrs={
@@ -61,12 +82,12 @@ class RegisterForm(forms.ModelForm):
             'last_name',
             'username',
             'email',
-            'phone_number',
+            'phone',
             'password',
             'confirm_password',
             'address',
             'country',
-            'city' 
+            'town_city' 
         )
         widgets = {
             'password': forms.PasswordInput(attrs={

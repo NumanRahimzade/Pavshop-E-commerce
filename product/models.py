@@ -30,6 +30,10 @@ class Category(AbstractModel):
     def product_count(self):
         return self.products.count()
 
+    @property
+    def blog_count(self):
+        return self.blogs.count()
+
 class Brand(AbstractModel):
     name=models.CharField('Name',max_length=70)
 
@@ -96,11 +100,17 @@ class ProductVersion(AbstractModel):
     tags=models.ManyToManyField(Tag,blank=True,related_name='product_tags')
     
 
+
     def __str__(self):
         return self.title
 
+
     def main_image(self):
         return self.productimage.all().order_by('is_main').first()
+
+    
+    def review_count(self):
+        return self.reviews.count()
 
 
 class ProductImages(AbstractModel):
@@ -130,24 +140,16 @@ class WishList(AbstractModel):
 
 
 class Review(AbstractModel):
-    # user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE, default=1)
+    user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE)
     productversion=models.ForeignKey(ProductVersion,related_name='reviews', on_delete=models.CASCADE)
     comment=models.CharField('Comment', max_length=300)
-    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.productversion.title
- 
-
-# class ProductReview(AbstractModel):
-#     # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
-#     productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
-#     full_name = models.CharField('Full Name', max_length=50)
-#     email = models.EmailField('Email', max_length=40)
-#     review = models.TextField()
-
-    # def __str__(self):
-    #     return self.user.username
     
 
-   
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'pk': self.productversion.id
+        })

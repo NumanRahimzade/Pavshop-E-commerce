@@ -1,10 +1,11 @@
 from unittest import result
+
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from product.models import *
-from blog.models import Tag
+from core.models import Tag
 from product.forms import ReviewForm
 from django.db.models import Count
 # Create your views here.
@@ -40,7 +41,7 @@ class ProductListView(ListView):
         context=super().get_context_data(**kwargs)
         context['categories']= Category.objects.all()    #Category.objects.filter(products__isnull=False).distinct()
         context['colors']=PropertyValues.objects.all()
-        context['tags']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
+        context['tags']=Tag.objects.annotate(chapters_cnt=Count('product_tags')).order_by('-chapters_cnt')
         context['brands']=Brand.objects.all()
         return context
 
@@ -116,20 +117,19 @@ class ProductDetailView(CreateView, DetailView):
         context['f'] = f
         reviews = self.object.reviews.all().order_by('-created_at')
         context['review_list'] = reviews
+        context['images'] = ProductImages.objects.all()
         return context
 
 
     def form_valid(self, form):
-        result = super().form_valid(form)
-        Review.objects.create(
-                full_name=self.request.POST['full_name'],
-                email=self.request.POST['email'],
-                review=self.request.POST['review'],
-                productreview=ProductVersion.objects.get(id=self.kwargs['pk'])
-            )
+        
+        form.instance.user = self.request.user
+        form.instance.comment = self.request.POST['comment']
+        form.instance.productversion = ProductVersion.objects.get(id=self.kwargs['pk'])
+        
         messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
         
-        return result
+        return super().form_valid(form)
 
     
     def get_success_url(self):

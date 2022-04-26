@@ -37,7 +37,7 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{% static 'images/large-img-1.jpg' %}"  alt=""> </li>
+                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{{ pp.main_image.image.url }}"  alt=""> </li>
                   <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{% static 'images/large-img-2.jpg' %}"  alt=""> </li>
                   <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li>
                 </ul>
@@ -170,8 +170,8 @@
                 </div>
                 <!--  Details -->
                 <div class="media-body">
-                  <p class="font-playfair">{{ i.review }}</p>
-                  <h6>{{ i.full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
+                  <p class="font-playfair">{{ i.comment }}</p>
+                  <h6>{{ i.user.get_full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
                 </div>
                 
               </div>

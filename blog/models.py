@@ -1,21 +1,14 @@
 from turtle import title
-from core.models import AbstractModel
+from core.models import AbstractModel, Tag
 from product.models import Category
 from django.db import models
 from django.contrib.auth import get_user_model
 from product.models import Category
-from core.models import Tag
+
 
 
 
 User = get_user_model()
-
-
-class Tag(AbstractModel):
-    title = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.title
 
 
 class Blog(AbstractModel):
@@ -26,7 +19,7 @@ class Blog(AbstractModel):
     
     title = models.CharField('Title', max_length=50, db_index=True)
     description = models.TextField('Description')
-    image = models.ImageField(upload_to='media/blog_images/')
+    image = models.ImageField(upload_to='blog_images/')
 
     def __str__(self):
         return self.title

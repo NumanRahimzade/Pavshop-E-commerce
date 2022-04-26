@@ -1,6 +1,6 @@
 from django.template import Library
 from product.models import Category
-from blog.models import Tag
+from core.models import Tag
 from django.db import models
 
 register = Library()

@@ -176,6 +176,16 @@
                     {% endif %}
                   </ul>
                 </li>
+                <!--  for testing login & logout  -->
+                    <!-- {% if request.user.is_authenticated %}
+                    <li>
+                      <h6>HELLO! {{ user.get_full_name }}</h6>
+                    </li>
+                    
+                    <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">LOG IN</a></li>
+                    {% endif %} -->
                 
                 <!-- USER BASKET -->
                 <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded"></i> </a>
