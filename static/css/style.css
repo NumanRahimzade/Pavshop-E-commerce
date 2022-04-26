@@ -112,6 +112,9 @@ img {
 	transition: 0.4s ease-in-out;
 	display: inline-block !important;
 }
+
+
+
 ul {
 	margin-bottom: 0px;
 }
@@ -456,6 +459,7 @@ header .navbar li {
 	position: relative;
 }
 header .sticky {
+	height: 192px;
 	width: 100%;
 	-webkit-transition: 0.4s ease-in-out;
 	-moz-transition: 0.4s ease-in-out;
@@ -879,7 +883,7 @@ header .user-acc li h6 {
 	text-transform: none;
 }
 header .user-acc .dropdown-menu {
-	margin-top: 51px;
+	/* margin-top: 51px; 	 */
 	padding: 0px;
 	border: none;
 	border-radius: 0px;
@@ -2727,9 +2731,12 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 }
 .shopping-cart .bootstrap-select.btn-group .dropdown-menu li {
 	min-height: inherit;
+	
 }
+
 .shopping-cart img {
 	width: 100%;
+
 }
 
 #flag_id_country{

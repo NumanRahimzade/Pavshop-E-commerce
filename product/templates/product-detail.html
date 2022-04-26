@@ -46,14 +46,15 @@
             
             <!-- COntent -->
             <div class="col-md-5">
-              <h4>wood chair</h4>
-              <span class="price"><small>$</small>299</span> 
+             
+              <h4>{{ pp.title }}</h4>
+              <span class="price"><small>$</small>{{ pp.price }}</span> 
               
               <!-- Sale Tags -->
               <div class="on-sale"> 10% <span>OFF</span> </div>
               <ul class="item-owner">
-                <li>Designer :<span> ABC Art</span></li>
-                <li>Brand:<span> LimeWood</span></li>
+                <li>Designer :<span> {{ pp.product.category.name }}</span></li>
+                <li>Brand:<span>{{ pp.product.brand.name }}</span></li>
               </ul>
               
               <!-- Item Detail -->
@@ -121,7 +122,7 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs animate fadeInUp" data-wow-delay="0.4s" role="tablist">
             <li role="presentation" class="active"><a href="#descr" role="tab" data-toggle="tab">DESCRIPTION</a></li>
-            <li role="presentation"><a href="#review" role="tab" data-toggle="tab">REVIEW (03)</a></li>
+            <li role="presentation"><a href="#review" role="tab" data-toggle="tab">REVIEW {{ pp.review_count }}</a></li>
             <li role="presentation"><a href="#tags" role="tab" data-toggle="tab">INFORMATION</a></li>
           </ul>
           
@@ -157,36 +158,27 @@
             
             <!-- REVIEW -->
             <div role="tabpanel" class="tab-pane fade" id="review">
-              <h6>3 REVIEWS FOR SHIP YOUR IDEA</h6>
+              <h6>{{ pp.review_count }} REVIEWS FOR SHIP YOUR IDEA</h6>
               
               <!-- REVIEW PEOPLE 1 -->
+              {% for i in review_list %}
               <div class="media">
+                
                 <div class="media-left"> 
                   <!--  Image -->
                   <div class="avatar"> <a href="#"> <img class="media-object" src="{% static 'images/avatar-1.jpg' %}" alt=""> </a> </div>
                 </div>
                 <!--  Details -->
                 <div class="media-body">
-                  <p class="font-playfair">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.”</p>
-                  <h6>TYRION LANNISTER <span class="pull-right">MAY 10, 2016</span> </h6>
+                  <p class="font-playfair">{{ i.review }}</p>
+                  <h6>{{ i.full_name }}<span class="pull-right">{{ i.created_at|date:"F d, Y" }}</span> </h6>
                 </div>
+                
               </div>
-              
+              {% endfor %}
               <!-- REVIEW PEOPLE 1 -->
               
-              <div class="media">
-                <div class="media-left"> 
-                  <!--  Image -->
-                  <div class="avatar"> <a href="#"> <img class="media-object" src="{% static 'images/avatar-2.jpg' %}" alt=""> </a> </div>
-                </div>
-                <!--  Details -->
-                <div class="media-body">
-                  <p class="font-playfair">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.”</p>
-                  <h6>TYRION LANNISTER <span class="pull-right">MAY 10, 2016</span> </h6>
-                </div>
-              </div>
+              
               
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
@@ -242,7 +234,7 @@
         
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
-          
+          {% for y in f %}
           <!-- Item -->
           <div class="item"> 
             <!-- Item img -->
@@ -255,65 +247,16 @@
               </div>
             </div>
             <!-- Item Name -->
-            <div class="item-name"> <a href="#.">stone cup</a>
-              <p>Lorem ipsum dolor sit amet</p>
+            <div class="item-name"> <a href="#."></a>
+              <p>{{ y.title }}</p>
             </div>
             <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+            <span class="price"><small>$</small>{{ y.price }}</span> </div>
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-2.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-2.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">gray bag</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+          {% endfor %}
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-3.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-3.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">chiar</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
           
-          <!-- Item -->
-          <div class="item"> 
-            <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-4.jpg' %}" alt="" > 
-              <!-- Overlay -->
-              <div class="overlay">
-                <div class="position-center-center">
-                  <div class="inn"><a href="{% static 'images/product-4.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- Item Name -->
-            <div class="item-name"> <a href="#.">STool</a>
-              <p>Lorem ipsum dolor sit amet</p>
-            </div>
-            <!-- Price --> 
-            <span class="price"><small>$</small>299</span> </div>
+          
         </div>
       </div>
     </section>

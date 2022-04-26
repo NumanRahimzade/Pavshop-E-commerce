@@ -1,23 +1,31 @@
 from django.contrib import admin
 
-from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList, ProductReview
+from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount, Review,WishList
 
 
-class ProductImagesInlineAdmin(admin.TabularInline):
+
+class ProductImageInlineAdmin(admin.TabularInline):
     model = ProductImages
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('brand', 'created_at')
-    list_filter = ('brand__name', 'created_at')
-    search_fields = ('brand__name', )
-    
+
+# admin.site.register([WishList])
+
+
+# from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList, ProductReview
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at')
     list_filter = ( 'name','created_at')
+    search_fields = ['name']
+  
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('brand', 'created_at')
+    list_filter = ( 'brand','category','created_at')
+    search_fields = ['brand__name', 'category__name']
     search_fields = ('name', )
 
 
@@ -54,7 +62,7 @@ class ProductVersionAdmin(admin.ModelAdmin):
     list_display = ('title', 'code', 'price', 'stock', 'created_at')
     list_filter = ('product__category__name', 'created_at')
     search_fields = ('title', 'price', 'code')
-    inlines = [ProductImagesInlineAdmin, ]
+    inlines = [ProductImageInlineAdmin, ]
 
 
 @admin.register(Discount)
@@ -71,11 +79,21 @@ class WishListAdmin(admin.ModelAdmin):
     search_fields = ( 'user__username', )
 
 
-@admin.register(ProductReview)
-class ProductReview(admin.ModelAdmin):
-    list_display = ('full_name', 'email', 'review','created_at')
-    list_filter = ('full_name', 'email', 'created_at')
-    search_fields = ( 'full_name', 'email',  )
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('user','productversion','comment','created_at')
+    list_filter = ('productversion','user','created_at')
+    search_fields = [ 'user__username','productversion__title','comment']
+    
+    
+
+
+# @admin.register(ProductReview)
+# class ProductReview(admin.ModelAdmin):
+#     list_display = ('full_name', 'email', 'review','created_at')
+#     list_filter = ('full_name', 'email', 'created_at')
+#     search_fields = ( 'full_name', 'email',  )
     # list_display = ('user', 'email', 'review','created_at')
     # list_filter = ('user', 'email', 'created_at')
     # search_fields = ( 'user', 'email',  )

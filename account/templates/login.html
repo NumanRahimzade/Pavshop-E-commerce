@@ -38,11 +38,12 @@
               <!-- ESTIMATE SHIPPING & TAX -->
               <div class="col-sm-7">
                 <h6>LOGIN YOUR ACCOUNT</h6>
-                <form method="POST">
+                <form action="" method="POST">
                   <ul class="row">
                     
+                    <!-- Name -->
                     {% csrf_token %}
-                    {{ form.non_field_errors }}
+                    {{form.non_field_errors}}
                     {% for field in form %}
                     <li class="col-md-12">
                       <label> 

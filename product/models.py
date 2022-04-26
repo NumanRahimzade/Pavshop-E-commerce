@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from core.models import Tag
 
 User = get_user_model()
 
@@ -25,10 +26,28 @@ class Category(AbstractModel):
     def __str__(self):
         return self.name
 
+    @property
+    def product_count(self):
+        return self.products.count()
+
+class Brand(AbstractModel):
+    name=models.CharField('Name',max_length=70)
+
+    def __str__(self):
+        return self.name
+
 
 class Product(AbstractModel):
     brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
     category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+            return self.brand.name
+
+    @property
+    def main_version(self):
+        return self.productversions.first()
 
     def __str__(self):
             return self.brand.name
@@ -74,19 +93,14 @@ class ProductVersion(AbstractModel):
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')
+    tags=models.ManyToManyField(Tag,blank=True,related_name='product_tags')
+    
 
     def __str__(self):
         return self.title
 
     def main_image(self):
         return self.productimage.all().order_by('is_main').first()
-
-
-class Brand(AbstractModel):
-    name=models.CharField('Name',max_length=70)
-
-    def __str__(self):
-        return self.name
 
 
 class ProductImages(AbstractModel):
@@ -115,12 +129,22 @@ class WishList(AbstractModel):
     user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
 
 
-class ProductReview(AbstractModel):
-    # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
-    productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
-    full_name = models.CharField('Full Name', max_length=50)
-    email = models.EmailField('Email', max_length=40)
-    review = models.TextField()
+class Review(AbstractModel):
+    # user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE, default=1)
+    productversion=models.ForeignKey(ProductVersion,related_name='reviews', on_delete=models.CASCADE)
+    comment=models.CharField('Comment', max_length=300)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.productversion.title
+ 
+
+# class ProductReview(AbstractModel):
+#     # user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
+#     productreview=models.ForeignKey(ProductVersion,blank=True, null=True, on_delete=models.CASCADE)
+#     full_name = models.CharField('Full Name', max_length=50)
+#     email = models.EmailField('Email', max_length=40)
+#     review = models.TextField()
 
     # def __str__(self):
     #     return self.user.username

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Brand',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=70, verbose_name='Name')),
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=70, verbose_name='Name')),
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Discount',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=80, verbose_name='Title')),
@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('brand', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='productbrand', to='product.brand')),
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProductVersion',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=50, verbose_name='Title')),
@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PropertyName',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=70, verbose_name='Name')),
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='WishList',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('productversion', models.ManyToManyField(blank=True, to='product.ProductVersion')),
@@ -112,13 +112,40 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PropertyValues',
+            name='Review',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('comment', models.CharField(max_length=300, verbose_name='Comment')),
+                ('productversion', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='productreview', to='product.productversion')),
+                ('reply', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='product.review')),
+                ('user', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='reviewuser', to=settings.AUTH_USER_MODEL)),
+                ('value', models.CharField(max_length=100, verbose_name='Value')),
+                ('propertyname', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='propertyvalues', to='product.propertyname', verbose_name='Property Name')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.AddField(
+            model_name='productversion',
+            name='property',
+            field=models.ManyToManyField(blank=True, to='product.PropertyValues'),
+        ),
+        migrations.CreateModel(
+            name='PropertyValues',
+            name='ProductReview',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('value', models.CharField(max_length=100, verbose_name='Value')),
-                ('propertyname', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='propertyvalues', to='product.propertyname', verbose_name='Property Name')),
+                ('propertyname', models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='propertyvalues', to='product.propertyname')),
+                ('full_name', models.CharField(max_length=50, verbose_name='Full Name')),
+                ('email', models.EmailField(max_length=40, verbose_name='Email')),
+                ('review', models.TextField()),
+                ('productreview', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='product.productversion')),
             ],
             options={
                 'verbose_name': 'Property Value',
@@ -131,24 +158,9 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(blank=True, to='product.PropertyValues'),
         ),
         migrations.CreateModel(
-            name='ProductReview',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('full_name', models.CharField(max_length=50, verbose_name='Full Name')),
-                ('email', models.EmailField(max_length=40, verbose_name='Email')),
-                ('review', models.TextField()),
-                ('productreview', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='product.productversion')),
-            ],
-            options={
-                'abstract': False,
-            },
-        ),
-        migrations.CreateModel(
             name='ProductImages',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('image', models.ImageField(upload_to='product_images/')),

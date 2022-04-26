@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User
+from django.utils.translation import gettext as _
 
 
 class UserAdmin(BaseUserAdmin):
