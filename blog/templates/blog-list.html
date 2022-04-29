@@ -81,12 +81,7 @@
               <ul class="shop-cate">
                 {% get_categories as categories %}
                 {% for category in categories %}
-<<<<<<< HEAD
                   <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }} {{ category.blog_count }}</a></li>
-=======
-                <li><a href="#."> {{ category.name }} <span>{{category.product_count}}</span></a></li>
-
->>>>>>> aysu_new
                 {% endfor %}
                 <!-- <li><a href="#."> Chair <span>24</span></a></li>
                 <li><a href="#."> Bag <span>122</span></a></li>
@@ -132,12 +127,8 @@
               <ul class="shop-tags">
                 {% get_popular_tags as tags %}
                 {% for tag in tags %}
-<<<<<<< HEAD
 
                   <li><a href="#."> {{ tag.title }} </a></li>
-=======
-                <li><a href="#.">{{tag.title}}</a></li>
->>>>>>> aysu_new
                 {% endfor %}
 <!--           
                 <li><a href="#.">Towels</a></li>

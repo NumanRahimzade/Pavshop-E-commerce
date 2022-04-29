@@ -47,7 +47,7 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.instance
-        form.instance.set_password(form.cleaned_data['password'])
+        user.set_password(form.cleaned_data['password'])
         user.is_active = False
         user.save()
         current_site = self.request.META['HTTP_HOST']

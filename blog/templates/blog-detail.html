@@ -28,7 +28,7 @@
           <!-- Article -->
           <article> 
             <!-- Post Img --> 
-            <img class="img-responsive" src="{{ blogs.image.url }}" alt="" > 
+            <img class="img-responsive" src="{{blogs.image.url}}" alt="" > 
             <!-- Tittle -->
             <div class="post-tittle left"> <a href="#." class="tittle"> {{ blogs.title }} </a> 
               <!-- Post Info --> 
@@ -86,7 +86,7 @@
               <!-- ADMIN info -->
               <div class="admin-info">
                 <div class="media-left">
-                  <div class="admin-pic"> <img src="{{ blogs.author.image.url}}" alt=""> </div>
+                  <div class="admin-pic"> <img src="{{blogs.author.image.url}}" alt=""> </div>
                 </div>
                 <div class="media-body">
                   <h6> {{blogs.author.username}} <span>Co-Founder</span></h6>
@@ -102,7 +102,7 @@
                   <!--=======  COMMENTS =========-->
                   {% for comment in comments %}
                   <li class="media">
-                    <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{% static 'images/avatar-1.jpg' %}" alt=""> <br>
+                    <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{{comment.user.image.url}}" alt=""> <br>
                       </a> </div>
                     <div class="media-body">
                       <h6 class="media-heading">{{comment.user.username}} <span><i class="icon-clock primary-color"></i> {{comment.created_at|date:"F d,Y - H:m" }}</span></h6>
@@ -180,17 +180,17 @@
                 
                 <div class="col-sm-5"> 
                   <!-- Post Img --> 
-                  <img class="img-responsive" src="{{ l.image.url }}" alt="" > </div>
+                  <img class="img-responsive" src="{{l.image.url}}" alt="" > </div>
                 <div class="col-sm-7"> 
                   <!-- Tittle -->
-                  <div class="post-tittle left"> <a href="#." class="tittle">{{ l.title }}</a> 
+                  <div class="post-tittle left"> <a href="{% url 'blog_detail' l.id %}" class="tittle">{{ l.title }}</a> 
                     <!-- Post Info --> 
                     <span><i class="primary-color icon-user"></i> </span> {{l.author.username}} <span><i class="primary-color icon-calendar"></i> {{ l.created_at|date:"F d, Y" }} </span> </div>
                   <!-- Post Content -->
                   <div class="text-left">
                     <p>{{ l.description }}</p>                      
                       
-                    <a href="#." class="red-more">READ MORE</a> </div>
+                    <a href="{% url 'blog_detail' l.id %}" class="red-more">READ MORE</a> </div>
                 </div>
                 
               </div>
@@ -214,7 +214,7 @@
             <h5 class="shop-tittle margin-bottom-30">category</h5>
             <ul class="shop-cate">
               {% for category in categories %}
-              <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }}  </a></li>
+              <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }}   <span>{{category.blog_count}}</span> </a></li>
               {% endfor %}
             </ul>
             
@@ -224,7 +224,7 @@
               {% for i in recentpost %}
               <li class="media">
                 <div class="media-left"> <a href="#"> <img class="media-object" src="{{i.image.url}}" alt=""></a> </div>
-                <div class="media-body"> <a class="media-heading" href="#.">{{ i.title }} 
+                <div class="media-body"> <a class="media-heading" href="{% url 'blog_detail' i.id %}">{{ i.title }} 
                 </a> <span> {{ i.created_at|date:"F d, Y" }} </span> </div>
               </li>
               {% endfor %}
@@ -235,8 +235,7 @@
             <!-- TAGS -->
             <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
             <ul class="shop-tags">
-              {% for tag in tagss %}
-
+              {% for tag in tags %}
               <li><a href="{% url 'blog_list' %}?tag_id={{tag.id}}"> {{ tag.title }} </a></li>
               {% endfor %}
             </ul>
