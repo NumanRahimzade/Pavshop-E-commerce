@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -62,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ecommerce.middleware.BlockIPMiddleware'
+    'ecommerce.middleware.BlockIPMiddleware',
+    # 'ecommerce.middleware.RequestLogMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -114,6 +116,8 @@ DATABASES = {
         'DISABLE_SERVER_SIDE_CURSORS': True,
     }
 }
+
+LOGS_ROOT = BASE_DIR / f'logs/{datetime.date.today()}.log'
 
 
 # Password validation
