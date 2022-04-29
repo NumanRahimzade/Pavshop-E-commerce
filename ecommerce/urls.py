@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
     path('', include('core.urls')),

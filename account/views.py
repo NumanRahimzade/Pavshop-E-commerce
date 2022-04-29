@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponseRedirect
 from django.template import context
 from django.contrib.auth.mixins import LoginRequiredMixin
 from account.forms import (RegisterForm,LoginForm, CustomPasswordChangeForm, 
@@ -20,6 +20,13 @@ from django.contrib.auth.views import (LoginView, PasswordChangeView,
 
 User = get_user_model()
 
+class LoginRegisterMixin:
+    def dispatch(self, request, *args, **kwargs):
+        print(request.user.is_authenticated)
+        if request.user.is_authenticated:
+            return redirect('/')
+        return super().dispatch(request, *args, **kwargs)
+
 
 def register(request):
     if not request.user.is_authenticated:
@@ -39,7 +46,7 @@ def register(request):
         return redirect('')
 
 
-class RegisterView(CreateView):
+class RegisterView(LoginRegisterMixin, CreateView):
     form_class = RegisterForm
     template_name = 'register.html'
     success_url = reverse_lazy('login')
@@ -47,17 +54,32 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         user = form.instance
-        form.instance.set_password(form.cleaned_data['password'])
+        user.set_password(form.cleaned_data['password'])
         user.is_active = False
         user.save()
         current_site = self.request.META['HTTP_HOST']
         send_email_confirmation(user, current_site)
+        messages.add_message(self.request, messages.SUCCESS, 'Mailinizi yoxlayin ve  hesabiniza gelen hesab aktivlesdirme linkine daxil olun!')
         return response
 
 
-class ShopLoginView(LoginView):
+ 
+
+
+class ShopLoginView(LoginRegisterMixin, LoginView):
     form_class = LoginForm
     template_name = 'login.html'
+    
+
+    # def dispatch(self, request, *args, **kwargs):
+        
+    #     if self.redirect_authenticated_user and self.request.user.is_authenticated:
+            
+    #         return redirect(reverse_lazy(''))
+    #         # redirect_to = self.get_success_url('')
+    #         # if redirect_to == self.request.path:
+    #         #     return HttpResponseRedirect(redirect_to)
+    #     return super(ShopLoginView, self).dispatch(request, *args, **kwargs)
 
     # def get(self, request):
     #     form = self.form_class()
@@ -150,9 +172,11 @@ class Activate(View):
     def get(self, request, *args, **kwargs):
         uidb64 = kwargs.get('uidb64')
         token = kwargs.get('token')
+        
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
+            
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
         if user.is_active:
@@ -165,4 +189,4 @@ class Activate(View):
             return redirect(reverse_lazy('login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Mail hesabiniz tesdiq olunmadi')
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy(''))

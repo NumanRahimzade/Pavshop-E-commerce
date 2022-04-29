@@ -27,15 +27,16 @@
           
           <!-- Article -->
           <article> 
+            {% for blog in blog_list %}
             <!-- Post Img --> 
-            <img class="img-responsive" src="{{ blogs.image.url }}" alt="" > 
+            <img class="img-responsive" src="{{ blog.image.url }}" alt="" > 
             <!-- Tittle -->
-            <div class="post-tittle left"> <a href="#." class="tittle"> {{ blogs.title }} </a> 
+            <div class="post-tittle left"> <a href="#." class="tittle"> {{ blog.title }} </a> 
               <!-- Post Info --> 
-              <span><i class="primary-color icon-user"></i> {{ blogs.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ blogs.created_at|date:"F d, Y" }}</span> <span><i class="primary-color icon-bubble"></i> {{blogs.blogcomment.count}}</span> <span><i class="primary-color icon-tag"></i> {{blogs.category}}</span> </div>
+              <span><i class="primary-color icon-user"></i> {{ blog.author.username }}</span> <span><i class="primary-color icon-calendar"></i> {{ blog.created_at|date:"F d, Y" }}</span> <span><i class="primary-color icon-bubble"></i> {{blogs.blogcomment.count}}</span> <span><i class="primary-color icon-tag"></i> {{blogs.category}}</span> </div>
             <!-- Post Content -->
             <div class="text-left">
-              <p> {{ blogs.description }} </p>
+              <p> {{ blog.description }} </p>
                 <br>
                 
               <!-- Post Img --> 
@@ -86,15 +87,15 @@
               <!-- ADMIN info -->
               <div class="admin-info">
                 <div class="media-left">
-                  <div class="admin-pic"> <img src="{{ blogs.author.image.url}}" alt=""> </div>
+                  <div class="admin-pic"> <img src="" alt=""> </div>
                 </div>
                 <div class="media-body">
-                  <h6> {{blogs.author.username}} <span>Co-Founder</span></h6>
-                  <p>{{blogs.description}} </p>
+                  <h6> {{blog.author.username}} <span>Co-Founder</span></h6>
+                  <p>{{blog.description}} </p>
                   <div class="admin-social"> <a href="#."><i class="icon-social-facebook"></i></a> <a href="#."><i class="icon-social-twitter"></i></a> <a href="#."><i class="icon-social-dribbble"></i></a> <a href="#."><i class="icon-envelope"></i></a> </div>
                 </div>
               </div>
-              
+              {% endfor %}
               <!--=======  COMMENTS =========-->
               <div class="comments margin-top-80">
                 <h5 class="shop-tittle margin-bottom-30">COMMENTS</h5>

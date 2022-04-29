@@ -8,7 +8,7 @@ from core.forms import ContactForm, SubscribeForm
 
 
 def home(request):
-
+    print(request.user.is_authenticated)
     return render(request, 'index.html')
 
 def about(request):

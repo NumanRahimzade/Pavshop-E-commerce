@@ -100,14 +100,17 @@ def blog_detail(request, id):
 class BlogDetailView(CreateView, DetailView):
     template_name = 'blog-detail.html'
     model = Blog
-    context_object_name = 'blogs'
+    # context_object_name = 'blogs'
     form_class = BlogCommentForm
 
     # success_url = reverse_lazy('')
 
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+        blog_list = Blog.objects.all()
+        context['blog_list'] = blog_list
         context['categories']= Category.objects.all()
         mainBlog = Blog.objects.filter(id=self.object.id).first()  
         get_category = mainBlog.category.name

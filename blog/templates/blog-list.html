@@ -36,7 +36,7 @@
                   <!-- Tittle -->
                   <div class="post-tittle left"> <a href="#." class="tittle">{{ blog.title }}</a> 
                     <!-- Post Info --> 
-                    <span><i class="primary-color icon-user"></i> {{ blog.author }}</span> <span><i class="primary-color icon-calendar"></i> {{ blog.created_at|date:"F d, Y" }} </span> <span><i class="primary-color icon-bubble"></i> {{ blog.blogcomment.count }}</span> <span><i class="primary-color icon-tag"></i> {{ blog.category }}</span> </div>
+                    <span><i class="primary-color icon-user"></i> {{ blog.author }}</span> <span><i class="primary-color icon-calendar"></i> {{ blog.created_at|date:"F d, Y" }} </span> 
                   <!-- Post Content -->
                   <div class="text-left">
                     <p> {{ blog.description }}</p>
@@ -50,17 +50,17 @@
             <!-- Pagination -->
             <ul class="pagination in-center">
               {% if page_obj.has_previous %}
-                 <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
               {% endif %}
               {% for page in page_obj.paginator.page_range %}
                  {% if page is page_obj.number %}
                     <li class="active"><a href="#">{{page}}</a></li>
                  {% else %}
-                    <li><a href="?page={{page}}">{{page}}</a></li>
+                    <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
                   {% endif %}
               {% endfor %}
               {% if page_obj.has_next %}
-                 <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
               {% endif %}
             </ul>
             
@@ -81,12 +81,7 @@
               <ul class="shop-cate">
                 {% get_categories as categories %}
                 {% for category in categories %}
-<<<<<<< HEAD
                   <li><a href="{% url 'blog_list' %}?category_id={{category.id}}"> {{ category.name }} {{ category.blog_count }}</a></li>
-=======
-                <li><a href="#."> {{ category.name }} <span>{{category.product_count}}</span></a></li>
-
->>>>>>> aysu_new
                 {% endfor %}
                 <!-- <li><a href="#."> Chair <span>24</span></a></li>
                 <li><a href="#."> Bag <span>122</span></a></li>
@@ -110,21 +105,7 @@
                   <div class="media-body"> <a class="media-heading" href="#.">{{ newblog.title }}</a> <span>Posted on {{ newblog.created_at|date:"F d, Y"}}</span> </div>
                 </li>
                 {% endfor %}
-                <!-- <li class="media">
-                  <div class="media-left"> <a href="#"> <img class="media-object" src="{% static 'images/sm-post-1.jpg' %}" alt=""></a> </div>
-                  <div class="media-body"> <a class="media-heading" href="#.">Nullam volutpat dui at 
-                    a consequat enimiquet</a> <span>Posted on Sep 27</span> </div>
-                </li>
-                <li class="media">
-                  <div class="media-left"> <a href="#"> <img class="media-object" src="{% static 'images/sm-post-2.jpg' %}" alt=""></a> </div>
-                  <div class="media-body"> <a class="media-heading" href="#.">Nullam volutpat dui at 
-                    a consequat enimiquet</a> <span>Posted on Sep 27</span> </div>
-                </li>
-                <li class="media">
-                  <div class="media-left"> <a href="#"> <img class="media-object" src="{% static 'images/sm-post-3.jpg' %}" alt=""></a> </div>
-                  <div class="media-body"> <a class="media-heading" href="#.">Nullam volutpat dui at 
-                    a consequat enimiquet</a> <span>Posted on Sep 27</span> </div>
-                </li> -->
+                
               </ul>
               
               <!-- TAGS -->
@@ -132,12 +113,8 @@
               <ul class="shop-tags">
                 {% get_popular_tags as tags %}
                 {% for tag in tags %}
-<<<<<<< HEAD
 
                   <li><a href="#."> {{ tag.title }} </a></li>
-=======
-                <li><a href="#.">{{tag.title}}</a></li>
->>>>>>> aysu_new
                 {% endfor %}
 <!--           
                 <li><a href="#.">Towels</a></li>
@@ -201,4 +178,25 @@
   </div>
   
 
+  <script>
+    pagination_links = document.getElementsByClassName("pagination-links")
+    console.log(pagination_links);
+    for (let i = 0; i < pagination_links.length; i++) {
+      pagination_links[i].addEventListener("click", function() {
+
+        if (window.location.href.includes('page') == false) {
+                if (window.location.href.includes('?')) {
+                    window.location.href += `&page=${pagination_links[i].getAttribute("data-page")}`;
+                } else {
+                    window.location.href += `?page=${pagination_links[i].getAttribute("data-page")}`;
+                }
+            } else {
+                window.location.href = window.location.href.replace(/page=.*?(&|$)/, `page=${pagination_links[i].getAttribute("data-page")}$1`);
+            }
+
+      });
+    }
+
+
+  </script>
 {% endblock %}
