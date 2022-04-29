@@ -53,6 +53,7 @@ class BlogListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         category_id = self.request.GET.get('category_id') # 1
+        tag_id = self.request.GET.get('tag_id') # 1
         
         if category_id:
             queryset = queryset.filter(category__id=category_id)
@@ -100,32 +101,32 @@ def blog_detail(request, id):
 class BlogDetailView(CreateView, DetailView):
     template_name = 'blog-detail.html'
     model = Blog
-    # context_object_name = 'blogs'
+    context_object_name = 'blogs'
     form_class = BlogCommentForm
 
     # success_url = reverse_lazy('')
 
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
-        blog_list = Blog.objects.all()
-        context['blog_list'] = blog_list
         context['categories']= Category.objects.all()
         mainBlog = Blog.objects.filter(id=self.object.id).first()  
         get_category = mainBlog.category.name
         context['like']=Blog.objects.filter(category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3]  
-        context['tagss']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
+        context['tags']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
         context['recentpost']=Blog.objects.all().exclude(id=self.object.id).order_by('-created_at')[:3] 
         context['created']=Blog.objects.all().order_by('-created_at')[:5] 
-        context['comments']=Comment.objects.all()
+        context['comments']=Comment.objects.filter(blog=Blog.objects.get(pk=self.object.id))
         context['mainBlog']=mainBlog 
         return context
 
     def get_queryset(self):
         queryset=super().get_queryset()
+        blog_id=self.request.GET.get('blog_id')
         category_id = self.request.GET.get('category_id') # 1
         tag_id=self.request.GET.get('tag_id')
+        if blog_id:
+            queryset=queryset.filter(blog__id=blog_id)
         if tag_id:
             queryset=queryset.filter(tags__id=tag_id)
         if category_id:

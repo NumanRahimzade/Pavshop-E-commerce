@@ -1,4 +1,3 @@
-from urllib import response
 from django.utils.deprecation import MiddlewareMixin
 from django.http import HttpResponseForbidden
 

@@ -79,7 +79,7 @@
                     </div>
                   </div>
                   <!-- Item Name -->
-                  <div class="item-name"> <a href="#."> {{ item.title }} </a>
+                  <div class="item-name"> <a href="{% url 'productdetail' item.id %}"> {{ item.title }} </a>
                     <p> {{ item.code }} </p>
                   </div>
                   <!-- Price --> 

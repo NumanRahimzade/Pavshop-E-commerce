@@ -1,4 +1,3 @@
-from turtle import title
 from core.models import AbstractModel, Tag
 from product.models import Category
 from django.db import models
