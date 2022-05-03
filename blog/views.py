@@ -15,23 +15,23 @@ from product.models import Category
 from django.shortcuts import get_object_or_404
 
 
-# def blog_list(request):
-#     blogs=Blog.objects.all()
-#     newblogs=Blog.objects.all().order_by('-created_at')[:3]
-#     comment=Comment.objects.all()
-#     categories=Category.objects.all()
-#     tags=Tag.objects.all()
-#     tags=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
-#     # comments = Blog.objects.get(id=blog_id).contest_votes.count()
-#     context={
-#         'blogs': blogs,
-#         'comment': comment,
-#         'categories':categories,
-#         'newblogs':newblogs,
-#         'tags':tags
+def blog_list(request):
+    blogs=Blog.objects.all()
+    newblogs=Blog.objects.all().order_by('-created_at')[:3]
+    comment=Comment.objects.all()
+    categories=Category.objects.all()
+    tags=Tag.objects.all()
+    tags=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
+    # comments = Blog.objects.get(id=blog_id).contest_votes.count()
+    context={
+        'blogs': blogs,
+        'comment': comment,
+        'categories':categories,
+        'newblogs':newblogs,
+        'tags':tags
 
-#     }
-#     return render(request, 'blog-list.html',context)
+    }
+    return render(request, 'blog-list.html',context)
 
 
 class BlogListView(ListView):
@@ -53,6 +53,7 @@ class BlogListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         category_id = self.request.GET.get('category_id') # 1
+        tag_id = self.request.GET.get('tag_id') # 1
         
         if category_id:
             queryset = queryset.filter(category__id=category_id)
