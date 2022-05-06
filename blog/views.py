@@ -57,6 +57,8 @@ class BlogListView(ListView):
         
         if category_id:
             queryset = queryset.filter(category__id=category_id)
+        if tag_id:
+            queryset = queryset.filter(tags__id=tag_id)
         
         return queryset
 
@@ -125,6 +127,7 @@ class BlogDetailView(CreateView, DetailView):
         blog_id=self.request.GET.get('blog_id')
         category_id = self.request.GET.get('category_id') # 1
         tag_id=self.request.GET.get('tag_id')
+        print(category_id)
         if blog_id:
             queryset=queryset.filter(blog__id=blog_id)
         if tag_id:

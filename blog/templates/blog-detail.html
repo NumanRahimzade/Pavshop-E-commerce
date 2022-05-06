@@ -68,7 +68,7 @@
                   <h5 class="shop-tittle">PRODUCT TAGS</h5>
                   <ul class="shop-tags padding-left-15">
                     {% for i in mainBlog.tags.all %}
-                    <li><a href="#."> {{ i }} </a></li>
+                    <li><a href="{% url 'blog_list' %}?tag_id={{i.id}}"> {{ i }} </a></li>
                     {% endfor %}
                   </ul>
                 </div>

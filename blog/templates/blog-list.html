@@ -114,7 +114,7 @@
                 {% get_popular_tags as tags %}
                 {% for tag in tags %}
 
-                  <li><a href="#."> {{ tag.title }} </a></li>
+                  <li><a href="{% url 'blog_list' %}?tag_id={{tag.id}}"> {{ tag.title }} </a></li>
                 {% endfor %}
 <!--           
                 <li><a href="#.">Towels</a></li>

@@ -28,7 +28,11 @@ class Category(AbstractModel):
 
     @property
     def product_count(self):
-        return self.products.count()
+        count = 0
+        for i in self.products.all():
+            count += i.productversions.count()
+        return count
+        # return self.products.count()
 
     @property
     def blog_count(self):
@@ -94,6 +98,7 @@ class ProductVersion(AbstractModel):
     property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
+    slug = models.SlugField(max_length=70, db_index=True) 
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')
@@ -111,6 +116,11 @@ class ProductVersion(AbstractModel):
     
     def review_count(self):
         return self.reviews.count()
+
+    def get_absolute_url(self):
+        return reverse_lazy('productdetail', kwargs={
+            'slug': self.slug
+        })
 
 
 class ProductImages(AbstractModel):
@@ -151,5 +161,5 @@ class Review(AbstractModel):
 
     def get_absolute_url(self):
         return reverse_lazy('productdetail', kwargs={
-            'pk': self.productversion.id
+            'slug': self.productversion.slug
         })
