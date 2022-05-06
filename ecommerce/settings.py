@@ -30,7 +30,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'account.User'
 # Application definition
@@ -63,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ecommerce.middleware.BlockIPMiddleware'
+    'ecommerce.middleware.BlockIPMiddleware',
+    # 'ecommerce.middleware.RequestLogMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -117,6 +118,8 @@ DATABASES = {
 }
 
 LOGS_ROOT = BASE_DIR / f'logs/{datetime.date.today()}.log'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 

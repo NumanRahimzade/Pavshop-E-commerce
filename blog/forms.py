@@ -1,5 +1,6 @@
 from django import forms
-from blog.models import Comment
+from django.contrib.admin.widgets import AdminFileWidget
+from blog.models import Comment, Blog
 
 
 
@@ -28,3 +29,38 @@ class BlogCommentForm(forms.ModelForm):
                 'class': 'form-control',
             })
         } 
+
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = (
+            'category',
+            'tags',
+            'title',
+            'description',
+            'image',
+        )
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'placeholder': 'Title',
+                'class': 'form-control'
+            }),
+            'category': forms.Select(attrs={
+                'placeholder': 'Category',
+                'class': 'form-control'
+            }),
+            'image': AdminFileWidget(attrs={
+                'placeholder': 'Image',
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
+                'placeholder': 'Description',
+                'class': 'form-control'
+            }),
+            'tags': forms.SelectMultiple(attrs={
+                'placeholder': 'tags',
+                'class': 'form-control'
+            }),
+            
+        }

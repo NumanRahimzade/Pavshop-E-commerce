@@ -65,3 +65,4 @@ class RequestLogMiddleware:
         except Exception as e:
             logger.exception("Unhandled Exception: " + str(e))
         return exception
+

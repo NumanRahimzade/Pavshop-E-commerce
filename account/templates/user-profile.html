@@ -1,54 +1,85 @@
 {% extends 'base.html' %}
 
+{% block link %}
+    <link rel="stylesheet" href="http:////netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+{% endblock %}
+
 {% block content %}
-      </div>
-    </div>
-  </header>
-  
-  <!--======= SUB BANNER =========-->
-  <section class="sub-bnr" data-stellar-background-ratio="0.5">
-    <div class="position-center-center">
-      <div class="container">
-        <h4>Profile</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula. 
-          Sed feugiat, tellus vel tristique posuere, diam</p>
-        <ol class="breadcrumb">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Pages</a></li>
-          <li class="active">Profile</li>
-        </ol>
-      </div>
-    </div>s
-  </section>
-  
-  <!-- Content -->
-  <div id="content"> 
-    
-    <!--======= PAGES INNER =========-->
-    <section class="chart-page padding-top-100 padding-bottom-100">
-      <div class="container"> 
-        
-        <!-- Payments Steps -->
-        <div class="shopping-cart"> 
-          
-          <!-- SHOPPING INFORMATION -->
-          <div class="cart-ship-info register">
-            <div class="row"> 
-              
-              <!-- ESTIMATE SHIPPING & TAX -->
-              <div class="col-sm-12">
-                <h6>profile</h6>
-                
-              </div>
+
+    <section class="ftco-section ftco-no-pt ">
+        <div class="container">
+            <div class="row" style="display: flex;">
+                <div class="col-lg-3">
+                    <div class="user-profile-side-bar sidebar-wrap">
+                        <div class="sidebar-box p-4 about text-center ftco-animate">
+                            <h2 class="heading mb-4">About Me</h2>
+                            <img src="{{ user.image.url }}" class="img-fluid" alt="Colorlib Template">
+                            <div class="text pt-4">
+                                <p>Hi! My name is <strong>{{ user.get_full_name }}</strong> {{user.bio}}</p>
+                            </div>
+                        </div>
+                        <div class="sidebar-box ftco-animate user-profile">
+
+                            <a href="{% url 'update_user_info' user.id %}" class="btn btn-hover-color py-2">Edit Profile</a>
+
+                        </div>
+                        <div class="sidebar-box ftco-animate user-profile">
+                            <a href="{% url 'create_blog' %}" class="btn btn-hover-color py-2">Create Blog </a> 
+                        </div>
+                        
+                        
+                        <div class="sidebar-box p-4 ftco-animate">
+                            <form action="#" class="search-form">
+                                <div class="form-group">
+                                    <span class="icon icon-search"></span>
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-md-12 heading-section ftco-animate">
+                            <h2 class="mb-4"><span>My blogs</span></h2>
+                        </div>
+                    </div>
+                    
+                   
+                    <div class="row">
+                    {% for blog in user.blog.all %}
+                    
+                        <div class="col-md-4 ftco-animate">
+                            <div class="blog-entry">
+                                <a class="img-2">
+
+                                    <div class="user-events__edit">
+                                        <button type="button" class="edit-event"><a href="{% url 'update_blog' blog.id %}"><i class="fa fa-pencil" aria-hidden="true"> Update </i></a></button>
+                                        <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <img src="{{ blog.image.url }}" class="img-fluid" alt="Colorlib Template">
+                                </a>
+                                <div class="text pt-3">
+                                    <p class="meta d-flex"><span class="pr-3">{{ blog.category }}</span><span class="ml-auto pl-3">{{ blog.created_at|date:"F d, Y" }}</span>
+                                    </p>
+                                    <h3><a href="#">{{ blog.title }}</a></h3>
+                                    <p class="mb-0"><a href="{{ blog.get_absolute_url }}" class="btn btn-black py-2">Read More <span
+                                        class="icon-arrow_forward ml-4"></span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+
+
             </div>
-          </div>
         </div>
-      </div>
     </section>
-    
-    {% include 'partials/about.html'%}
-    {% include 'partials/newsletter.html'  %}
-  </div>
-  
-  <!--======= FOOTER =========-->
-{% endblock %} 
+{% include 'partials/about.html'%}
+{% include 'partials/newsletter.html'  %}
+{% endblock %}
+
+
+

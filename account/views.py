@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect, HttpResponseRedirect
 from django.template import context
 from django.contrib.auth.mixins import LoginRequiredMixin
 from account.forms import (RegisterForm,LoginForm, CustomPasswordChangeForm, 
-            CustomSetPasswordForm, ResetPasswordForm)
+            CustomSetPasswordForm, ResetPasswordForm, UserUpdateForm)
 from django.contrib.auth import get_user_model, authenticate, login as django_login, logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ from account.utils import account_activation_token
 
 from account.tasks import send_email_confirmation
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, View, UpdateView
 from django.contrib.auth.views import (LoginView, PasswordChangeView, 
             PasswordResetConfirmView, PasswordResetView)
 
@@ -22,7 +22,7 @@ User = get_user_model()
 
 class LoginRegisterMixin:
     def dispatch(self, request, *args, **kwargs):
-        print(request.user.is_authenticated)
+        
         if request.user.is_authenticated:
             return redirect('/')
         return super().dispatch(request, *args, **kwargs)
@@ -63,7 +63,15 @@ class RegisterView(LoginRegisterMixin, CreateView):
         return response
 
 
- 
+class UpdateUserView(LoginRequiredMixin, UpdateView):
+    form_class = UserUpdateForm
+    model = User
+    template_name = 'update-user.html' 
+    success_url = reverse_lazy('user_profile')
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS, 'Melumatlariniz ugurla deyisdi')
+        return super().get_success_url()
 
 
 class ShopLoginView(LoginRegisterMixin, LoginView):
@@ -71,39 +79,7 @@ class ShopLoginView(LoginRegisterMixin, LoginView):
     template_name = 'login.html'
     
 
-    # def dispatch(self, request, *args, **kwargs):
-        
-    #     if self.redirect_authenticated_user and self.request.user.is_authenticated:
-            
-    #         return redirect(reverse_lazy(''))
-    #         # redirect_to = self.get_success_url('')
-    #         # if redirect_to == self.request.path:
-    #         #     return HttpResponseRedirect(redirect_to)
-    #     return super(ShopLoginView, self).dispatch(request, *args, **kwargs)
-
-    # def get(self, request):
-    #     form = self.form_class()
-    #     message = ''
-    #     return render(request, self.template_name, context={'form': form, 'message': message})
-        
-    # def post(self, request):
-    #     form = self.form_class(request.POST)
-    #     if form.is_valid():
-    #         user = authenticate(
-    #             username=form.cleaned_data['username'],
-    #             password=form.cleaned_data['password'],
-    #         )
-    #         if user is not None:
-    #             login(request, user)
-    #             return redirect('')
-    #     message = 'Login failed!'
-    #     return render(request, self.template_name, context={'form': form, 'message': message})
-    
-
-
-
-
-def login(request):
+def login(request):  #######   FUNCTIONAL LOGIN    ########
     form=LoginForm()
     next_page = request.GET.get('next', '/')
     if request.method=='POST':
@@ -134,7 +110,7 @@ def user_profile(request):
 @login_required
 def logout(request):
     django_logout(request)
-    return redirect('/login')
+    return redirect('/login')  ######   END FUNC LOGIN   #######
 
 
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):

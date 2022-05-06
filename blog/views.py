@@ -1,37 +1,39 @@
 from json.tool import main
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.http import HttpResponse
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from product.models import Category
 from django.db.models import Count
 from django.urls import reverse_lazy
 from django.contrib import messages
-from blog.forms import BlogCommentForm
+from blog.forms import BlogCommentForm, BlogForm
 from core.models import Tag
 from .models import *
 from product.models import Category
 # from product.models import Product
 from django.shortcuts import get_object_or_404
+# import calendar
 
 
-# def blog_list(request):
-#     blogs=Blog.objects.all()
-#     newblogs=Blog.objects.all().order_by('-created_at')[:3]
-#     comment=Comment.objects.all()
-#     categories=Category.objects.all()
-#     tags=Tag.objects.all()
-#     tags=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
-#     # comments = Blog.objects.get(id=blog_id).contest_votes.count()
-#     context={
-#         'blogs': blogs,
-#         'comment': comment,
-#         'categories':categories,
-#         'newblogs':newblogs,
-#         'tags':tags
+def blog_list(request):
+    blogs=Blog.objects.all()
+    newblogs=Blog.objects.all().order_by('-created_at')[:3]
+    comment=Comment.objects.all()
+    categories=Category.objects.all()
+    tags=Tag.objects.all()
+    tags=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
+    # comments = Blog.objects.get(id=blog_id).contest_votes.count()
+    context={
+        'blogs': blogs,
+        'comment': comment,
+        'categories':categories,
+        'newblogs':newblogs,
+        'tags':tags
 
-#     }
-#     return render(request, 'blog-list.html',context)
+    }
+    return render(request, 'blog-list.html',context)
 
 
 class BlogListView(ListView):
@@ -43,11 +45,14 @@ class BlogListView(ListView):
 
 
     def get_context_data(self, **kwargs):
+        
         context = super().get_context_data(**kwargs)
-        newblogs=Blog.objects.all().order_by('-created_at')[:3]
-        comment=Comment.objects.all() 
+        newblogs=Blog.objects.all().order_by('-created_at')
+        archives = Blog.objects.all().order_by('-created_at').distinct() # bura
+        comment=Comment.objects.all()
         context['newblogs'] = newblogs
         context['comment'] = comment
+        context['archives'] = archives
         return context
 
     def get_queryset(self):
@@ -55,6 +60,9 @@ class BlogListView(ListView):
         category_id = self.request.GET.get('category_id') # 1
         tag_id = self.request.GET.get('tag_id') # 1
         
+
+        if tag_id:
+            queryset=queryset.filter(tags__id=tag_id)
         if category_id:
             queryset = queryset.filter(category__id=category_id)
         if tag_id:
@@ -152,10 +160,49 @@ class BlogDetailView(CreateView, DetailView):
 
         return super().form_valid(form)
 
-     
+
+    #### html-de href hissesinde get_absolute_url yazilmirsa, meselen: {% url 'blog_detail' blog.id  %} yazilirsa bu isleyir
+    # def get_success_url(self):
+    #     blogid=self.kwargs['slug']
+    #     return reverse_lazy('blog_detail', kwargs={'slug': blogid})
+
+
+class CreateBlogView(LoginRequiredMixin, CreateView):
+    form_class = BlogForm
+    template_name = 'create_blog.html'
+    # success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class UpdateBlogView(LoginRequiredMixin, UpdateView):
+
+    form_class = BlogForm
+    model = Blog
+    template_name = 'create_blog.html'
 
 
 
-    def get_success_url(self):
-        blogid=self.kwargs['pk']
-        return reverse_lazy('blog_detail', kwargs={'pk': blogid})
+
+
+
+
+# startdate = Blog.objects.first()
+#         a = startdate.created_at
+#         enddate = Blog.objects.last()
+#         b = enddate.created_at
+#         c = Blog.objects.filter(created_at__range=[a, b])
+#         array = []
+#         for i in c:
+            
+#             if i.created_at.month not in array:
+#                 # print('olmadi')
+#                 array.append(i.created_at.month)
+#                 print(array)
+#             else:
+#                 continue
+               
+#         e = calendar.month_name[array[0]]
+#         print(e)
