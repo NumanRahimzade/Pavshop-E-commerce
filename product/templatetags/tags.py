@@ -13,4 +13,4 @@ def get_categories():
 
 @register.simple_tag
 def get_popular_tags():
-    return Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:5]
+    return Tag.objects.annotate(num_tags=models.Count('blog_tags')).order_by('-num_tags')[:10]

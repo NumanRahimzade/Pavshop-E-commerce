@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      </div>
+    </div>
+  </header>
+  
+  <!--======= SUB BANNER =========-->
+  <section class="sub-bnr" data-stellar-background-ratio="0.5">
+    <div class="position-center-center">
+      <div class="container">
+        <h4>UDATE INFO</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula. 
+          Sed feugiat, tellus vel tristique posuere, diam</p>
+        <ol class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Pages</a></li>
+          <li class="active">UPDATE</li>
+        </ol>
+      </div>
+    </div>s
+  </section>
+  
+  <!-- Content -->
+  <div id="content"> 
+    
+    <!--======= PAGES INNER =========-->
+    <section class="chart-page padding-top-100 padding-bottom-100">
+      <div class="container"> 
+        
+        <!-- Payments Steps -->
+        <div class="shopping-cart"> 
+          
+          <!-- SHOPPING INFORMATION -->
+          <div class="cart-ship-info register">
+            <div class="row"> 
+              
+              <!-- ESTIMATE SHIPPING & TAX -->
+              <div class="col-sm-12">
+                <h6>UPDATE</h6>
+                <form action="" method="POST" enctype="multipart/form-data" class="bg-light p-5 contact-form">
+                  <ul class="row">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                    <!-- Name -->
+                    <li class="col-md-6">
+                      <label> 
+                        {{ field.label_tag }}
+                        {{field}}
+                      </label>
+                      <ul>
+                      {% for error in field.errors %}
+                        <li>{{error}}</li>
+                      {% endfor %}
+                      </ul>
+                    </li>
+                    {% endfor %}
+                    
+                  </ul>
+                  <ul class="row">
+                    <li class="col-md-6">
+                      <button type="submit" class="btn">UPDATE</button>
+                    </li>
+                  </ul>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    {% include 'partials/about.html'%}
+    {% include 'partials/newsletter.html'  %}
+  </div>
+  
+  <!--======= FOOTER =========-->
+{% endblock %} 

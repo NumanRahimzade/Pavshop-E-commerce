@@ -4,7 +4,7 @@ from account.views import (RegisterView,ShopLoginView,ChangePasswordView,
             user_profile,
             Activate,
             ResetPasswordView,
-            CustomPasswordResetConfirmView,
+            CustomPasswordResetConfirmView, UpdateUserView
 )
 
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/',ShopLoginView.as_view(),name="login"),
     path('register/', RegisterView.as_view(), name='register'),
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
+    path('update-userinfo/<int:pk>', UpdateUserView.as_view(), name='update_user_info'),
     path('logout/', logout, name='logout'),
     path('profile/', user_profile, name='user_profile'),
     path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
