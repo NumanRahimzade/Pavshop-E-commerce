@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-09 15:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/admin.py:11
+msgid "Personal info"
+msgstr ""
+
+#: account/admin.py:12
+msgid "Permissions"
+msgstr ""
+
+#: account/admin.py:15
+msgid "Important dates"
+msgstr ""
+
+#: account/forms.py:29
+msgid "Email"
+msgstr ""
+
+#: account/forms.py:118
+msgid "Old password"
+msgstr ""
+
+#: account/forms.py:123
+msgid "New password"
+msgstr ""
+
+#: account/forms.py:126
+msgid "New password confirmation"
+msgstr ""
+
+#: account/templates/email/reset-password-mail.html:3
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: account/templates/email/reset-password-mail.html:5
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: account/templates/email/reset-password-mail.html:9
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: account/templates/email/reset-password-mail.html:11
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: account/templates/email/reset-password-mail.html:13
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: core/templates/partials/navbar.html:27
+msgid "Home"
+msgstr ""
+
+#: core/templates/partials/navbar.html:57
+msgid "BLOGS"
+msgstr ""
+
+#: core/templates/partials/navbar.html:58
+msgid "About"
+msgstr ""
+
+#: core/templates/partials/navbar.html:131
+msgid "PRODUCTS"
+msgstr ""
+
+#: core/templates/partials/navbar.html:132
+msgid "contact"
+msgstr ""
+
+#: core/templates/partials/navbar.html:158
+msgid "HELLO!"
+msgstr ""
+
+#: core/templates/partials/navbar.html:160
+msgid "ACCOUNT INFO"
+msgstr ""
+
+#: core/templates/partials/navbar.html:161
+msgid "CHANGE PASSWORD"
+msgstr ""
+
+#: core/templates/partials/navbar.html:162
+msgid "LOG OUT"
+msgstr ""
+
+#: core/templates/partials/navbar.html:164
+msgid "LOG IN"
+msgstr ""
+
+#: core/templates/partials/navbar.html:165
+msgid "REGISTER"
+msgstr ""
+
+#: ecommerce/settings.py:182
+msgid "English"
+msgstr ""
+
+#: ecommerce/settings.py:183
+msgid "Azerbaijan"
+msgstr ""

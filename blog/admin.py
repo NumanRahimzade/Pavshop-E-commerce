@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from modeltranslation.admin import TranslationAdmin
 from blog.models import Blog, Comment
 
 
@@ -14,7 +14,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(TranslationAdmin):
     list_display = ('author', 'title','created_at',)
     list_filter = ( 'author__username','title','created_at')
     search_fields = ('author__username', )

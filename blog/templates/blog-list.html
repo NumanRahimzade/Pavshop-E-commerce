@@ -66,17 +66,17 @@
               {% endcomment %}
 
               {% if page_obj.has_previous %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% elif request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}{% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
               {% endif %}
               {% for page in page_obj.paginator.page_range %}
                  {% if page is page_obj.number %}
-                    <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% elif request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}">{{page}}</a></li>
+                    <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}{% if request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">{{page}}</a></li>
                  {% else %}
                     <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
                   {% endif %}
               {% endfor %}
               {% if page_obj.has_next %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% elif request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}{% if request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
               {% endif %}
             </ul>
             
@@ -138,7 +138,7 @@
               <ul class="shop-cate">
                 
                 {% for archive in archives %}
-                  <li><a href="www.google.com">{{ archive.created_at|date:"F Y"}}</a></li>
+                  <li><a href="{% url 'blog_list' %}?date={{ archive|date:'n-Y'}}">{{ archive|date:"F Y"}}</a></li>
                 {% endfor %}
                 
                 <!-- <li><a href="#."> February 2015 </a></li>
