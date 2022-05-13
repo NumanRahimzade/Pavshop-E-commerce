@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from modeltranslation.admin import TranslationAdmin
 from core.models import Contact, NewsLatest, Subscription, Tag
 
 
@@ -25,7 +25,7 @@ class SubscribeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(TranslationAdmin):
     list_display = ('title','created_at')
     list_filter = ( 'title','created_at')
     search_fields = ('title', )
