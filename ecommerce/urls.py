@@ -17,22 +17,28 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    path("i18n/", include("django.conf.urls.i18n")),
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
+    
+    
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
     path('', include('core.urls')),
     path('', include('blog.urls')),
     path('', include('product.urls')),
     path('', include('account.urls')),
     path('', include('order.urls')),
-    
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 
 admin.site.site_header = "PAVSHOP Admin"
 admin.site.site_title = "PAVSHOP Admin Portal"

@@ -1,4 +1,6 @@
+from datetime import datetime
 from json.tool import main
+from time import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -14,7 +16,7 @@ from .models import *
 from product.models import Category
 # from product.models import Product
 from django.shortcuts import get_object_or_404
-# import calendar
+import calendar
 
 
 def blog_list(request):
@@ -48,7 +50,8 @@ class BlogListView(ListView):
         
         context = super().get_context_data(**kwargs)
         newblogs=Blog.objects.all().order_by('-created_at')
-        archives = Blog.objects.all().order_by('-created_at').distinct() # bura
+        archives = Blog.objects.all().dates('created_at', 'month').reverse()
+        
         comment=Comment.objects.all()
         context['newblogs'] = newblogs
         context['comment'] = comment
@@ -59,6 +62,8 @@ class BlogListView(ListView):
         queryset = super().get_queryset()
         category_id = self.request.GET.get('category_id') # 1
         tag_id = self.request.GET.get('tag_id') # 1
+        date = self.request.GET.get('date') # 1
+
         
 
         if tag_id:
@@ -67,7 +72,11 @@ class BlogListView(ListView):
             queryset = queryset.filter(category__id=category_id)
         if tag_id:
             queryset = queryset.filter(tags__id=tag_id)
-        
+        if date:
+            month = date.split('-')[0]
+            year = date.split('-')[1]
+            queryset = queryset.filter(created_at__month=month, created_at__year=year)
+            
         return queryset
 
 
@@ -189,20 +198,3 @@ class UpdateBlogView(LoginRequiredMixin, UpdateView):
 
 
 
-# startdate = Blog.objects.first()
-#         a = startdate.created_at
-#         enddate = Blog.objects.last()
-#         b = enddate.created_at
-#         c = Blog.objects.filter(created_at__range=[a, b])
-#         array = []
-#         for i in c:
-            
-#             if i.created_at.month not in array:
-#                 # print('olmadi')
-#                 array.append(i.created_at.month)
-#                 print(array)
-#             else:
-#                 continue
-               
-#         e = calendar.month_name[array[0]]
-#         print(e)

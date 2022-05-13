@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.admin.widgets import AdminFileWidget, AdminTextareaWidget, AdminEmailInputWidget
+# from django.contrib.admin.widgets import AdminFileWidget, AdminTextareaWidget, AdminEmailInputWidget
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext, gettext_lazy as _
 from django_countries.widgets import CountrySelectWidget
@@ -143,46 +143,46 @@ class UserUpdateForm(forms.ModelForm):
             'bio',
             'image',
         )
-        widgets = {
-            'first_name': AdminTextareaWidget(attrs={
-                'placeholder': 'First_name',
-                'class': 'form-control'
-            }),
-            'last_name': AdminTextareaWidget(attrs={
-                'placeholder': 'Last_name',
-                'class': 'form-control'
-            }),
-            'image': AdminFileWidget(attrs={
-                'placeholder': 'Image',
-                'class': 'form-control'
-            }),
-            'username': AdminTextareaWidget(attrs={
-                'placeholder': 'Username',
-                'class': 'form-control'
-            }),
-            'email': AdminEmailInputWidget(attrs={
-                'placeholder': 'Email',
-                'class': 'form-control'
-            }),
-            'phone': AdminTextareaWidget(attrs={
-                'placeholder': 'Phone',
-                'class': 'form-control'
-            }),
-            'address': AdminTextareaWidget(attrs={
-                'placeholder': 'Address',
-                'class': 'form-control'
-            }),
+        # widgets = {
+            # 'first_name': AdminTextareaWidget(attrs={
+            #     'placeholder': 'First_name',
+            #     'class': 'form-control'
+            # }),
+            # 'last_name': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Last_name',
+            #     'class': 'form-control'
+            # }),
+            # 'image': AdminFileWidget(attrs={
+            #     'placeholder': 'Image',
+            #     'class': 'form-control'
+            # }),
+            # 'username': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Username',
+            #     'class': 'form-control'
+            # }),
+            # 'email': AdminEmailInputWidget(attrs={
+            #     'placeholder': 'Email',
+            #     'class': 'form-control'
+            # }),
+            # 'phone': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Phone',
+            #     'class': 'form-control'
+            # }),
+            # 'address': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Address',
+            #     'class': 'form-control'
+            # }),
             # 'country': AutocompleteSelectMultiple(attrs={
             #     'placeholder': 'Country',
             #     'class': 'form-control'
             # }),
-            'town_city': AdminTextareaWidget(attrs={
-                'placeholder': 'Town_city',
-                'class': 'form-control'
-            }),
-            'bio': AdminTextareaWidget(attrs={
-                'placeholder': 'Bio',
-                'class': 'form-control'
-            }),
+            # 'town_city': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Town_city',
+            #     'class': 'form-control'
+            # }),
+            # 'bio': AdminTextareaWidget(attrs={
+            #     'placeholder': 'Bio',
+            #     'class': 'form-control'
+            # }),
             
-        }
+        # }

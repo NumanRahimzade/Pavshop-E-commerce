@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!-- LOADER -->
 <div id="loader">
     <div class="position-center-center">
@@ -24,8 +24,8 @@
              <!-- NAV -->
             <div class="collapse navbar-collapse" id="nav-open-btn">
               <ul class="nav">
-                <li class="dropdown active"> <a href="{% url '' %}" class="dropdown-toggle" data-toggle="dropdown">Home</a>
-                  <ul class="dropdown-menu">
+                <li class="dropdown active"> <a href="{% url '' %}" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Home' %}</a>
+                  <!-- <ul class="dropdown-menu">
                     <li> <a href="index.html">Index Default</a> </li>
                     <li> <a href="index-1.html">Index 2</a> </li>
                     <li> <a href="index-2.html">Index 3</a></li>
@@ -34,7 +34,7 @@
                     <li> <a href="index-header-3.html">Index Header 3</a></li>
                     <li> <a href="index-header-4.html">Index Header 4</a></li>
                   </ul>
-                </li>
+                </li> -->
                 <!-- <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown"></a> -->
                   <!-- <ul class="dropdown-menu">
                     <li> <a href="shop_01.html">Shop 01 </a> </li>
@@ -54,36 +54,11 @@
                     <li> <a href="blog-detail_01.html">Blog Detail 01 </a> </li>
                   </ul>
                 </li> -->
-                <li> <a href="{% url 'blog_list' %}">BLOGS</a> </li>
-                <li> <a href="{% url 'about' %}">About </a> </li>
+                <li> <a href="{% url 'blog_list' %}">{% trans 'BLOGS' %}</a> </li>
+                <li> <a href="{% url 'about' %}">{% trans 'About' %}</a> </li>
                 
                 <!-- Two Link Option -->
-                <li class="dropdown"> <a href="#." class="dropdown-toggle" data-toggle="dropdown">Designer</a>
-                  <div class="dropdown-menu two-option">
-                    <div class="row">
-                      <ul class="col-sm-6">
-                        <li> <a href="shop_01.html">summer store</a></li>
-                        <li> <a href="shop_01.html"> sarees</a></li>
-                        <li> <a href="shop_01.html"> kurtas</a></li>
-                        <li> <a href="shop_01.html"> shorts & tshirts</a></li>
-                        <li> <a href="shop_01.html"> winter wear</a></li>
-                        <li> <a href="shop_01.html"> jeans</a></li>
-                        <li> <a href="shop_01.html"> bra</a></li>
-                        <li> <a href="shop_01.html"> babydools</a> </li>
-                      </ul>
-                      <ul class="col-sm-6">
-                        <li> <a href="shop_01.html">deodornts</a></li>
-                        <li> <a href="shop_01.html"> skin care</a></li>
-                        <li> <a href="shop_01.html"> make up</a></li>
-                        <li> <a href="shop_01.html"> watch</a></li>
-                        <li> <a href="shop_01.html"> siting bags</a></li>
-                        <li> <a href="shop_01.html"> totes</a></li>
-                        <li> <a href="shop_01.html"> gold rings</a></li>
-                        <li> <a href="shop_01.html"> jewellery</a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
+              
                 
                 <!-- MEGA MENU -->
                 <!-- <li class="dropdown megamenu"> <a href="#." class="dropdown-toggle" data-toggle="dropdown">store</a> -->
@@ -153,9 +128,48 @@
                     </div>
                   </div> --> 
                 <!-- </li> -->
-                <li> <a href="{% url 'productlist' %}"> PRODUCTS</a> </li>
-                <li> <a href="{% url 'contact' %}"> contact</a> </li>
+                <li> <a href="{% url 'productlist' %}">{% trans 'PRODUCTS' %}</a> </li>
+                <li> <a href="{% url 'contact' %}">{% trans 'contact' %}</a> </li>
+                <li style="margin-top: 11px;"> 
+                  
+                  <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                  <input name="next" type="hidden" value="{{ redirect_to }}">
+                  <select onchange="this.form.submit()" name="language" style="border: none">
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list for LANGUAGES as languages %}
+                      {% for language in languages %}
+                          <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                              {{ language.code }}
+                          </option>
+                      {% endfor %}
+                  </select>
+                  <!-- <input type="submit" value="go"> -->
+                  </form>
+                  {% comment %}
+                  <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                    <ul class="nav navbar-nav navbar-right language menu">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <li>
+                                <button type="submit"
+                                        name="language"
+                                        value="{{ language.code }}"
+                                        class="{% if language.code == LANGUAGE_CODE %}selected{% endif %}">
+                                    {{ language.code }}
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </form> ### all lang codes shown version
+                {% endcomment %}
+                </li>
               </ul>
+              
             </div>
             
             <!-- Nav Right -->
@@ -167,14 +181,14 @@
                   <ul class="dropdown-menu">
                     {% if request.user.is_authenticated %}
                     <li>
-                      <h6>HELLO! {{ user.get_full_name }}</h6>
+                      <h6>{% trans 'HELLO!' %} {{ user.get_full_name }}</h6>
                     </li>
-                    <li><a href="{% url 'user_profile' %}">ACCOUNT INFO</a></li>
-                    <li><a href="{% url 'password_change' %}">CHANGE PASSWORD</a></li>
-                    <li><a href="{% url 'logout' %}">LOG OUT</a></li>
+                    <li><a href="{% url 'user_profile' %}">{% trans 'ACCOUNT INFO' %}</a></li>
+                    <li><a href="{% url 'password_change' %}">{% trans 'CHANGE PASSWORD' %}</a></li>
+                    <li><a href="{% url 'logout' %}">{% trans 'LOG OUT' %}</a></li>
                     {% else %}
-                    <li><a href="{% url 'login' %}">LOG IN</a></li>
-                    <li><a href="{% url 'register' %}">REGISTER</a></li>
+                    <li><a href="{% url 'login' %}">{% trans 'LOG IN' %}</a></li>
+                    <li><a href="{% url 'register' %}">{% trans 'REGISTER' %}</a></li>
                     {% endif %}
                   </ul>
                 </li>
