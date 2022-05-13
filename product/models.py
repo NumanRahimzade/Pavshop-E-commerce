@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from core.models import Tag
@@ -20,8 +21,8 @@ class Category(AbstractModel):
     
 
     class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return self.name
@@ -98,7 +99,7 @@ class ProductVersion(AbstractModel):
     property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
-    slug = models.SlugField(max_length=70, db_index=True) 
+    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')

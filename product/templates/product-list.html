@@ -79,7 +79,7 @@
                     </div>
                   </div>
                   <!-- Item Name -->
-                  <div class="item-name"> <a href="{{item.get_absolute_url}}"> {{ item.title }} </a>
+                  <div class="item-name"> <a href="{{ item.get_absolute_url }}"> {{ item.title }} </a>
                     <p> {{ item.code }} </p>
                   </div>
                   <!-- Price --> 
@@ -92,37 +92,19 @@
             
             <!-- Pagination -->
             <ul class="pagination in-center">
-              {% comment %}
               {% if page_obj.has_previous %}
-              <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                 <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
               {% endif %}
               {% for page in page_obj.paginator.page_range %}
                  {% if page is page_obj.number %}
                     <li class="active"><a href="#">{{page}}</a></li>
                  {% else %}
-                    <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
-                 {% endif %}
-              {% endfor %}
-              {% if page_obj.has_next %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
-              {% endif %}
-              {% endcomment %}
-
-              {% if page_obj.has_previous %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}   {% if request.GET.brand_id %}&brand_id={{ request.GET.brand_id }}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
-              {% endif %}
-              {% for page in page_obj.paginator.page_range %}
-                 {% if page is page_obj.number %}
-                    <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}  {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}  {% if request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}   {% if request.GET.brand_id %}&brand_id={{ request.GET.brand_id }}{% endif %}">{{page}}</a></li>
-                 {% else %}
-                    <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
+                    <li><a href="?page={{page}}">{{page}}</a></li>
                   {% endif %}
               {% endfor %}
               {% if page_obj.has_next %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{ request.GET.tag_id }}{% endif %}   {% if request.GET.brand_id %}&brand_id={{ request.GET.brand_id }}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                 <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
               {% endif %}
-
-              
             </ul>
           </div>
           
@@ -231,28 +213,5 @@
     {% include 'partials/newsletter.html'  %}
   </div>
   
-
-  <script>
-    pagination_links = document.getElementsByClassName("pagination-links")
-    console.log(pagination_links);
-    for (let i = 0; i < pagination_links.length; i++) {
-      pagination_links[i].addEventListener("click", function() {
-
-        if (window.location.href.includes('page') == false) {
-                if (window.location.href.includes('?')) {
-                    window.location.href += `&page=${pagination_links[i].getAttribute("data-page")}`;
-                } else {
-                    window.location.href += `?page=${pagination_links[i].getAttribute("data-page")}`;
-                }
-            } else {
-                window.location.href = window.location.href.replace(/page=.*?(&|$)/, `page=${pagination_links[i].getAttribute("data-page")}$1`);
-            }
-
-      });
-    }
-
-
-  </script>
-  
   <!--======= FOOTER =========-->
-  {% endblock %}
+  {% endblock %} 

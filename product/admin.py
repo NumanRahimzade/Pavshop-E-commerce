@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from modeltranslation.admin import TranslationAdmin
 from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount, Review,WishList
 
 
@@ -15,7 +15,7 @@ class ProductImageInlineAdmin(admin.TabularInline):
 # from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount,WishList, ProductReview
     
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ('name', 'created_at')
     list_filter = ( 'name','created_at')
     search_fields = ['name']
@@ -58,7 +58,7 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProductVersion)
-class ProductVersionAdmin(admin.ModelAdmin):
+class ProductVersionAdmin(TranslationAdmin):
     list_display = ('title', 'code', 'price', 'stock', 'created_at')
     list_filter = ('product__category__name', 'created_at')
     search_fields = ('title', 'price', 'code')
