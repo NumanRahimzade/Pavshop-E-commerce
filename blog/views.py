@@ -50,7 +50,7 @@ class BlogListView(ListView):
         
         context = super().get_context_data(**kwargs)
         newblogs=Blog.objects.all().order_by('-created_at')
-        archives = Blog.objects.all().order_by('-created_at').dates('created_at', 'month')
+        archives = Blog.objects.all().dates('created_at', 'month').reverse()
         
         comment=Comment.objects.all()
         context['newblogs'] = newblogs

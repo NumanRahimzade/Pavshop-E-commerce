@@ -16,6 +16,8 @@ django-cors-headers==3.11.0
 django-countries==7.3.2
 django-countries-with-calling-codes==0.1.1
 django-custom-logging==0.1.1
+django-jet==1.0.0
+django-modeltranslation==0.17.7
 django-nested-admin==3.4.0
 django-utils-six==2.0
 engineering-notation==0.6.0

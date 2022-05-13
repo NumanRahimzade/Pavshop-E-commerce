@@ -5,81 +5,120 @@
 {% endblock %}
 
 {% block content %}
-
-    <section class="ftco-section ftco-no-pt ">
-        <div class="container">
-            <div class="row" style="display: flex;">
-                <div class="col-lg-3">
-                    <div class="user-profile-side-bar sidebar-wrap">
-                        <div class="sidebar-box p-4 about text-center ftco-animate">
-                            <h2 class="heading mb-4">About Me</h2>
-                            <img src="{{ user.image.url }}" class="img-fluid" alt="Colorlib Template">
-                            <div class="text pt-4">
-                                <p>Hi! My name is <strong>{{ user.get_full_name }}</strong> {{user.bio}}</p>
-                            </div>
-                        </div>
-                        <div class="sidebar-box ftco-animate user-profile">
-
-                            <a href="{% url 'update_user_info' user.id %}" class="btn btn-hover-color py-2">Edit Profile</a>
-
-                        </div>
-                        <div class="sidebar-box ftco-animate user-profile">
-                            <a href="{% url 'create_blog' %}" class="btn btn-hover-color py-2">Create Blog </a> 
-                        </div>
-                        
-                        
-                        <div class="sidebar-box p-4 ftco-animate">
-                            <form action="#" class="search-form">
-                                <div class="form-group">
-                                    <span class="icon icon-search"></span>
-                                    <input type="text" class="form-control" placeholder="Search">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-md-12 heading-section ftco-animate">
-                            <h2 class="mb-4"><span>My blogs</span></h2>
-                        </div>
-                    </div>
-                    
-                   
-                    <div class="row">
-                    {% for blog in user.blog.all %}
-                    
-                        <div class="col-md-4 ftco-animate">
-                            <div class="blog-entry">
-                                <a class="img-2">
-
-                                    <div class="user-events__edit">
-                                        <button type="button" class="edit-event"><a href="{% url 'update_blog' blog.id %}"><i class="fa fa-pencil" aria-hidden="true"> Update </i></a></button>
-                                        <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </div>
-
-                                    <img src="{{ blog.image.url }}" class="img-fluid" alt="Colorlib Template">
-                                </a>
-                                <div class="text pt-3">
-                                    <p class="meta d-flex"><span class="pr-3">{{ blog.category }}</span><span class="ml-auto pl-3">{{ blog.created_at|date:"F d, Y" }}</span>
-                                    </p>
-                                    <h3><a href="#">{{ blog.title }}</a></h3>
-                                    <p class="mb-0"><a href="{{ blog.get_absolute_url }}" class="btn btn-black py-2">Read More <span
-                                        class="icon-arrow_forward ml-4"></span></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                </div>
-
-
+<section style="background-color: #eee;">
+    <div class="container py-5" style="margin-top: 20px;">
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              {% if user.image %}
+                <img src="{{ user.image.url }}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              {% else %}
+                <div style="background-color: transparent; "> <img src="" alt=""> </div>
+              {% endif %}
+              <h5 class="my-3">{{ user.get_full_name }}</h5>
+              <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
+              <p class="text-muted mb-4">{{ user.address }}</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary"><a href="{% url 'update_user_info' user.id %}" style="color: yellow;">Edit Profile</a></button>
+                
+                <button type="button" class="btn btn-outline-primary ms-1" style="margin-top: 3px;"><a href="{% url 'create_blog' %}" style="color: yellow;">Create Blog</a></button>
+              </div>
             </div>
+          </div>
+         
         </div>
-    </section>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.email }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.phone }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.phone }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.address }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr style="border-bottom: solid 2px green;">
+          <div class="row" style="flex-direction: row; margin-bottom: 10px; background-color: tomato;">
+            <!-- <h1 style="margin-left: 35%;">Bloglar</h1> -->
+            {% for blog in user.blog.all %}
+            <div class="col col-sm-4">
+                
+                <div class="card" style="border-radius: 15px;">
+                  <div class="card-body p-4">
+                    <h3 class="mb-3">{{ blog.title }}</h3>
+                    <p class="small mb-0"><i class="fas fa-star fa-lg text-warning"></i> <span class="mx-2">|</span>
+                        Updated by <strong> {{ user.get_full_name }} </strong><span class="mx-2">|</span> {{ blog.created_at|date:"F d, Y" }}
+                    </p>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-start align-items-center">
+                   
+                      
+                        <div class="user-events__edit">
+                            <button type="button" class="edit-event"><a href="{% url 'update_blog' blog.id %}"><i class="fa fa-pencil" aria-hidden="true" style="color: grey;"> Update </i></a></button>
+                            <!-- <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
+                        </div>
+                        <img src="{{ blog.image.url }}" alt="avatar"
+                          class="" width="100%" height="170">
+                      
+                        <p>{{ blog.description|center:"10"|truncatechars:"30" }}</p>
+                        <button type="button" class="btn btn-outline-dark btn-sm btn-floating">
+                        <a href="{{ blog.get_absolute_url }}">Read more</a>
+                      </button>
+                      <hr class="my-4">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
 {% include 'partials/about.html'%}
 {% include 'partials/newsletter.html'  %}
 {% endblock %}
-
-
 
