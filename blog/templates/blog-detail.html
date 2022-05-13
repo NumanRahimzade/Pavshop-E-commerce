@@ -106,7 +106,7 @@
                   <!--=======  COMMENTS =========-->
                   {% for comment in comments %}
                   <li class="media">
-                    <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{{comment.user.image.url}}" alt=""> <br>
+                    <div class="media-left"> <a href="#" class="avatar"> <img class="media-object img-responsive" src="{{comment.user.image.url}}" alt="" > <br>
                       </a> </div>
                     <div class="media-body">
                       <h6 class="media-heading">{{comment.user.username}} <span><i class="icon-clock primary-color"></i> {{comment.created_at|date:"F d,Y - H:m" }}</span></h6>

@@ -9,6 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 15:02+0000\n"
+"POT-Creation-Date: 2022-05-08 18:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +25,7 @@ msgstr "Şəxsi məlumatlar"
 
 #: account/admin.py:12
 msgid "Permissions"
-msgstr ""
+msgstr "İcazələr"
 
 #: account/admin.py:15
 msgid "Important dates"

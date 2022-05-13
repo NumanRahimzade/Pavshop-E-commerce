@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
 import datetime
 from django.utils.translation import gettext_lazy as _
 
@@ -39,6 +40,8 @@ AUTH_USER_MODEL = 'account.User'
 INSTALLED_APPS = [
     # 'jet.dashboard',
     # 'jet',
+    'jet.dashboard',
+    'jet',
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +53,7 @@ INSTALLED_APPS = [
     'social_django',
 
     'core',
-    'blog',
+    'blog.apps.BlogConfig',
     'order',
     'account',
     'product.apps.ProductConfig',
@@ -176,7 +179,19 @@ SOCIAL_AUTH_PIPELINE = (
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('az', _('Azerbaijan')),
+
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'az'
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 LANGUAGES = [
     ('en', _('English')),
