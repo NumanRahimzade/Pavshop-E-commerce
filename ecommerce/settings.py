@@ -40,8 +40,8 @@ AUTH_USER_MODEL = 'account.User'
 INSTALLED_APPS = [
     # 'jet.dashboard',
     # 'jet',
-    'jet.dashboard',
-    'jet',
+    # 'jet.dashboard',
+    # 'jet',
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
+    'rest_framework',
 
     'core',
     'blog.apps.BlogConfig',
