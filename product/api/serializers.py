@@ -2,6 +2,7 @@ from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
 from product.models import Product, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName
+from core.models import Tag
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -52,7 +53,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
 class PropertyValuesSerializer(serializers.ModelSerializer):
     propertyname = PropertySerializer()
-    category = CategorySerializer
+    
     class Meta:
         model = PropertyValues
         fields = (
@@ -74,13 +75,13 @@ class ProductSerializer(serializers.ModelSerializer):
         )
 
 
-# class TagSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Tag
-#         fields = (
-#             'id',
-#             'title'
-#         )
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = (
+            'id',
+            'title'
+        )
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
@@ -106,8 +107,9 @@ class ProductReadSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
     discount = DiscountSerializer()
     property = PropertyValuesSerializer(many=True)
+    tags = TagSerializer(many=True)
     # category = CategorySerializer()
-    # tags = TagSerializer(many=True)
+    
     # created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
     class Meta:
