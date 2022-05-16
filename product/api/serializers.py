@@ -98,6 +98,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'price',
             'stock',
             'tags',
+            'created_at',
+            'updated_at',
         )
 
 
@@ -124,4 +126,6 @@ class ProductReadSerializer(serializers.ModelSerializer):
             'price',
             'stock',
             'tags',
+            'created_at',
+            'updated_at',
         )
