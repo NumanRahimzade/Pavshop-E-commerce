@@ -117,6 +117,7 @@ class ProductReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductVersion
         fields = (
+            'id',
             'product',
             'discount',
             'property',
