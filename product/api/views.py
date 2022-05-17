@@ -18,6 +18,13 @@ class ProductAPI(APIView):
 
     def get(self, request, *args, **kwargs):
         products = ProductVersion.objects.all().order_by('-created_at')
+        category = request.GET.get('category') # ?category=2
+        tags = request.GET.get('tags') # ?category=2
+        
+        if category:
+            products = products.filter(product__category__id=category) # filtered stories
+        if tags:
+            products = products.filter(tags__id=tags) # filtered stories
         serializer = ProductReadSerializer(products, many=True, context={'request': request})
         return Response(data=serializer.data)
 
