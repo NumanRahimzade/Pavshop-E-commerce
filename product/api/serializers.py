@@ -65,7 +65,7 @@ class PropertyValuesSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     brand = BrandSerializer()
-
+    
     class Meta:
         model = Product
         fields = (
@@ -101,8 +101,6 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         )
-
-
 
 
 class ProductReadSerializer(serializers.ModelSerializer):
