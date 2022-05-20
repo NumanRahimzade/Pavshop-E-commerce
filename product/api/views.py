@@ -13,8 +13,8 @@ from rest_framework.status import (
 
 from django.http import Http404
 
-from product.api.serializers import ProductReadSerializer, ProductCreateSerializer
-from product.models import ProductVersion
+from product.api.serializers import ProductReadSerializer, ProductCreateSerializer, ImageCreateSerializer
+from product.models import ProductImages, ProductVersion
 
 ###### API with APIView inherit #######
 # class ProductAPI(APIView):
@@ -102,4 +102,7 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductCreateSerializer
 
 
+class ImageListCreateAPIView(ListCreateAPIView):
+    queryset = ProductImages.objects.all()
+    serializer_class = ImageCreateSerializer
 ##### API with generics #####

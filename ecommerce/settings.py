@@ -299,3 +299,4 @@ EMAIL_HOST_USER = 'numanrahimzade@gmail.com'
 EMAIL_HOST_PASSWORD = 'nwiywggpqzdrqlyo'
 # EMAIL_HOST_USER = 'aysugurbanli02@gmail.com'
 # EMAIL_HOST_PASSWORD = 'ynlydewtjsrnkrcm'
+

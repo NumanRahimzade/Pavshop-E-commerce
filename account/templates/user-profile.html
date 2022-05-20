@@ -82,7 +82,7 @@
           <hr style="border-bottom: solid 2px green;">
           <div class="row" style="flex-direction: row; margin-bottom: 10px; background-color: tomato;">
             <!-- <h1 style="margin-left: 35%;">Bloglar</h1> -->
-            {% for blog in user.blog.all %}
+            {% for blog in user.blog.all reversed %}
             <div class="col col-sm-4">
                 
                 <div class="card" style="border-radius: 15px;">

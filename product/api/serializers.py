@@ -1,7 +1,7 @@
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
-from product.models import Product, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName
+from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages
 from core.models import Tag
 
 
@@ -85,7 +85,8 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-
+    image = serializers.SerializerMethodField()
+    
     class Meta:
         model = ProductVersion
         fields = (
@@ -100,10 +101,25 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'tags',
             'created_at',
             'updated_at',
+            'image',
         )
+
+    def get_image(self, obj):
+        images = obj.productimage.all().values_list("image", 'cover_image')
+        print(images)
+        img_list = []
+        for img in images:
+            img_list.append(
+                {
+                    'image':img[0],
+                    'cover_image':img[1]
+                }
+            )
+        return img_list
 
 
 class ProductReadSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
     product = ProductSerializer()
     discount = DiscountSerializer()
     property = PropertyValuesSerializer(many=True)
@@ -127,4 +143,33 @@ class ProductReadSerializer(serializers.ModelSerializer):
             'tags',
             'created_at',
             'updated_at',
+            'image',
+        )
+
+    def get_image(self, obj):
+        images = obj.productimage.all().values_list("image", 'cover_image')
+        img_list = []
+        for img in images:
+            img_list.append(
+                {
+                    'image':img[0],
+                    'cover_image':img[1]
+                }
+            )
+        return img_list
+
+
+
+class ImageCreateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductImages
+        fields = (
+            'version', ## productverion id
+            'image',
+            'cover_image',
+            'is_main',
+            'created_at',
+            'updated_at',
+            
         )
