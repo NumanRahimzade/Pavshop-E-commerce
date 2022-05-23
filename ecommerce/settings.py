@@ -296,7 +296,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'numanrahimzade@gmail.com'
-EMAIL_HOST_PASSWORD = 'nwiywggpqzdrqlyo'
-# EMAIL_HOST_USER = 'aysugurbanli02@gmail.com'
-# EMAIL_HOST_PASSWORD = 'ynlydewtjsrnkrcm'
+EMAIL_HOST_PASSWORD = 'tptaxxlqwsawkcns'
+
 

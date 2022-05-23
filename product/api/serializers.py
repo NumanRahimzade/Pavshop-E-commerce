@@ -85,7 +85,6 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
     
     class Meta:
         model = ProductVersion
@@ -101,21 +100,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'tags',
             'created_at',
             'updated_at',
-            'image',
         )
-
-    def get_image(self, obj):
-        images = obj.productimage.all().values_list("image", 'cover_image')
-        print(images)
-        img_list = []
-        for img in images:
-            img_list.append(
-                {
-                    'image':img[0],
-                    'cover_image':img[1]
-                }
-            )
-        return img_list
 
 
 class ProductReadSerializer(serializers.ModelSerializer):
@@ -124,9 +109,6 @@ class ProductReadSerializer(serializers.ModelSerializer):
     discount = DiscountSerializer()
     property = PropertyValuesSerializer(many=True)
     tags = TagSerializer(many=True)
-    # category = CategorySerializer()
-    
-    # created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
     class Meta:
         model = ProductVersion
@@ -157,7 +139,6 @@ class ProductReadSerializer(serializers.ModelSerializer):
                 }
             )
         return img_list
-
 
 
 class ImageCreateSerializer(serializers.ModelSerializer):
