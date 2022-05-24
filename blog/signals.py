@@ -1,5 +1,5 @@
 import datetime
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save,post_save
 from django.dispatch import receiver
 from blog.models import Blog
 from slugify import slugify
@@ -11,6 +11,8 @@ from slugify import slugify
 #     print(instance.pk)
 #     instance.slug = f"{slugify(instance.title)}-{instance.id}"
 #     # instance.save()
+#     instance.slug = f"{slugify(instance.title)}-{instance.id}"
+#     instance.save()
 
 @receiver(post_save, sender=Blog)
 def story_object_creation(sender, instance, created, **kwargs):

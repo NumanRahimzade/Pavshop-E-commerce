@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from pathlib import Path
+from datetime import timedelta
 import os
 from pathlib import Path
 import datetime
@@ -50,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     'social_django',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -90,6 +92,17 @@ SIMPLE_JWT = {
 
 
 ROOT_URLCONF = 'ecommerce.urls'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
+
+
 
 TEMPLATES = [
     {

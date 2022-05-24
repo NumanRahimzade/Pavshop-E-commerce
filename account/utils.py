@@ -8,7 +8,6 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 
-
 def download_image(url):
     response = requests.get(url)
     file_name = 'profile_images/'  + url.split('/')[-1]  + '.png'

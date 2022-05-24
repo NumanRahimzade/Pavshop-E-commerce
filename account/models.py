@@ -4,7 +4,7 @@ from django.db import models
 from django_countries.fields import CountryField    #country ucun
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse_lazy
-# from .utils import image_resize
+from .utils import image_resize
 
 
 class User(AbstractUser):

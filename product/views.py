@@ -44,7 +44,7 @@ class ProductListView(ListView):
         context['colors']=PropertyValues.objects.all()
         context['tags']=Tag.objects.annotate(chapters_cnt=Count('product_tags')).order_by('-chapters_cnt')
         context['brands']=Brand.objects.all()
-        context['price']=ProductVersion.objects.all().order_by('-price')
+        context['prices']=ProductVersion.objects.all().order_by('-price')
         return context
 
 
