@@ -11,5 +11,7 @@ def subject_renderer(request):
         if subscribe_form.is_valid():
             subscribe_form.save()
             messages.add_message(request, messages.SUCCESS, 'Email qeyde alindi!')
-            # return redirect('home')
+            # return redirect('.')
+        else:
+            messages.add_message(request, messages.WARNING, 'Daxil edilen email teleblere uygun deyil veya email artiq qeydiyyatdan kecmisdir!')
     return {'subscribe_form': subscribe_form}

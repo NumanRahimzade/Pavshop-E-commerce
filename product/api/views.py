@@ -13,8 +13,9 @@ from rest_framework.status import (
 
 from django.http import Http404
 
-from product.api.serializers import ProductReadSerializer, ProductCreateSerializer, ImageCreateSerializer
+from product.api.serializers import ProductReadSerializer, ProductCreateSerializer, ImageCreateSerializer, SubscriptionSerializer
 from product.models import ProductImages, ProductVersion
+from core.models import Subscription
 
 ###### API with APIView inherit #######
 # class ProductAPI(APIView):
@@ -106,3 +107,7 @@ class ImageListCreateAPIView(ListCreateAPIView):
     queryset = ProductImages.objects.all()
     serializer_class = ImageCreateSerializer
 ##### API with generics #####
+
+class SubscriptionView(CreateAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer

@@ -2,7 +2,7 @@ from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
 from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages
-from core.models import Tag
+from core.models import Tag, Subscription
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -153,4 +153,12 @@ class ImageCreateSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             
+        )
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = (
+            'email',
         )

@@ -43,7 +43,8 @@ class Subscription(AbstractModel):
 
     # newslatest = models.ManyToManyField(NewsLatest, blank=True, related_name='news')
     
-    email = models.EmailField('EMAIL', max_length=40)
+    email = models.EmailField('EMAIL', unique=True, max_length=40)
+    is_active = models.BooleanField('Is Active', default=True)
 
     def __str__(self):
         return self.email

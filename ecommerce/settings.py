@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework',
     'rest_framework_simplejwt',
+    "corsheaders",
 
     'core',
     'blog.apps.BlogConfig',
@@ -101,7 +102,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processor.subject_renderer',
+                # 'core.context_processor.subject_renderer',
             ],
         },
     },
