@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from core.models import Tag
+from django.template.defaultfilters import slugify
 
 User = get_user_model()
 
@@ -67,7 +68,7 @@ class Product(AbstractModel):
 
 
 class PropertyName(AbstractModel):
-    category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.CASCADE)
+    category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.SET_NULL, null=True)
 
     name=models.CharField('Name',max_length=70)
 

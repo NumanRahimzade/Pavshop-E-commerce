@@ -44,7 +44,7 @@ class ProductListView(ListView):
         context['colors']=PropertyValues.objects.all()
         context['tags']=Tag.objects.annotate(chapters_cnt=Count('product_tags')).order_by('-chapters_cnt')
         context['brands']=Brand.objects.all()
-        context['price']=ProductVersion.objects.all().order_by('-price')
+        context['prices']=ProductVersion.objects.all().order_by('-price')
         return context
 
 
@@ -127,7 +127,7 @@ class ProductDetailView(CreateView, DetailView):
         
         form.instance.user = self.request.user
         form.instance.comment = self.request.POST['comment']
-        form.instance.productversion = ProductVersion.objects.get(id=self.kwargs['pk'])
+        form.instance.productversion = ProductVersion.objects.get(slug=self.kwargs['slug'])
         
         messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
         
@@ -135,7 +135,7 @@ class ProductDetailView(CreateView, DetailView):
 
     
     def get_success_url(self):
-        productversionid=self.kwargs['pk']
-        return reverse_lazy('productdetail', kwargs={'pk': productversionid})
+        productversionid=self.kwargs['slug']
+        return reverse_lazy('productdetail', kwargs={'slug': productversionid})
 
 

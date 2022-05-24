@@ -156,7 +156,7 @@ class BlogDetailView(CreateView, DetailView):
         # form.instance.email=self.request.POST.get('email')
         form.instance.subject=self.request.POST.get('subject')
         form.instance.review=self.request.POST.get('review')
-        form.instance.blog=Blog.objects.get(id=self.kwargs['pk'])
+        form.instance.blog=Blog.objects.get(slug=self.kwargs['slug'])
 
         return super().form_valid(form)
 

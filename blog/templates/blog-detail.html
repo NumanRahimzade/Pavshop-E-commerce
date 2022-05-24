@@ -86,7 +86,11 @@
               <!-- ADMIN info -->
               <div class="admin-info">
                 <div class="media-left">
-                  <div class="admin-pic"> <img src="{{blogs.author.image.url}}" alt=""> </div>
+                  {% if blogs.author.image %}
+                    <div class="admin-pic"> <img src="{{blogs.author.image.url}}" alt=""> </div>
+                  {% else %}
+                    <div class="admin-pic" style="background-color: grey;"> <img src="" alt=""> </div>
+                  {% endif %}
                 </div>
                 <div class="media-body">
                   <h6> {{blogs.author.username}} <span>Co-Founder</span></h6>

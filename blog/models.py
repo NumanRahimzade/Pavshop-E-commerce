@@ -14,10 +14,8 @@ class Blog(AbstractModel):
     category=models.ForeignKey(Category, related_name='blogs', on_delete=models.CASCADE, null=True, blank=True)
     author = models.ForeignKey(User, related_name='blog', default='', on_delete=models.CASCADE)
     tags=models.ManyToManyField(Tag,blank=True,related_name='blog_tags')
-
-    
     title = models.CharField('Title', max_length=50, db_index=True)
-    slug = models.SlugField(max_length=70, editable=True, blank=True, db_index=True)
+    slug = models.SlugField(max_length=70, editable=False, blank=True, db_index=True)
     description = models.TextField('Description')
     image = models.ImageField(upload_to='blog_images/')
 
@@ -32,6 +30,7 @@ class Blog(AbstractModel):
         return self.title
 
 
+# def story_object_creation(sender, **kwargs):
 class Comment(AbstractModel):
     user=models.ForeignKey(User, related_name='commentuser',on_delete=models.CASCADE, default=1)
     blog=models.ForeignKey(Blog,related_name='blogcomment', on_delete=models.CASCADE)
@@ -49,7 +48,7 @@ class Comment(AbstractModel):
 
     def get_absolute_url(self):
         return reverse_lazy('blog_detail', kwargs={
-            'slug': self.blogcomment.slug
+            'slug': self.blog.slug
         })
 
 
