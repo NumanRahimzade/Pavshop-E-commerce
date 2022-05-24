@@ -23,16 +23,15 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    path("api/", include('product.api.urls')),
+    path("api/account/", include('account.api.urls')),
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header = "PAVSHOP Admin"
-admin.site.site_title = "PAVSHOP Admin Portal"
-admin.site.index_title = "Welcome to PAVSHOP Portal"
 
 urlpatterns += i18n_patterns(
     path('', include('core.urls')),

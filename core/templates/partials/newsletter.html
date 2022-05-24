@@ -6,10 +6,12 @@
         <h4>NEWSLETTER</h4>
         <span>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odi </span> </div>
       <form role="form" class="contact-form" method="POST" name="subscribe">
-        {% csrf_token %}
+        {% comment %}
+        <!-- {% csrf_token %}
         {{ subscribe_form.non_field_errors }}
-        {{ subscribe_form.email }}
-          <!-- <input type="email" placeholder="Enter your email address" required value=""> -->
+        {{ subscribe_form.email }} -->
+        {% endcomment %}
+        <input type="email" placeholder="Enter your email address" required value="" name="email">
         
         <button type="submit" name="subscribe">SEND ME</button>
       </form>

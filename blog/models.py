@@ -18,7 +18,7 @@ class Blog(AbstractModel):
 
     
     title = models.CharField('Title', max_length=50, db_index=True)
-    slug = models.SlugField(max_length=70, editable=True, blank=True, db_index=True)
+    slug = models.SlugField(max_length=70, editable=False, blank=True, db_index=True)
     description = models.TextField('Description')
     image = models.ImageField(upload_to='blog_images/')
 

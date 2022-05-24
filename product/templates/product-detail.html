@@ -80,7 +80,7 @@
                       <li><span class="margin-right-20">Colors</span></li>
                       {% for color in products.property.all %}
                       <li><a href="#." style="background: {{ color.value}};"></a></li>
-                    {% endfor %}
+                      {% endfor %}
                       <!-- <li><a href="#." style="background:#958170;"></a></li>
                       <li><a href="#." style="background:#c9a688;"></a></li>
                       <li><a href="#." style="background:#c9c288;"></a></li>
@@ -185,9 +185,9 @@
               
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
-              <form class="contact-form" method="POST" name="detailed_product">
-                <ul class="row">
-                  {% csrf_token %}
+              <form class="contact-form" action="" method="POST" name="detailed_product">
+                {% csrf_token %}
+                <ul class="row"> 
                   {{ form.non_field_errors }}
                   {% for field in form %}
                   <li class="col-sm-6">
@@ -264,7 +264,7 @@
       </div>
     </section>
     
-    {% include 'partials/about.html'%}
+    <!-- {% include 'partials/about.html'%} -->
     {% include 'partials/newsletter.html'  %}
   </div>
   

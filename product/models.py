@@ -99,7 +99,7 @@ class ProductVersion(AbstractModel):
     property=models.ManyToManyField(PropertyValues,blank=True)
 
     title=models.CharField('Title', max_length=50)
-    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
+    slug = models.SlugField(max_length=70, editable=False, blank=True, db_index=True) 
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
     stock=models.IntegerField('Stock')

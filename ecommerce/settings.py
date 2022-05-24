@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
-from django.utils.translation import gettext_lazy as _
+from pathlib import Path
 import datetime
 from django.utils.translation import gettext_lazy as _
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,8 +41,8 @@ AUTH_USER_MODEL = 'account.User'
 INSTALLED_APPS = [
     # 'jet.dashboard',
     # 'jet',
-    'jet.dashboard',
-    'jet',
+    # 'jet.dashboard',
+    # 'jet',
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    "corsheaders",
 
     'core',
     'blog.apps.BlogConfig',
@@ -73,6 +77,18 @@ MIDDLEWARE = [
     # 'ecommerce.middleware.RequestLogMiddleware',
 ]
 
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=30),
+    "TOKEN_OBTAIN_SERIALIZER": "account.api.serializers.CustomTokenObtainPairSerializer",
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+
+    'JTI_CLAIM': 'jti',
+}
+
+
 ROOT_URLCONF = 'ecommerce.urls'
 
 TEMPLATES = [
@@ -86,7 +102,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processor.subject_renderer',
+                # 'core.context_processor.subject_renderer',
             ],
         },
     },
@@ -229,6 +245,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': "%m/%d/%Y",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 
 # Default primary key field type
@@ -275,6 +297,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'numanrahimzade@gmail.com'
-EMAIL_HOST_PASSWORD = 'nwiywggpqzdrqlyo'
-# EMAIL_HOST_USER = 'aysugurbanli02@gmail.com'
-# EMAIL_HOST_PASSWORD = 'ynlydewtjsrnkrcm'
+EMAIL_HOST_PASSWORD = 'tptaxxlqwsawkcns'
+
+
