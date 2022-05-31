@@ -1,4 +1,4 @@
-from dataclasses import field
+from dataclasses import field, fields
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 from product.models import Category,Product,PropertyName,PropertyValues,ProductVersion,Brand,ProductImages,Discount, Review,WishList

@@ -25,10 +25,11 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path("api/", include('product.api.urls')),
     path("api/account/", include('account.api.urls')),
+    path("api/", include('order.api.urls')),
     # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
 

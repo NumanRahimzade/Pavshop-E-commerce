@@ -147,7 +147,7 @@ class Discount(AbstractModel):
         
 
 class WishList(AbstractModel):
-    productversion=models.ManyToManyField(ProductVersion,blank=True)
+    productversion=models.ManyToManyField(ProductVersion, related_name='wishproduct',blank=True)
     user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
 
 

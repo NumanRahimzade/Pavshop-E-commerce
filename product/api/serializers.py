@@ -8,10 +8,6 @@ from core.models import Tag, Subscription
 class CategorySerializer(serializers.ModelSerializer):
     subcategory = serializers.SerializerMethodField()
 
-from rest_framework import serializers
-from product.models import Category
-
-class SubcategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = (
@@ -65,6 +61,7 @@ class PropertyValuesSerializer(serializers.ModelSerializer):
             'propertyname',
             'value',
         )
+        
 
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
@@ -167,6 +164,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             'email',
         )
 
+
 class CategoryCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -176,16 +174,14 @@ class CategoryCreateSerializer(serializers.ModelSerializer):
         )
 
 
+# class CategoryReadSerializer(serializers.ModelSerializer):
+#     subcategory=SubcategorySerializer()
 
-
-class CategoryReadSerializer(serializers.ModelSerializer):
-    subcategory=SubcategorySerializer()
-
-    class Meta:
-        model = Category
-        fields = (
-            'id',
-            'name',
-            'subcategory',
-        )
+#     class Meta:
+#         model = Category
+#         fields = (
+#             'id',
+#             'name',
+#             'subcategory',
+#         )
 

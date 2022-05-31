@@ -67,7 +67,7 @@
               {% for item in products %}
               <div class="col-md-4">
                 
-                <div class="item"> 
+                <div class="item" id="mainitem"> 
                   <!-- Item img -->
                   <div class="item-img"> <img class="img-1" src="{{ item.main_image.image.url }}" alt="" >
                   <!-- <div class="item-img"> <img class="img-1" src="{{ item.main_version.main_image.image.url }}" alt="" > -->
@@ -84,7 +84,8 @@
                   </div>
                   <!-- Price --> 
                   <span class="price"><small></small> {{ item.price }} </span> </div>
-                 
+                  
+                  
               </div>
               {% endfor %}
 

@@ -5,6 +5,7 @@ from django.contrib import messages
 
 from core.models import Contact
 from core.forms import ContactForm, SubscribeForm
+from core.tasks import process_func
 
 
 def home(request):
@@ -27,6 +28,11 @@ def contact(request):
         'form': form
     }
     return render(request, 'contact.html', context)
+
+
+def export(request):
+    process_func.delay()
+    return redirect('/')
 
 
 

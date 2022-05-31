@@ -5,12 +5,12 @@
       <div class="heading light-head text-center margin-bottom-30">
         <h4>NEWSLETTER</h4>
         <span>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odi </span> </div>
-      <form role="form" class="contact-form" method="POST" name="subscribe">
+      <form role="form" class="contact-form2" method="POST" name="subscribe">
         {% comment %}
-        <!-- {% csrf_token %}
+        {% csrf_token %}
         {{ subscribe_form.non_field_errors }}
-        {{ subscribe_form.email }} -->
-        {% endcomment %}
+        {{ subscribe_form.email }}
+       {% endcomment %}
         <input type="email" placeholder="Enter your email address" required value="" name="email">
         
         <button type="submit" name="subscribe">SEND ME</button>

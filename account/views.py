@@ -1,3 +1,4 @@
+from re import A
 from django.shortcuts import render
 from django.shortcuts import render,redirect, HttpResponseRedirect
 from django.template import context
@@ -16,6 +17,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View, UpdateView
 from django.contrib.auth.views import (LoginView, PasswordChangeView, 
             PasswordResetConfirmView, PasswordResetView)
+
+
+import datetime
 
 
 User = get_user_model()
@@ -77,7 +81,7 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 class ShopLoginView(LoginRegisterMixin, LoginView):
     form_class = LoginForm
     template_name = 'login.html'
-    
+
 
 def login(request):  #######   FUNCTIONAL LOGIN    ########
     form=LoginForm()
@@ -166,3 +170,6 @@ class Activate(View):
         else:
             messages.add_message(request, messages.SUCCESS, 'Mail hesabiniz tesdiq olunmadi')
             return redirect(reverse_lazy(''))
+
+
+

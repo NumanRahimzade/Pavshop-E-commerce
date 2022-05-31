@@ -129,13 +129,14 @@ class BlogDetailView(CreateView, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories']= Category.objects.all()
-        mainBlog = Blog.objects.filter(id=self.object.id).first()  
+        # mainBlog = Blog.objects.filter(id=self.object.id).first()  
+        mainBlog = Blog.objects.filter(slug=self.kwargs['slug']).first() 
         get_category = mainBlog.category.name
-        context['like']=Blog.objects.filter(category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3]  
+        context['like']=Blog.objects.filter(category__name__iexact = get_category).exclude(slug=self.kwargs['slug']).order_by('-created_at')[:3]  
         context['tags']=Tag.objects.annotate(chapters_cnt=Count('blog_tags')).order_by('-chapters_cnt')
-        context['recentpost']=Blog.objects.all().exclude(id=self.object.id).order_by('-created_at')[:3] 
+        context['recentpost']=Blog.objects.all().exclude(slug=self.kwargs['slug']).order_by('-created_at')[:3] 
         context['created']=Blog.objects.all().order_by('-created_at')[:5] 
-        context['comments']=Comment.objects.filter(blog=Blog.objects.get(pk=self.object.id))
+        context['comments']=Comment.objects.filter(blog=Blog.objects.get(slug=self.kwargs['slug']))
         context['mainBlog']=mainBlog 
         return context
 

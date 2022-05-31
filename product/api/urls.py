@@ -1,5 +1,8 @@
 from django.urls import path
-from product.api.views import ProductListCreateAPI, ProductRetrieveUpdateDestroyAPIView, ImageListCreateAPIView, SubscriptionView,CategoryAPI, CategoryDetailAPI
+from product.api.views import (
+    ProductListCreateAPI, ProductRetrieveUpdateDestroyAPIView, 
+    ImageListCreateAPIView, SubscriptionView,CategoryAPI, 
+    CategoryDetailAPI, )
 from rest_framework.urlpatterns import format_suffix_patterns
 
 

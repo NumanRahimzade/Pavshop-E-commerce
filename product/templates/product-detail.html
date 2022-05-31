@@ -49,7 +49,7 @@
              
               <h4>{{ pp.title }}</h4>
               <span class="price"><small>$</small>{{ pp.price }}</span> 
-              
+              <input type="hidden" value="{{ pp.id }}" id="Idpro">
               <!-- Sale Tags -->
               <div class="on-sale"> 10% <span>OFF</span> </div>
               <ul class="item-owner">
@@ -79,7 +79,7 @@
                     <ul class="colors-shop">
                       <li><span class="margin-right-20">Colors</span></li>
                       {% for color in products.property.all %}
-                      <li><a href="#." style="background: {{ color.value}};"></a></li>
+                      <!-- <li><a href="#." style="background: {{ color.value}};"></a></li> -->
                       {% endfor %}
                       <!-- <li><a href="#." style="background:#958170;"></a></li>
                       <li><a href="#." style="background:#c9a688;"></a></li>
@@ -93,7 +93,7 @@
                   </li>
                   
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <a href="#." class="btn">ADD TO CART</a> </li>
+                  <li class="col-xs-6"> <a href="#." class="btn" id="basketButton">ADD TO CART</a> </li>
                   
                   <!-- LIKE -->
                   <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>
@@ -182,7 +182,7 @@
               <!-- REVIEW PEOPLE 1 -->
               
               
-              
+              {% if user.is_authenticated %}
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
               <form class="contact-form" action="" method="POST" name="detailed_product">
@@ -216,6 +216,7 @@
                   <button name="detailed_product" type="submit" class="btn btn-dark btn-small pull-right no-margin">POST REVIEW</button>
                 </li>
               </form>
+              {% endif %}
             </div>
             
             <!-- TAGS -->
@@ -264,7 +265,7 @@
       </div>
     </section>
     
-    <!-- {% include 'partials/about.html'%} -->
+    {% include 'partials/about.html'%}
     {% include 'partials/newsletter.html'  %}
   </div>
   

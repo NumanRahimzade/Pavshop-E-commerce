@@ -8,6 +8,7 @@ from product.models import *
 from core.models import Tag
 from product.forms import ReviewForm
 from django.db.models import Count
+
 # Create your views here.
 
 def productdetail(request,id):
@@ -114,10 +115,11 @@ class ProductDetailView(CreateView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        get_category = self.object.product.category.name
-        f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=self.object.id).order_by('-created_at')[:3] 
+        detailed = ProductVersion.objects.filter(slug=self.kwargs['slug']).first() 
+        get_category = detailed.product.category.name
+        f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(slug=self.kwargs['slug']).order_by('-created_at')[:3] 
         context['f'] = f
-        reviews = self.object.reviews.all().order_by('-created_at')
+        reviews = detailed.reviews.all().order_by('-created_at')
         context['review_list'] = reviews
         context['images'] = ProductImages.objects.all()
         return context
@@ -137,5 +139,7 @@ class ProductDetailView(CreateView, DetailView):
     def get_success_url(self):
         productversionid=self.kwargs['slug']
         return reverse_lazy('productdetail', kwargs={'slug': productversionid})
+
+
 
 

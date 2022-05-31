@@ -1,5 +1,5 @@
 (function() {
-   let form = document.querySelector('.contact-form');
+   let form = document.querySelector('.contact-form2');
    form.addEventListener('submit', async (event) => {
        event.preventDefault();
        let postData = {
