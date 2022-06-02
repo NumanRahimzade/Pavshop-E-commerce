@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import redis
 from datetime import timedelta
 import os
 from pathlib import Path
@@ -160,6 +161,12 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Baku'
+
+
+REDIS_BROKER_URL = 'redis://localhost:6379'
+
+REDIS_CLIENT = redis.Redis.from_url(REDIS_BROKER_URL)
+
 
 LOGS_ROOT = BASE_DIR / f'logs/{datetime.date.today()}.log'  ####logging request-response
 
