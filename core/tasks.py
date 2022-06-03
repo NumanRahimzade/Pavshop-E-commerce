@@ -28,19 +28,23 @@ def send_mail_to_subscribers():
     g = User.objects.filter(is_active=True).values_list('last_login','username', 'email')
     for gg in g:
         now = datetime.now(timezone.utc)
-        if (now-gg[0] > timedelta(days=0)):
+        if (now-gg[0] > timedelta(days=30)):
             email_list.append(gg[2])
     products = ProductVersion.objects.annotate(num_tags=models.Count('reviews')).filter(created_at__gte=datetime.now(timezone.utc)-timedelta(days=30)).order_by('-num_tags')[:5]
     
-    # mail_text = render_to_string('email-subscribers.html', {
-    #     'products': products, 
-    # })    ##### in case of use of different service
-    # mail_text = "salam"
-    Publish(data={"body": str(products), "subject": "News about site", "recipients": list(email_list), "subtype": "html"  }, event_type="send_mail")
+    mail_text = render_to_string('email-subscribers.html', {
+        'products': products, 
+    })    
+    
+    Publish(data={"body": mail_text, "subject": "News about site", "recipients": list(email_list), "subtype": "html"  }, event_type="send_mail") #####  this line in case of use of different service
+
+    ##### in case of same server "Publish" out "msg" in
     # msg = EmailMultiAlternatives(subject='Products', body=mail_text, from_email=settings.EMAIL_HOST_USER, to=email_list, )
     # msg.attach_alternative(mail_text, "text/html")
     # msg.send()  #### msg part out in  case of use of different service
     # print(email_list)
+
+
 # 1. background task
 # 2. paralel
 # 3. periodic task
