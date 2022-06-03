@@ -36,7 +36,7 @@ def send_mail_to_subscribers():
         'products': products, 
     })    
     
-    Publish(data={"body": mail_text, "subject": "News about site", "recipients": list(email_list), "subtype": "html"  }, event_type="send_mail") #####  this line in case of use of different service
+    Publish(data={"body": mail_text, "subject": "News about product updates", "recipients": list(email_list), "subtype": "html"  }, event_type="send_mail") #####  this line in case of use of different service
 
     ##### in case of same server "Publish" out "msg" in
     # msg = EmailMultiAlternatives(subject='Products', body=mail_text, from_email=settings.EMAIL_HOST_USER, to=email_list, )
