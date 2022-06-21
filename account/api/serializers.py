@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'username'
         )
-
+        extra_kwargs = {'email': {'required': True,'allow_blank': False}}  ### api documentationda required etmek ucun
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
@@ -26,6 +26,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_serializer = UserSerializer(self.user)
         data.update(user_serializer.data)
         return data
+
+        
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
             required=True,

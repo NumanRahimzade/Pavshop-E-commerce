@@ -48,7 +48,7 @@
             <div class="col-md-5">
              
               <h4>{{ pp.title }}</h4>
-              <span class="price"><small>$</small>{{ pp.price }}</span> 
+              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.price }}</span> 
               <input type="hidden" value="{{ pp.id }}" id="Idpro">
               <!-- Sale Tags -->
               <div class="on-sale"> 10% <span>OFF</span> </div>
@@ -63,19 +63,24 @@
               <!-- Short By -->
               <div class="some-info">
                 <ul class="row margin-top-30">
-                  <li class="col-xs-4">
+                  <li class="col-xs-6">
                     <div class="quinty"> 
                       <!-- QTY -->
-                      <select class="selectpicker">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                      <select class="selectpicker" id="countStock" min="1" max="{{pp.stock}}">
+                        {% for i in pp.stock|get_range %}
+                        <option>{{i}}</option>
+                        {% endfor %}
                       </select>
                     </div>
+                    
+                    <div >
+                      {% if pp.stock <= 3 %}
+                      <span style="margin-left: 7px; color: crimson;">son {{pp.stock}} mehsul</span>
+                      {% endif %}
+                    </div>
                   </li>
-                  
                   <!-- COLORS -->
-                  <li class="col-xs-8">
+                  <li class="col-xs-6">
                     <ul class="colors-shop">
                       <li><span class="margin-right-20">Colors</span></li>
                       {% for color in products.property.all %}
@@ -93,7 +98,7 @@
                   </li>
                   
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <a href="#." class="btn" id="basketButton">ADD TO CART</a> </li>
+                  <li class="col-xs-6" id="basketButton"> <a href="#." class="btn">ADD TO CART</a> </li>
                   
                   <!-- LIKE -->
                   <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>

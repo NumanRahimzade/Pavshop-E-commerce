@@ -20,11 +20,12 @@ class Order(AbstractModel):
 
 class Basket(AbstractModel):
     author = models.ForeignKey(User, default='', on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)  ##### status = is_ordered
 
     sub_total = models.DecimalField('Sub Total', decimal_places=2, max_digits=10,)
 
     def __str__(self):
-        return str(self.sub_total)
+        return str(self.status)
 
 
 class BasketItem(AbstractModel):

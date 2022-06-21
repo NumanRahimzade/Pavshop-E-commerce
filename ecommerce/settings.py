@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "corsheaders",
     'django_celery_beat',
+    'drf_yasg',
 
     'core',
     'blog.apps.BlogConfig',
@@ -85,7 +86,7 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=20),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=30),
     "TOKEN_OBTAIN_SERIALIZER": "account.api.serializers.CustomTokenObtainPairSerializer",
     'ALGORITHM': 'HS256',
@@ -99,9 +100,23 @@ ROOT_URLCONF = 'ecommerce.urls'
 
 
 REST_FRAMEWORK = {
+    'DATETIME_FORMAT': "%m/%d/%Y",
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
+}
+
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
 }
 
 
@@ -196,13 +211,6 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-LOGIN_URL = '/login/'
-
-LOGIN_REDIRECT_URL = '/login/'
-LOGOUT_REDIRECT_URL = '/'
-
-
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_PIPELINE = (
 
@@ -274,13 +282,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-REST_FRAMEWORK = {
-    'DATETIME_FORMAT': "%m/%d/%Y",
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -326,6 +327,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'numanrahimzade@gmail.com'
-EMAIL_HOST_PASSWORD = 'tptaxxlqwsawkcns'
+EMAIL_HOST_PASSWORD = 'vjzqpqsccitwbgck'
 
 

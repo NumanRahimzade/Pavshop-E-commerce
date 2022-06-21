@@ -15,6 +15,12 @@ class User(AbstractUser):
     country = CountryField()    #country ucun
     town_city = models.CharField(max_length=50)
 
+    @property
+    def basket(self):
+        return self.basket_set.filter(status=False).last()
+
+
+
    #### resize user image
     # def save(self, commit=True, *args, **kwargs):
     #     if commit:

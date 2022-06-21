@@ -204,19 +204,23 @@
                     {% endif %} -->
                 
                 <!-- USER BASKET -->
-                <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded"></i> </a>
+                
+                <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded"><h10 id="itemnumBer" style="color: crimson;"></h10></i></a>
                   <ul class="dropdown-menu" >
-                    
                     <li id="basketUl">
                       
                     </li>
-                    <li>
-                      <h5 class="text-center">SUBTOTAL: 258.00 USD</h5>
+                    
+                    
+                      
+                    
+                    <li id="sub_price">
+                      
                     </li>
                     <li class="margin-0">
                       <div class="row">
-                        <div class="col-xs-6"> <a href="shopping-cart.html" class="btn">VIEW CART</a></div>
-                        <div class="col-xs-6 "> <a href="checkout.html" class="btn">CHECK OUT</a></div>
+                        <div class="col-xs-6"> <a href="{% url 'shoppingcart' %}" class="btn">VIEW CART</a></div>
+                        <div class="col-xs-6 "> <a href="{% url 'checkout' %}" class="btn">CHECK OUT</a></div>
                       </div>
                     </li>
                   </ul>

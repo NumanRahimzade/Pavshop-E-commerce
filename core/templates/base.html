@@ -71,7 +71,52 @@
 <script type="text/javascript" src="{% static 'rs-plugin/js/jquery.tp.min.js' %}"></script> 
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/scripts.js' %}"></script>
-<script src="{% static 'js/basket.js' %}"></script>
+<!-- <script src="{% static 'js/basket.js' %}"></script> -->
+{% if user.is_authenticated %}
+<script src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'js/cart_functions.js' %}"></script>
+<script src="{% static 'js/cartPlusAdd.js' %}"></script>
+<script src="{% static 'js/cartMinus.js' %}"></script>
+<script src="{% static 'js/shoppingCartView.js' %}"></script>
+{% endif %}
+
+
+
+{% if not user.is_authenticated %}
+<script>
+  
+  const LoginLogic = {
+  fetchToken(username, password) {
+      fetch('/api/account/token/', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+              "username": username,
+              "password": password
+          })
+      })
+          .then(response => response.json())
+          .then(data => {
+              if (data.access) {
+                  localStorage.setItem('token', data.access);
+              } else {
+                  alert(data.detail);
+              }
+          })
+  }
+}
+
+
+const submit = document.getElementById('sbmt');
+const form = document.getElementById("login_form")
+submit.onclick = function () {
+  const username = document.querySelector('#id_username').value;
+  const password = document.querySelector('#id_password').value;
+  LoginLogic.fetchToken(username, password);
+  setInterval(form.submit(), 1000);
+}
+</script>
+{% endif %}
 </body>
 </html>
 

@@ -1,5 +1,5 @@
 from unittest import result
-
+from django.template.defaulttags import register
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView
 from django.urls import reverse_lazy
@@ -141,5 +141,8 @@ class ProductDetailView(CreateView, DetailView):
         return reverse_lazy('productdetail', kwargs={'slug': productversionid})
 
 
-
-
+    @register.filter
+    def get_range(value):
+        if value < 6:
+            return range(1, value+1)
+        return range(1, 6)
