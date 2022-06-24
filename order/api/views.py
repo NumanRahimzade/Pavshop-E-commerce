@@ -4,7 +4,7 @@ from order.api.serializers import BasketSerializer, BasketReadItemSerializer, Ba
 from django.contrib.auth import get_user_model
 # from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 # import django_filters.rest_framework
 # from rest_framework import filters
 from rest_framework.status import ( 
@@ -26,7 +26,7 @@ class CustomListCreateAPIView(ListCreateAPIView):
         return self.serializer_classes.get(self.request.method)
 
 
-class BasketViewAPI(ListCreateAPIView):
+class BasketViewAPI(ListAPIView):
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
 

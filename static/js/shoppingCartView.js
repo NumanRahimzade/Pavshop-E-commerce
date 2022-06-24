@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded",  function(){
                     <li class="col-sm-2">
                         <div class="position-center-center"> <span class="price"><small>$</small><span class="totall" id="finalPrice">${(data[i]['price'] * data[i]['count']).toFixed(2)}</span></span> </div>
                     </li>
+                    <li class="col-sm-1">
+                        <div class="position-center-center"> <a href="#."><i class="icon-close" onclick="deleteitem(${ data[i].id })" id="delitem"></i></a> </div>
+                    </li>
                 `
                 let Total = document.getElementById('tot_price')
                 Total.innerHTML += `

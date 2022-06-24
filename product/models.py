@@ -154,7 +154,7 @@ class WishList(AbstractModel):
 class Review(AbstractModel):
     user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE)
     productversion=models.ForeignKey(ProductVersion,related_name='reviews', on_delete=models.CASCADE)
-    comment=models.CharField('Comment', max_length=300)
+    comment=models.CharField('Comment', max_length=300, blank=True, null=True)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):

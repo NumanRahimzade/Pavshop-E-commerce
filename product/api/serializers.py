@@ -1,24 +1,45 @@
+
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
-from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages
+from drf_yasg.utils import swagger_serializer_method
+from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages, Review
 from core.models import Tag, Subscription
+from account.api.serializers import *
+
+
+User = get_user_model()
 
 
 class CategorySerializer(serializers.ModelSerializer):
     subcategory = serializers.SerializerMethodField()
+    subcategory_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
         fields = (
             'id', 
-            'subcategory',
             'name',
+            'subcategory',
+            'subcategory_id',
         )
 
 
     def get_subcategory(self, obj):
         return obj.subcategory.name if obj.subcategory else "None"
+
+    
+    def get_subcategory_id(self, obj):
+        return obj.subcategory.id if obj.subcategory else "None"
+
+
+class CategoryCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = (
+            'name',
+            'subcategory',
+        )
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -34,6 +55,7 @@ class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discount
         fields = (
+            'id',
             'title',
             'percentage',
             'value',
@@ -86,7 +108,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    
+    review = serializers.SerializerMethodField()
     class Meta:
         model = ProductVersion
         fields = (
@@ -99,13 +121,43 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'price',
             'stock',
             'tags',
+            'review',
             'created_at',
             'updated_at',
         )
 
 
+    def get_review(self, obj):
+        reviews = obj.reviews.all().values_list("comment", 'reply')
+        reviews_list = []
+        for i in reviews:
+            reviews_list.append(
+                {
+                    'comment':i[0],
+                    'reply':i[1]
+                }
+            )
+        return reviews_list
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductImages
+        fields = (
+            'version', ## productverion id
+            'image',
+            'cover_image',
+            'is_main',
+            'created_at',
+            'updated_at',
+            
+        )
+
+
 class ProductReadSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    review = serializers.SerializerMethodField()
     product = ProductSerializer()
     discount = DiscountSerializer()
     property = PropertyValuesSerializer(many=True)
@@ -127,8 +179,11 @@ class ProductReadSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'image',
+            'review',
         )
 
+
+    @swagger_serializer_method(ImageSerializer(many=True))
     def get_image(self, obj):
         images = obj.productimage.all().values_list("image", 'cover_image')
         img_list = []
@@ -142,19 +197,17 @@ class ProductReadSerializer(serializers.ModelSerializer):
         return img_list
 
 
-class ImageCreateSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = ProductImages
-        fields = (
-            'version', ## productverion id
-            'image',
-            'cover_image',
-            'is_main',
-            'created_at',
-            'updated_at',
-            
-        )
+    def get_review(self, obj):
+        reviews = obj.reviews.all().values_list("comment", 'reply')
+        reviews_list = []
+        for i in reviews:
+            reviews_list.append(
+                {
+                    'comment':i[0],
+                    'reply':i[1]
+                }
+            )
+        return reviews_list
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
@@ -165,23 +218,17 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         )
 
 
-class CategoryCreateSerializer(serializers.ModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
+    user = str(UserSerializer())
+
     class Meta:
-        model = Category
+        model = Review
         fields = (
-            'name',
-            'subcategory',
+            'user',
+            'productversion',
+            'comment',
+            'reply',
         )
 
 
-# class CategoryReadSerializer(serializers.ModelSerializer):
-#     subcategory=SubcategorySerializer()
-
-#     class Meta:
-#         model = Category
-#         fields = (
-#             'id',
-#             'name',
-#             'subcategory',
-#         )
-
+# WISHLIST WISHLIST HAS TO BE CREATED

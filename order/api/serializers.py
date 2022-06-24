@@ -2,7 +2,7 @@ from ast import dump
 from tkinter import FLAT
 from urllib import request
 from django.contrib.auth import get_user_model
-
+from drf_yasg.utils import swagger_serializer_method
 from dataclasses import field
 from pyexpat import model
 from rest_framework import serializers
@@ -14,39 +14,9 @@ from product.api.serializers import *
 User = get_user_model()
 
 
-class BasketSerializer(serializers.ModelSerializer):
-    author = UserSerializer()
-    basketitem = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Basket
-        fields = (
-            'author',
-            'basketitem',
-            'sub_total',
-            'status',
-        )
-
-
-    def get_basketitem(self, obj):
-        items = obj.basketitems.all().values_list('id', "productVersion", 'price', 'sub_total', 'count')
-        item_list = []
-        for item in items:
-            item_list.append(
-                {
-                    'id': item[0],
-                    'productVersion':item[1],
-                    'price':item[2],
-                    'sub_total':item[3],
-                    'count':item[4],
-                }
-            )
-        return item_list
-
-
 class BasketReadItemSerializer(serializers.ModelSerializer):
     productVersion = ProductReadSerializer()
-    basket = BasketSerializer()
+    basket = 'BasketSerializer()'
 
     class Meta:
         model = BasketItem
@@ -83,3 +53,33 @@ class BasketCreateItemSerializer(serializers.ModelSerializer):
             basket = Basket.objects.create(author=user, sub_total=0)
         data['basket'] = basket
         return super().validate(data)
+
+
+class BasketSerializer(serializers.ModelSerializer):
+    author = UserSerializer()
+    basketitem = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Basket
+        fields = (
+            'author',
+            'basketitem',
+            'sub_total',
+            'status',
+        )
+
+    @swagger_serializer_method(BasketReadItemSerializer(many=True))
+    def get_basketitem(self, obj):
+        items = obj.basketitems.all().values_list('id', "productVersion", 'price', 'sub_total', 'count')
+        item_list = []
+        for item in items:
+            item_list.append(
+                {
+                    'id': item[0],
+                    'productVersion':item[1],
+                    'price':item[2],
+                    'sub_total':item[3],
+                    'count':item[4],
+                }
+            )
+        return item_list

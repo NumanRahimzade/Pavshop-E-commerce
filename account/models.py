@@ -19,8 +19,6 @@ class User(AbstractUser):
     def basket(self):
         return self.basket_set.filter(status=False).last()
 
-
-
    #### resize user image
     # def save(self, commit=True, *args, **kwargs):
     #     if commit:
