@@ -79,6 +79,8 @@
 <script src="{% static 'js/cartMinus.js' %}"></script>
 <script src="{% static 'js/shoppingCartView.js' %}"></script>
 <script src="{% static 'js/deletefrombasket.js' %}"></script>
+<script src="{% static 'js/detail-product.js' %}"></script>
+<script src="{% static 'js/product-list.js' %}"></script>
 {% endif %}
 
 
@@ -118,6 +120,22 @@ submit.onclick = function () {
 }
 </script>
 {% endif %}
+
+<!-- <script>
+  window.onscroll = function() {myFunction()};
+  
+  var navbar = document.getElementsByClassName("stick");
+  var sticky = navbar.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky")
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }
+  </script> -->
+
 </body>
 </html>
 

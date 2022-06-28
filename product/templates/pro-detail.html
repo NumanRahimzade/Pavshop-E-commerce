@@ -45,8 +45,17 @@
             </div>
             
             <!-- COntent -->
-            <div class="col-md-5" id="mainproduct" >
+            <div class="col-md-5">
              
+              <h4>{{ pp.title }}</h4>
+              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.price }}</span> 
+              <input type="hidden" value="{{ pp.id }}" id="Idpro">
+              <!-- Sale Tags -->
+              <div class="on-sale"> 10% <span>OFF</span> </div>
+              <ul class="item-owner">
+                <li>Designer :<span> {{ pp.product.category.name }}</span></li>
+                <li>Brand:<span>{{ pp.product.brand.name }}</span></li>
+              </ul>
               
               <!-- Item Detail -->
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus ligula a scelerisque gravida. Nullam laoreet tortor ac maximus alique met, consectetur adipiscing elit. Vestibulum finibus ligula a scelerisque gravida. Nullam</p>

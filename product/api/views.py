@@ -14,7 +14,7 @@ from rest_framework.status import (
 )
 
 from django.http import Http404
-# from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from product.api.serializers import ( 
     ProductReadSerializer, ProductCreateSerializer, 
@@ -114,7 +114,7 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 class ImageListCreateAPIView(ListCreateAPIView):
     queryset = ProductImages.objects.all()
     serializer_class = ImageSerializer
-    # parser_classes = (MultiPartParser, FormParser)
+    parser_classes = [FormParser, MultiPartParser]
 
 
 class ReviewListCreateAPIView(ListCreateAPIView):

@@ -16,7 +16,7 @@ User = get_user_model()
 
 class BasketReadItemSerializer(serializers.ModelSerializer):
     productVersion = ProductReadSerializer()
-    basket = 'BasketSerializer()'
+    basket = serializers.SerializerMethodField()
 
     class Meta:
         model = BasketItem
@@ -28,6 +28,9 @@ class BasketReadItemSerializer(serializers.ModelSerializer):
             'sub_total',
             'count',
         )
+
+    def get_basket(self, obj):
+        return BasketSerializer(obj.basket).data
 
 
 class BasketCreateItemSerializer(serializers.ModelSerializer):
@@ -50,7 +53,7 @@ class BasketCreateItemSerializer(serializers.ModelSerializer):
         basket = user.basket
         print(basket)
         if not basket:
-            basket = Basket.objects.create(author=user, sub_total=0)
+            basket = Basket.objects.create(author=user)
         data['basket'] = basket
         return super().validate(data)
 
@@ -64,7 +67,6 @@ class BasketSerializer(serializers.ModelSerializer):
         fields = (
             'author',
             'basketitem',
-            'sub_total',
             'status',
         )
 

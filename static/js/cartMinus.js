@@ -1,5 +1,5 @@
-// let minusButton = document.getElementById("minus");
-// console.log(minusButton);
+let minusButton = document.getElementById("minus");
+console.log(minusButton, 'salamm');
 async function minus(productVersion, valueId, countItem, priceItem) {
     console.log('mius bura');
     

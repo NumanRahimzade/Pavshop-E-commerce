@@ -14,7 +14,13 @@ class ReviewForm(forms.ModelForm):
         model = Review
        
         fields = (
-            'comment',
+            'comment', 'rating',
             
         )
+        widgets = {
+            
+            'subject': forms.Select(attrs={
+                'rating': 'form-control',
+            })
+        }
     

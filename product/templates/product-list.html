@@ -61,9 +61,10 @@
             
             <!-- Popular Item Slide -->
             
-            <div class="papular-block row single-img-demos"> 
+            <div class="papular-block row single-img-demos" id="listpro" > 
               
               <!-- Item -->
+              {% comment %}
               {% for item in products %}
               <div class="col-md-4">
                 
@@ -88,7 +89,7 @@
                   
               </div>
               {% endfor %}
-
+              {% endcomment %}
             </div>
             
             <!-- Pagination -->

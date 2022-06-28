@@ -459,7 +459,7 @@ header .navbar li {
 	position: relative;
 }
 header .sticky {
-	height: 192px;
+	height: 100px;
 	width: 100%;
 	-webkit-transition: 0.4s ease-in-out;
 	-moz-transition: 0.4s ease-in-out;

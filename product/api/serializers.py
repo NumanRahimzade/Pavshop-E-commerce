@@ -1,4 +1,5 @@
 
+from audioop import reverse
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
@@ -107,39 +108,6 @@ class TagSerializer(serializers.ModelSerializer):
         )
 
 
-class ProductCreateSerializer(serializers.ModelSerializer):
-    review = serializers.SerializerMethodField()
-    class Meta:
-        model = ProductVersion
-        fields = (
-            'product',
-            'discount',
-            'property',
-            'title',
-            'slug',
-            'code',
-            'price',
-            'stock',
-            'tags',
-            'review',
-            'created_at',
-            'updated_at',
-        )
-
-
-    def get_review(self, obj):
-        reviews = obj.reviews.all().values_list("comment", 'reply')
-        reviews_list = []
-        for i in reviews:
-            reviews_list.append(
-                {
-                    'comment':i[0],
-                    'reply':i[1]
-                }
-            )
-        return reviews_list
-
-
 class ImageSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -153,6 +121,58 @@ class ImageSerializer(serializers.ModelSerializer):
             'updated_at',
             
         )
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    review = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    class Meta:
+        model = ProductVersion
+        fields = (
+            'product',
+            'discount',
+            'property',
+            'title',
+            'slug',
+            'code',
+            'price',
+            'stock',
+            'tags',
+            'image',
+            'review',
+            'created_at',
+            'updated_at',
+        )
+    
+    # def get_detail_url(self):
+    #     return reverse_lazy
+
+
+    @swagger_serializer_method(ImageSerializer(many=True))
+    def get_image(self, obj):
+        images = obj.productimage.all().values_list("image", 'cover_image')
+        img_list = []
+        for img in images:
+            img_list.append(
+                {
+                    'image':img[0],
+                    'cover_image':img[1]
+                }
+            )
+        return img_list
+
+
+    def get_review(self, obj):
+        reviews = obj.reviews.all().values_list("comment", 'reply')
+        reviews_list = []
+        for i in reviews:
+            reviews_list.append(
+                {
+                    'comment':i[0],
+                    'reply':i[1]
+                }
+            )
+        return reviews_list
 
 
 class ProductReadSerializer(serializers.ModelSerializer):

@@ -60,9 +60,9 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 @admin.register(ProductVersion)
 class ProductVersionAdmin(TranslationAdmin):
-    list_display = ('title', 'code', 'price', 'stock', 'created_at')
+    list_display = ('title', 'code', 'price', 'new_price', 'stock', 'created_at')
     list_filter = ('product__category__name', 'created_at')
-    search_fields = ('title', 'price', 'code')
+    search_fields = ('title', 'price', 'new_price', 'code')
     inlines = [ProductImageInlineAdmin, ]
 
 
@@ -83,7 +83,7 @@ class WishListAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('user','productversion','comment','created_at')
+    list_display = ('user','productversion','comment', 'rating','created_at')
     list_filter = ('productversion','user','created_at')
     search_fields = [ 'user__username','productversion__title','comment']
     

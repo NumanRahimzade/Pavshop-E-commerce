@@ -18,12 +18,13 @@ def about(request):
 
 def contact(request):
     form = ContactForm()
-    if request.method == 'POST' and 'contactform' in request.POST:
-        form = ContactForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Melumatlar qeyde alindi!')
-            return redirect(reverse_lazy('contact'))
+    if request.method == 'POST':
+        if 'contactform' in request.POST:
+            form = ContactForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'Melumatlar qeyde alindi!')
+                return redirect(reverse_lazy('contact'))
     context = {
         'form': form
     }

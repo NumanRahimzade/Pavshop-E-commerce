@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded",  function(){
             
         });
         let data = await response.json()
-        console.log('datadan qayidanlar :  ',data);
         
         let total_price = 0
         let totalItems = 0

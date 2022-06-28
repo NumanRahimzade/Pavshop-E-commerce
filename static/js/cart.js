@@ -15,12 +15,13 @@ document.addEventListener("DOMContentLoaded",  function(){
             
         });
         let data = await response.json()
-        console.log('datadan qayidanlar :  ',data);
+        console.log('basket datadan qayidanlar :  ',data);
         
         let total_price = 0
         let totalItems = 0
         for (let i = 0; i < data.length; i++) {
             if (data[i]['count'] > 0 && data[i]['basket']['status']==false) {
+                console.log('salam');
                 // console.log(data[i]['productVersion']['id'], 've', defineId);
                 // if (data[i]['productVersion']['id'] == defineId){
                     

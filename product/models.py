@@ -103,6 +103,7 @@ class ProductVersion(AbstractModel):
     slug = models.SlugField(max_length=70, editable=False, blank=True, db_index=True) 
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
+    new_price=models.CharField('NewPrice',max_length=40, null=True, blank=True)
     stock=models.IntegerField('Stock')
     tags=models.ManyToManyField(Tag,blank=True,related_name='product_tags')
     
@@ -152,10 +153,18 @@ class WishList(AbstractModel):
 
 
 class Review(AbstractModel):
+    CHOICES = (
+        (1, '*'),
+        (2, '**'),
+        (3, '***'),
+        (4, '****'),
+        (5, '*****'),
+    )
     user=models.ForeignKey(User, related_name='reviewuser',on_delete=models.CASCADE)
     productversion=models.ForeignKey(ProductVersion,related_name='reviews', on_delete=models.CASCADE)
     comment=models.CharField('Comment', max_length=300, blank=True, null=True)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    rating = models.IntegerField(choices=CHOICES, verbose_name="Rating", default=1)
 
     def __str__(self):
         return self.productversion.title

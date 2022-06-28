@@ -12,7 +12,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
-    list_display = ('author', 'sub_total', 'created_at')
+    list_display = ('author', 'created_at')
     list_filter = ('author', 'created_at')
     search_fields = ('author__username', )
 

@@ -122,7 +122,21 @@ class ProductDetailView(CreateView, DetailView):
         reviews = detailed.reviews.all().order_by('-created_at')
         context['review_list'] = reviews
         context['images'] = ProductImages.objects.all()
+        context['colors']=PropertyValues.objects.filter(propertyname__name='color')
+        context['size']=ProductVersion.objects.filter(property__propertyname__name='size')
         return context
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        color_id = self.request.GET.get('color_id')
+        size_id = self.request.GET.get('size_id')
+
+        if color_id:
+            queryset=queryset.filter(property__propertyname__color__id=color_id)
+        if size_id:
+            queryset=queryset.filter(property__propertyname__size__id=size_id)
+        return queryset
 
 
     def form_valid(self, form):
