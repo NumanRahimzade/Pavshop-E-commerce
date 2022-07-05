@@ -34,7 +34,7 @@ class Category(AbstractModel):
         for i in self.products.all():
             count += i.productversions.count()
         return count
-        # return self.products.count()
+        return self.products.count()
 
     @property
     def blog_count(self):
@@ -50,17 +50,11 @@ class Brand(AbstractModel):
 class Product(AbstractModel):
     brand=models.ForeignKey('Brand',related_name='productbrand',default="", on_delete=models.CASCADE)
     category=models.ForeignKey(Category,related_name='products',default="", on_delete=models.CASCADE)
+    title=models.CharField('Title', max_length=50)
     
     
     def __str__(self):
-            return self.brand.name
-
-    @property
-    def main_version(self):
-        return self.productversions.first()
-
-    def __str__(self):
-            return self.brand.name
+            return self.title
 
     @property
     def main_version(self):
@@ -75,10 +69,15 @@ class PropertyName(AbstractModel):
 
     class Meta:
         verbose_name = 'Property Name'
-        verbose_name_plural = 'Propery Names'
+        verbose_name_plural = 'Property Names'
 
     def __str__(self):
         return self.name
+
+    
+    @property
+    def main_values(self):
+        return self.propertyvalues.first()
 
 
 class PropertyValues(AbstractModel):
@@ -122,7 +121,7 @@ class ProductVersion(AbstractModel):
 
     def get_absolute_url(self):
         return reverse_lazy('productdetail', kwargs={
-            'slug': self.slug
+            'pk': self.id
         })
 
 

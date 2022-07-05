@@ -1,4 +1,5 @@
 from unittest import result
+from urllib import request
 from django.template.defaulttags import register
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView
@@ -36,21 +37,22 @@ class ProductListView(ListView):
     model= ProductVersion
     context_object_name='products'
     ordering=('-created_at',)
-    paginate_by = 2
+    paginate_by = 6
 
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
         context['last']=ProductVersion.objects.last()
         context['categories']= Category.objects.all()    #Category.objects.filter(products__isnull=False).distinct()
-        context['colors']=PropertyValues.objects.all()
+        context['colors']=PropertyValues.objects.filter(propertyname__name='color')
         context['tags']=Tag.objects.annotate(chapters_cnt=Count('product_tags')).order_by('-chapters_cnt')
         context['brands']=Brand.objects.all()
-        context['prices']=ProductVersion.objects.all().order_by('-price')
+        # context['prices']=ProductVersion.objects.all().order_by('-price')
         return context
 
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        # queryset = queryset.order_by('?')   ##### for random ordering of items
         category_id = self.request.GET.get('category_id') # 1
         color_id=self.request.GET.get('color_id')
         tag_id=self.request.GET.get('tag_id')
@@ -106,7 +108,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(CreateView, DetailView):
-    template_name = 'product-detail.html'
+    template_name = 'pro-detail.html'
     model = ProductVersion
     context_object_name = 'pp'
     form_class = ReviewForm
@@ -115,25 +117,52 @@ class ProductDetailView(CreateView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        detailed = ProductVersion.objects.filter(slug=self.kwargs['slug']).first() 
-        get_category = detailed.product.category.name
-        f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(slug=self.kwargs['slug']).order_by('-created_at')[:3] 
-        context['f'] = f
+        detailed = ProductVersion.objects.filter(id=self.kwargs['pk']).first()
+        get_pro_id = detailed.product.category.id
+        get_pro = detailed.product.id
+        get_version = ProductVersion.objects.filter(id=self.kwargs['pk']) 
+### .filter(property__propertyname__name='color')[0].property.all()
+        addition = ProductVersion.objects.filter(product= get_pro)
+        color = addition.filter(property__propertyname__name='color')
+        size = get_version.filter(property__propertyname__name='size').first()
+        for_size = []
+        if size:
+            for i in size.property.all():
+                if i.propertyname.name== 'size':
+                    for_size.append(i.value)
+        llist1 = []
+        llist2 = []
+        for i in color:
+            for j in i.property.all():
+                if j.propertyname.name == 'color':
+                    llist1.append(j.value)
+        
+        # print('reng',llist1)
+        for i in color:
+            llist2.append(i)
+
+        zipped = zip(llist2, llist1)
+
+        f = ProductVersion.objects.filter(product__category__id= get_pro_id).exclude(id=self.kwargs['pk']).order_by('-created_at')[:3]
+        context['related_versions'] = f
         reviews = detailed.reviews.all().order_by('-created_at')
         context['review_list'] = reviews
         context['images'] = ProductImages.objects.all()
-        context['colors']=PropertyValues.objects.filter(propertyname__name='color')
-        context['size']=ProductVersion.objects.filter(property__propertyname__name='size')
+        # context['colors']=ProductVersion.objects.filter(product= get_pro)
+        context['link_product_color'] = list(zipped)
+        context['size']=for_size
         return context
 
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        detailed = ProductVersion.objects.filter(id=self.kwargs['pk']).first() 
+        get_pro_id = detailed.product.id
         color_id = self.request.GET.get('color_id')
         size_id = self.request.GET.get('size_id')
 
         if color_id:
-            queryset=queryset.filter(property__propertyname__color__id=color_id)
+            queryset=queryset.filter(product= get_pro_id).filter(property__propertyname__color__id=color_id)
         if size_id:
             queryset=queryset.filter(property__propertyname__size__id=size_id)
         return queryset
@@ -143,7 +172,7 @@ class ProductDetailView(CreateView, DetailView):
         
         form.instance.user = self.request.user
         form.instance.comment = self.request.POST['comment']
-        form.instance.productversion = ProductVersion.objects.get(slug=self.kwargs['slug'])
+        form.instance.productversion = ProductVersion.objects.get(id=self.kwargs['pk'])
         
         messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
         
@@ -151,8 +180,8 @@ class ProductDetailView(CreateView, DetailView):
 
     
     def get_success_url(self):
-        productversionid=self.kwargs['slug']
-        return reverse_lazy('productdetail', kwargs={'slug': productversionid})
+        productversionid=self.kwargs['id']
+        return reverse_lazy('productdetail', kwargs={'id': productversionid})
 
 
     @register.filter
@@ -160,3 +189,59 @@ class ProductDetailView(CreateView, DetailView):
         if value < 6:
             return range(1, value+1)
         return range(1, 6)
+
+# class ProductDetailView(CreateView, DetailView):
+    # template_name = 'pro-detail.html'
+    # model = ProductVersion
+    # context_object_name = 'pp'
+    # form_class = ReviewForm
+    # # success_url = reverse_lazy('')
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     detailed = ProductVersion.objects.filter(id=self.kwargs['pk']).first() 
+    #     get_category = detailed.product.category.name
+    #     f = ProductVersion.objects.filter(product__category__name__iexact = get_category).exclude(id=self.kwargs['pk']).order_by('-created_at')[:3] 
+    #     context['f'] = f
+    #     reviews = detailed.reviews.all().order_by('-created_at')
+    #     context['review_list'] = reviews
+    #     context['images'] = ProductImages.objects.all()
+    #     context['colors']=PropertyValues.objects.filter(propertyname__name='color')
+    #     context['size']=ProductVersion.objects.filter(property__propertyname__name='size')
+    #     return context
+
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     color_id = self.request.GET.get('color_id')
+    #     size_id = self.request.GET.get('size_id')
+
+    #     if color_id:
+    #         queryset=queryset.filter(property__propertyname__color__id=color_id)
+    #     if size_id:
+    #         queryset=queryset.filter(property__propertyname__size__id=size_id)
+    #     return queryset
+
+
+    # def form_valid(self, form):
+        
+    #     form.instance.user = self.request.user
+    #     form.instance.comment = self.request.POST['comment']
+    #     form.instance.productversion = ProductVersion.objects.get(id=self.kwargs['pk'])
+        
+    #     messages.add_message(self.request, messages.SUCCESS, 'Review qeyde alindi!')
+        
+    #     return super().form_valid(form)
+
+    
+    # def get_success_url(self):
+    #     productversionid=self.kwargs['id']
+    #     return reverse_lazy('productdetail', kwargs={'id': productversionid})
+
+
+    # @register.filter
+    # def get_range(value):
+    #     if value < 6:
+    #         return range(1, value+1)
+    #     return range(1, 6)

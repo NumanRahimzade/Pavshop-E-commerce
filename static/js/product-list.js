@@ -14,19 +14,19 @@ document.addEventListener("DOMContentLoaded",  function(){
             method: "GET",
             
         });
-        let data = await response.json()
-        console.log('product datadan qayidanlar :  ',data);
+        let dataa = await response.json()
+        console.log('product datadan qayidanlar :  ',dataa);
         
-        for (let i = 0; i < data.length; i++) {
-            let ids = data[i]['id']
-            
+        for (let i = 0; i < dataa.length; i++) {
+            let ids = dataa[i]['id']
+            console.log(ids);
             proSection.innerHTML += `
                 <div class="col-md-4">
                 
                 <div class="item" id="mainitem"> 
                   <!-- Item img -->
-                    <div class="item-img"> <img class="img-1" src="" alt="" >
-                        <!-- <div class="item-img"> <img class="img-1" src="{{ item.main_version.main_image.image.url }}" alt="" > -->
+                    <div class="item-img"> <img class="img-1" src="${dataa[i]['image']['image']}" alt="" >
+                        <div class="item-img"> <img class="img-1" src="" alt="" >
                     <!-- Overlay -->
                         <div class="overlay">
                             <div class="position-center-center">
@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded",  function(){
                         </div>
                     </div>
                   <!-- Item Name -->
-                    <div class="item-name"> <a href="   "> ${data[i]['title']} </a>
-                        <p> ${data[i]['code']} </p>
+                    <div class="item-name"> <a href="   "> ${dataa[i]['title']} </a>
+                        <p> ${dataa[i]['code']} </p>
                     </div>
                   <!-- Price --> 
-                    <span class="price"><small></small> ${data[i]['price']} </span> </div>
+                    <span class="price"><small></small> ${dataa[i]['price']} </span> </div>
                   
                   
               </div>

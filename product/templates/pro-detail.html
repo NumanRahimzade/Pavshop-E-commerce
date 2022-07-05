@@ -79,34 +79,34 @@
                       {% endif %}
                     </div>
                   </li>
+                  <li ><span class="margin-right-20">size</span>
+                    
+                    
+                    {% for i in size %}
+                    
+                    <button>{{i}}</button>
+                    {% endfor %}
+                  
+                  
+                </li>
                   <!-- COLORS -->
                   <li class="col-xs-6">
+                    
                     <ul class="colors-shop">
-                      {% for clr in colors %}
+                      
                       <li><span class="margin-right-20">Colors</span></li>
-                      {% for color in pp.property.all %}
+                         
+                      {% for link, color in link_product_color %}
                       
-                      <li><a href="{{color.get_success_url}}?color_id={{clr.id}}" style="background: {{ color.value }};"></a></li>
-                      
+                          <li><a href="{{link.get_absolute_url}}"  style="background-color: {{color}}; border: solid 1px black" ></a></li>
+                          
                       {% endfor %}
-                      {% endfor %}
                       
-                      <!-- <li><a href="#." style="background:#958170;"></a></li>
-                      <li><a href="#." style="background:#c9a688;"></a></li>
-                      <li><a href="#." style="background:#c9c288;"></a></li>
-                      <li><a href="#." style="background:#a7c988;"></a></li>
-                      <li><a href="#." style="background:#9ed66b;"></a></li>
-                      <li><a href="#." style="background:#6bd6b1;"></a></li>
-                      <li><a href="#." style="background:#82c2dc;"></a></li>
-                      <li><a href="#." style="background:#8295dc;"></a></li> -->
                     </ul>
                     
                   </li>
-                  <li><span class="margin-right-20">size</span>
-                    {% for sizes in size %}
-                    <li><a href="{{i.get_success_url}}?size_id={{i.id}}" >{{size.value}}</a></li>
-                    {% endfor %}
-                  </li>
+                  
+                 
                   
                   <!-- ADD TO CART -->
                   <li class="col-xs-6" id="basketButton"> <a href="#." class="btn">ADD TO CART</a> </li>
@@ -254,11 +254,11 @@
         
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
-          {% for y in f %}
+          {% for y in related_versions %}
           <!-- Item -->
           <div class="item"> 
             <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-1.jpg' %}" alt="" > 
+            <div class="item-img"> <img class="img-1" src="{{y.main_image.image.url}}" alt="" > 
               <!-- Overlay -->
               <div class="overlay">
                 <div class="position-center-center">
@@ -271,7 +271,7 @@
               <p>{{ y.title }}</p>
             </div>
             <!-- Price --> 
-            <span class="price"><small>$</small>{{ y.price }}</span> </div>
+            <span class="price">{{ y.price }}<small>AZN</small></span> </div>
           
           {% endfor %}
           

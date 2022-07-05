@@ -64,7 +64,7 @@
             <div class="papular-block row single-img-demos" id="listpro" > 
               
               <!-- Item -->
-              {% comment %}
+              
               {% for item in products %}
               <div class="col-md-4">
                 
@@ -81,15 +81,15 @@
                   </div>
                   <!-- Item Name -->
                   <div class="item-name"> <a href="{{ item.get_absolute_url }}"> {{ item.title }} </a>
-                    <p> {{ item.code }} </p>
+                    <p> CODE: {{ item.code }} </p>
                   </div>
                   <!-- Price --> 
-                  <span class="price"><small></small> {{ item.price }} </span> </div>
+                  <span class="price"><small></small> {{ item.price }} AZN </span> </div>
                   
                   
               </div>
               {% endfor %}
-              {% endcomment %}
+              
             </div>
             
             <!-- Pagination -->
@@ -111,18 +111,18 @@
               {% endcomment %}
 
               {% if page_obj.has_previous %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %} {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
               {% endif %}
               {% for page in page_obj.paginator.page_range %}
                 
                  {% if page is page_obj.number %}
-                    <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                    <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %} {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
                  {% else %}
-                    <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                    <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %} {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
                   {% endif %}
               {% endfor %}
               {% if page_obj.has_next %}
-                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                 <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %} {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %} {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %} {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
               {% endif %}
             </ul>
           </div>
@@ -136,7 +136,7 @@
               <ul class="shop-cate">
                 {% get_categories as categories %}
                 {% for category in categories %}
-                   <li><a href="{% url 'productlist' %}?category_id={{category.id}}"> {{category.name}} <span>{{category.product_count}}</span></a></li>
+                   <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&category_id={{category.id}}"> {{category.name}} <span>{{category.product_count}}</span></a></li>
                 {% endfor %}
 
 
@@ -154,13 +154,12 @@
           
               <!-- FILTER BY PRICE -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">FILTER BY PRICE</h5>
-            
               
               <!-- TAGS -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">FILTER BY COLORS</h5>
               <ul class="colors">
                 {% for color in colors %}
-                <li><a href="{% url 'productlist' %}?color_id={{color.id}}" style="background:{{ color.value}};"></a></li>
+                <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&color_id={{color.id}}" style="background:{{ color.value}}; border: solid 1px black"></a></li>
 
                 {% endfor %}
 
@@ -188,7 +187,7 @@
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
               <ul class="shop-tags">
                 {% for tag in tags %}
-                <li><a href="{% url 'productlist' %}?tag_id={{tag.id}}">{{tag.title }}</a></li>
+                <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&tag_id={{tag.id}}">{{tag.title }}</a></li>
                 {% endfor %}
                 <!-- <li><a href="#.">Towels</a></li>
                 <li><a href="#.">Chair</a></li>
@@ -205,7 +204,7 @@
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">brands</h5>
               <ul class="shop-cate">
                 {% for brand in brands %}
-                    <li><a href="{% url 'productlist' %}?brand_id={{brand.id}}"> {{brand.name}}</a></li>
+                    <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&brand_id={{brand.id}}"> {{brand.name}}</a></li>
                 {% endfor %}
                 <!-- <li><a href="#."> G-Furniture
                   BigYellow</a></li>
