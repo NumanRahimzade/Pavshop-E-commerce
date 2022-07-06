@@ -20,8 +20,9 @@ from product.api.serializers import (
     ProductReadSerializer, ProductCreateSerializer, 
     ImageSerializer, SubscriptionSerializer,
     CategorySerializer,CategoryCreateSerializer, 
-    ReviewSerializer,)
-from product.models import ProductImages, ProductVersion, Category, Review
+    ReviewSerializer,PropertyValuesSerializer,
+    PropertySerializer,)
+from product.models import ProductImages, ProductVersion, Category, Review, PropertyValues, PropertyName
 from core.models import Subscription
 
 
@@ -120,6 +121,16 @@ class ImageListCreateAPIView(ListCreateAPIView):
 class ReviewListCreateAPIView(ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+class PropertyValuesSerializerListCreateAPIView(ListCreateAPIView):
+    queryset = PropertyValues.objects.all()
+    serializer_class = PropertyValuesSerializer
+
+
+class PropertySerializerListCreateAPIView(ListCreateAPIView):
+    queryset = PropertyName.objects.all()
+    serializer_class = PropertySerializer
 
 
 class SubscriptionView(CreateAPIView):

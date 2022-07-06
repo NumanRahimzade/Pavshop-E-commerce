@@ -1,6 +1,6 @@
 // let plusButton = document.getElementById("plus");
 // console.log(plusButton);
-async function plus(productVersion, valueId, countItem, priceItem) {
+async function plus(productVersion, valueId, countItem, priceItem, size) {
 // let maxcount = document.getElementById("countStock");
 // let maxnumber = maxcount.getAttribute('max')
 // console.log(countItem, );  
@@ -11,6 +11,7 @@ async function plus(productVersion, valueId, countItem, priceItem) {
             "price": parseFloat(priceItem),
             "sub_total": parseFloat(priceItem),
             "count": parseInt(++countItem),
+            "size": size,
         }
         // let newCount = countItem++;
         // document.querySelector(`#priceItemm${valueId}`).innerHTML = newCount;

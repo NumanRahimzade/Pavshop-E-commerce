@@ -1,6 +1,6 @@
 let minusButton = document.getElementById("minus");
 console.log(minusButton, 'salamm');
-async function minus(productVersion, valueId, countItem, priceItem) {
+async function minus(productVersion, valueId, countItem, priceItem, size) {
     console.log('mius bura');
     
     // if (countItem.value < parseInt(countItem).getAttribute('max')){
@@ -9,6 +9,7 @@ async function minus(productVersion, valueId, countItem, priceItem) {
         "price": parseFloat(priceItem),
         "sub_total": parseFloat(priceItem),
         "count": parseInt(--countItem),
+        "size": size,
     }
     // let newCount = countItem++;
     // document.querySelector(`#priceItemm${valueId}`).innerHTML = newCount;

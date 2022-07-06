@@ -1,5 +1,6 @@
 
 from audioop import reverse
+import json
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
@@ -64,18 +65,19 @@ class DiscountSerializer(serializers.ModelSerializer):
 
 
 class PropertySerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+    category = str(CategorySerializer())
+
     class Meta:
         model = PropertyName
         fields = (
             'id',
             'name',
             'category',
-        )
+        )   
 
 
 class PropertyValuesSerializer(serializers.ModelSerializer):
-    propertyname = PropertySerializer()
+    propertyname = list(PropertySerializer())
     
     class Meta:
         model = PropertyValues
@@ -126,6 +128,8 @@ class ImageSerializer(serializers.ModelSerializer):
 class ProductCreateSerializer(serializers.ModelSerializer):
     review = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()
+    property = list(PropertyValuesSerializer())
+    
     class Meta:
         model = ProductVersion
         fields = (

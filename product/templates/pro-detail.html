@@ -72,23 +72,27 @@
                         {% endfor %}
                       </select>
                     </div>
-                    
                     <div >
                       {% if pp.stock <= 3 %}
                       <span style="margin-left: 7px; color: crimson;">son {{pp.stock}} mehsul</span>
                       {% endif %}
                     </div>
+                    <li ><span class="margin-right-20">size</span>
+                      <div>
+                        <select class="selectpicker" id="sizedefine">
+                          {% for i in size %}
+                          
+                          <option>{{i}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </li>
+                    
                   </li>
-                  <li ><span class="margin-right-20">size</span>
-                    
-                    
-                    {% for i in size %}
-                    
-                    <button>{{i}}</button>
-                    {% endfor %}
                   
                   
-                </li>
+                  
+                  
                   <!-- COLORS -->
                   <li class="col-xs-6">
                     

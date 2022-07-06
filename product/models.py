@@ -62,7 +62,7 @@ class Product(AbstractModel):
 
 
 class PropertyName(AbstractModel):
-    category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.SET_NULL, null=True)
+    category=models.ForeignKey(Category,related_name='propertynames',default="", on_delete=models.SET_NULL, null=True, blank=True)
 
     name=models.CharField('Name',max_length=70)
 

@@ -22,6 +22,26 @@ document.addEventListener("DOMContentLoaded",  function(){
         for (let i = 0; i < data.length; i++) {
             if (data[i]['count'] > 0 && data[i]['basket']['status']==false) {
 
+
+                let weights = {
+                    'xxs':6, 
+                    'xs':7, 
+                    's':8, 
+                    'm':9, 
+                    'xl':10, 
+                    'xxl':11,
+                    'xxxl':12
+                  };
+                for (let [key, value] of Object.entries(weights)) {
+                    if (data[i]['size']==value) {
+                        var newsize = key
+                        data[i]['size'] = newsize
+                    }else{
+                        data[i]['size']=data[i]['size']
+                    }
+                    
+                }
+
                 totalItems += parseInt(data[i]['count'])
                 let ids = data[i]['id']
                 total_price += parseFloat(data[i]['count'] * data[i]['price'])
@@ -32,15 +52,18 @@ document.addEventListener("DOMContentLoaded",  function(){
                             <div class="col-sm-4"> <a href="#." class="item-img"> <img class="media-object" src="${data[i]['productVersion']['image'][0]}" alt=""> </a> </div>
                             
                             <!-- Item Name -->
-                            <div class="col-sm-8" style="margin-top:85px;">
+                            <div class="col-sm-6" style="margin-top:85px;">
                                 <div class="position-center-center">
                                     <h5>${data[i]['productVersion']['product']['brand']['name']}</h5>
                                     <p>${data[i]['productVersion']['title']}</p>
                                 </div>
                             </div>
+                            <div class="col-sm-2" style="margin-top:55px;">
+                                <h5>${data[i]['size']}</h5>
+                            </div>
                         </div>
                     </li>
-                
+                    
                     <!-- PRICE -->
                     <li class="col-sm-2">
                         <div class="position-center-center"> <span class="price"><small>$</small>${data[i]['price']}</span> </div>
@@ -51,7 +74,7 @@ document.addEventListener("DOMContentLoaded",  function(){
                         <div class="position-center-center">
                             <div class="quinty"> 
                             <!-- QTY -->
-                            <span id="priceItemm${ data[i].id }" class="qty" id="priceCount" data-value="{{ data[i].count }}"> ${data[i]['count']} <button onclick="plus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price } )" id="plus">+</button> <button onclick="minus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price } )" id="minus"> - </button> </span>
+                            <span id="priceItemm${ data[i].id }" class="qty" id="priceCount" data-value="{{ data[i].count }}"> ${data[i]['count']} <button onclick="plus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price }, ${data[i].newsize} )" id="plus">+</button> <button onclick="minus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price }, ${data[i].newsize} )" id="minus"> - </button> </span>
                             </div>
                         </div>
                     </li>

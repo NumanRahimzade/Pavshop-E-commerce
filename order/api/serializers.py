@@ -27,6 +27,7 @@ class BasketReadItemSerializer(serializers.ModelSerializer):
             'price',
             'sub_total',
             'count',
+            'size',
         )
 
     def get_basket(self, obj):
@@ -45,6 +46,7 @@ class BasketCreateItemSerializer(serializers.ModelSerializer):
             'price',
             'sub_total',
             'count',
+            'size',
         )
 
     def validate(self, data):

@@ -21,6 +21,27 @@ document.addEventListener("DOMContentLoaded",  function(){
         let totalItems = 0
         for (let i = 0; i < data.length; i++) {
             if (data[i]['count'] > 0 && data[i]['basket']['status']==false) {
+
+                let weights = {
+                    'xxs':6, 
+                    'xs':7, 
+                    's':8, 
+                    'm':9, 
+                    'xl':10, 
+                    'xxl':11,
+                    'xxxl':12
+                  };
+                for (let [key, value] of Object.entries(weights)) {
+                    if (data[i]['size']==value) {
+                        var newsize = key
+                        data[i]['size'] = newsize
+                    }else{
+                        data[i]['size']=data[i]['size']
+                    }
+                    
+                }
+
+
                 console.log('salam');
                 // console.log(data[i]['productVersion']['id'], 've', defineId);
                 // if (data[i]['productVersion']['id'] == defineId){
@@ -43,8 +64,9 @@ document.addEventListener("DOMContentLoaded",  function(){
                     </div>
                     <div class="media-body">
                     <h6 class="media-heading">${data[i]['productVersion']['product']['brand']['name']}</h6>
-                    <span class="price"  data-value="{{ data[i].price }}">${data[i]['price']}</span><span id="priceItemm${ data[i].id }" class="qty" id="priceCount" data-value="{{ data[i].count }}"> ${data[i]['count']} <button onclick="plus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price } )" id="plus">+</button> <button onclick="minus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price } )" id="minus"> - </button> </span>
-                    <span class="totall" id="finalPrice">Total price ${(data[i]['price'] * data[i]['count']).toFixed(2)}</span>
+                    <span class = "size">size: ${data[i]['size']}</span>
+                    <span class="price"  data-value="{{ data[i].price }}">price: ${data[i]['price']}</span><span id="priceItemm${ data[i].id }" class="qty" id="priceCount" data-value="{{ data[i].count }}"> ${data[i]['count']} <button onclick="plus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price }, ${data[i].newsize} )" id="plus">+</button> <button onclick="minus(${data[i]['productVersion'].id}, ${ data[i].id }, ${ data[i].count}, ${ data[i].price}, ${data[i].newsize} )" id="minus"> - </button> </span>
+                    <span class="totall" id="finalPrice">Total price: ${(data[i]['price'] * data[i]['count']).toFixed(2)}</span>
                     </div>
                 </li>
                 `
