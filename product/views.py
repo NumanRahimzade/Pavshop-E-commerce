@@ -108,7 +108,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(CreateView, DetailView):
-    template_name = 'pro-detail.html'
+    template_name = 'product-detail.html'
     model = ProductVersion
     context_object_name = 'pp'
     form_class = ReviewForm
@@ -120,24 +120,29 @@ class ProductDetailView(CreateView, DetailView):
         detailed = ProductVersion.objects.filter(id=self.kwargs['pk']).first()
         get_pro_id = detailed.product.category.id
         get_pro = detailed.product.id
-        get_version = ProductVersion.objects.filter(id=self.kwargs['pk']) 
-### .filter(property__propertyname__name='color')[0].property.all()
-        addition = ProductVersion.objects.filter(product= get_pro)
-        color = addition.filter(property__propertyname__name='color')
-        size = get_version.filter(property__propertyname__name='size').first()
+        # get_version = ProductVersion.objects.filter(id=self.kwargs['pk']) 
+
+        
+        size = ProductVersion.objects.filter(id=self.kwargs['pk']).filter(property__propertyname__name='size').first()
+        
         for_size = []
         if size:
             for i in size.property.all():
                 if i.propertyname.name== 'size':
                     for_size.append(i.value)
-        llist1 = []
-        llist2 = []
+
+
+        addition = ProductVersion.objects.filter(product= get_pro)
+        color = addition.filter(property__propertyname__name='color')
+
+        llist1 = []   #### color list
+        llist2 = []   ####  product_versions_of_above_colors
         for i in color:
             for j in i.property.all():
                 if j.propertyname.name == 'color':
                     llist1.append(j.value)
         
-        # print('reng',llist1)
+        
         for i in color:
             llist2.append(i)
 
@@ -180,8 +185,8 @@ class ProductDetailView(CreateView, DetailView):
 
     
     def get_success_url(self):
-        productversionid=self.kwargs['id']
-        return reverse_lazy('productdetail', kwargs={'id': productversionid})
+        productversionid=self.kwargs['pk']
+        return reverse_lazy('productdetail', kwargs={'pk': productversionid})
 
 
     @register.filter

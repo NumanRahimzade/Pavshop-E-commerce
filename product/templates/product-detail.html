@@ -45,8 +45,17 @@
             </div>
             
             <!-- COntent -->
-            <div class="col-md-5" id="mainproduct" >
+            <div class="col-md-5">
              
+              <h4>{{ pp.title }}</h4>
+              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.price }}</span> 
+              <input type="hidden" value="{{ pp.id }}" id="Idpro">
+              <!-- Sale Tags -->
+              <div class="on-sale"> 10% <span>OFF</span> </div>
+              <ul class="item-owner">
+                <li>Designer :<span> {{ pp.product.category.name }}</span></li>
+                <li>Brand:<span>{{ pp.product.brand.name }}</span></li>
+              </ul>
               
               <!-- Item Detail -->
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus ligula a scelerisque gravida. Nullam laoreet tortor ac maximus alique met, consectetur adipiscing elit. Vestibulum finibus ligula a scelerisque gravida. Nullam</p>
@@ -63,41 +72,45 @@
                         {% endfor %}
                       </select>
                     </div>
-                    
                     <div >
                       {% if pp.stock <= 3 %}
                       <span style="margin-left: 7px; color: crimson;">son {{pp.stock}} mehsul</span>
                       {% endif %}
                     </div>
+                    <li ><span class="margin-right-20">size</span>
+                      <div>
+                        <select class="selectpicker" id="sizedefine">
+                          {% for i in size %}
+                          
+                          <option>{{i}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </li>
+                    
                   </li>
+                  
+                  
+                  
+                  
                   <!-- COLORS -->
                   <li class="col-xs-6">
+                    
                     <ul class="colors-shop">
-                      {% for clr in colors %}
+                      
                       <li><span class="margin-right-20">Colors</span></li>
-                      {% for color in pp.property.all %}
+                         
+                      {% for link, color in link_product_color %}
                       
-                      <li><a href="{{color.get_success_url}}?color_id={{clr.id}}" style="background: {{ color.value }};"></a></li>
-                      
+                          <li><a href="{{link.get_absolute_url}}"  style="background-color: {{color}}; border: solid 1px black" ></a></li>
+                          
                       {% endfor %}
-                      {% endfor %}
                       
-                      <!-- <li><a href="#." style="background:#958170;"></a></li>
-                      <li><a href="#." style="background:#c9a688;"></a></li>
-                      <li><a href="#." style="background:#c9c288;"></a></li>
-                      <li><a href="#." style="background:#a7c988;"></a></li>
-                      <li><a href="#." style="background:#9ed66b;"></a></li>
-                      <li><a href="#." style="background:#6bd6b1;"></a></li>
-                      <li><a href="#." style="background:#82c2dc;"></a></li>
-                      <li><a href="#." style="background:#8295dc;"></a></li> -->
                     </ul>
                     
                   </li>
-                  <li><span class="margin-right-20">size</span>
-                    {% for sizes in size %}
-                    <li><a href="{{i.get_success_url}}?size_id={{i.id}}" >{{size.value}}</a></li>
-                    {% endfor %}
-                  </li>
+                  
+                 
                   
                   <!-- ADD TO CART -->
                   <li class="col-xs-6" id="basketButton"> <a href="#." class="btn">ADD TO CART</a> </li>
@@ -176,7 +189,11 @@
                 
                 <div class="media-left"> 
                   <!--  Image -->
-                  <div class="avatar"> <a href="#"> <img class="media-object" src="{% static 'images/avatar-1.jpg' %}" alt=""> </a> </div>
+                  {% if i.user.image %}
+                    <div class="admin-pic"> <img src="{{i.user.image.url}}" alt="" height='50' width='50' style="object-fit: cover;"> </div>
+                  {% else %}
+                    <div class="admin-pic" style="background-color: grey;"> <img src="" alt=""> </div>
+                  {% endif %}
                 </div>
                 <!--  Details -->
                 <div class="media-body">
@@ -245,11 +262,11 @@
         
         <!-- Popular Item Slide -->
         <div class="papular-block block-slide single-img-demos"> 
-          {% for y in f %}
+          {% for y in related_versions %}
           <!-- Item -->
           <div class="item"> 
             <!-- Item img -->
-            <div class="item-img"> <img class="img-1" src="{% static 'images/product-1.jpg' %}" alt="" > 
+            <div class="item-img"> <img class="img-1" src="{{y.main_image.image.url}}" alt="" > 
               <!-- Overlay -->
               <div class="overlay">
                 <div class="position-center-center">
@@ -262,7 +279,7 @@
               <p>{{ y.title }}</p>
             </div>
             <!-- Price --> 
-            <span class="price"><small>$</small>{{ y.price }}</span> </div>
+            <span class="price">{{ y.price }}<small>AZN</small></span> </div>
           
           {% endfor %}
           
