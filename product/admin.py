@@ -60,9 +60,9 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 @admin.register(ProductVersion)
 class ProductVersionAdmin(TranslationAdmin):
-    list_display = ('title', 'code', 'price', 'new_price', 'stock', 'created_at')
+    list_display = ('title', 'code', 'price', 'discount_price', 'stock', 'created_at')
     list_filter = ('product__category__name', 'created_at')
-    search_fields = ('title', 'price', 'new_price', 'code')
+    search_fields = ('title', 'price', 'discount_price', 'code')
     inlines = [ProductImageInlineAdmin, ]
 
 

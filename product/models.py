@@ -102,7 +102,7 @@ class ProductVersion(AbstractModel):
     slug = models.SlugField(max_length=70, editable=False, blank=True, db_index=True) 
     code=models.CharField('Code',max_length=50)
     price=models.CharField('Price',max_length=40)
-    new_price=models.CharField('NewPrice',max_length=40, null=True, blank=True)
+    discount_price=models.CharField('DiscountPrice',max_length=40, null=True, blank=True)
     stock=models.IntegerField('Stock')
     tags=models.ManyToManyField(Tag,blank=True,related_name='product_tags')
     
@@ -123,6 +123,13 @@ class ProductVersion(AbstractModel):
         return reverse_lazy('productdetail', kwargs={
             'pk': self.id
         })
+
+
+    def discount_price(self):
+        if self.discount:
+            a = float(self.price)*float(self.discount.percentage)/100
+            result = float(self.price)-float(a)
+            return result
 
 
 class ProductImages(AbstractModel):
@@ -171,5 +178,5 @@ class Review(AbstractModel):
 
     def get_absolute_url(self):
         return reverse_lazy('productdetail', kwargs={
-            'slug': self.productversion.slug
+            'pk': self.productversion.id
         })

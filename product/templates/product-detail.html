@@ -46,12 +46,18 @@
             
             <!-- COntent -->
             <div class="col-md-5">
-             
               <h4>{{ pp.title }}</h4>
-              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.price }}</span> 
+             {% if pp.discount %}
+              
+              <span class="price" id="priceItem" data-value="{{ pp.price }}" style="text-decoration: line-through 2px red;"><small>$</small>{{ pp.price }}</span> 
+              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.discount_price }}</span> 
               <input type="hidden" value="{{ pp.id }}" id="Idpro">
               <!-- Sale Tags -->
-              <div class="on-sale"> 10% <span>OFF</span> </div>
+              <div class="on-sale"> {{pp.discount.percentage }}% <span>OFF</span> </div>
+              {% else %}
+              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.price }}</span> 
+              <input type="hidden" value="{{ pp.id }}" id="Idpro">
+              {% endif %}
               <ul class="item-owner">
                 <li>Designer :<span> {{ pp.product.category.name }}</span></li>
                 <li>Brand:<span>{{ pp.product.brand.name }}</span></li>
