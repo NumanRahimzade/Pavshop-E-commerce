@@ -28,7 +28,7 @@ def send_mail_to_subscribers():
     g = User.objects.filter(is_active=True).values_list('last_login','username', 'email')
     for gg in g:
         now = datetime.now(timezone.utc)
-        if (now-gg[0] > timedelta(days=30)):
+        if (now-gg[0] > timedelta(days=1)):
             email_list.append(gg[2])
     products = ProductVersion.objects.annotate(num_tags=models.Count('reviews')).filter(created_at__gte=datetime.now(timezone.utc)-timedelta(days=30)).order_by('-num_tags')[:5]
     
