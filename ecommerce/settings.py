@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'django_celery_beat',
     'drf_yasg',
+    # 'easy_thumbnails',
 
     'core',
     'blog.apps.BlogConfig',
@@ -123,6 +124,13 @@ SWAGGER_SETTINGS = {
       }
    }
 }
+
+
+# THUMBNAIL_ALIASES = {
+#     '': {
+#         'avatar': {'size': (700, 710), 'crop': True},
+#     },
+# }
 
 
 TEMPLATES = [

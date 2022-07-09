@@ -63,6 +63,7 @@ class ProductVersionAdmin(TranslationAdmin):
     list_display = ('title', 'code', 'price', 'discount_price', 'stock', 'created_at')
     list_filter = ('product__category__name', 'created_at')
     search_fields = ('title', 'price', 'discount_price', 'code')
+    # fields=['discount_price',]
     inlines = [ProductImageInlineAdmin, ]
 
 

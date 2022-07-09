@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from core.models import Tag
 from django.template.defaultfilters import slugify
+# from account.utils import image_resize
 
 User = get_user_model()
 
@@ -125,13 +126,6 @@ class ProductVersion(AbstractModel):
         })
 
 
-    def discount_price(self):
-        if self.discount:
-            a = float(self.price)*float(self.discount.percentage)/100
-            result = float(self.price)-float(a)
-            return result
-
-
 class ProductImages(AbstractModel):
     version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
 
@@ -142,6 +136,12 @@ class ProductImages(AbstractModel):
     class Meta:
         verbose_name = 'Product Image'
         verbose_name_plural = 'Product Images'
+
+
+    # def save(self, commit=True, *args, **kwargs):
+    #     if commit:
+    #         image_resize(self.image, 800, 1010)
+    #         super().save(*args, **kwargs)
 
 
 class Discount(AbstractModel):

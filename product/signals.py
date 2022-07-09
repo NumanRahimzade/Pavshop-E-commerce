@@ -20,3 +20,13 @@ def product_object_creation(sender, instance, created, **kwargs):
         instance.slug = new_slug
         instance.save()
         print('isledi')
+
+
+@receiver(pre_save, sender=ProductVersion)
+def get_discount_price(sender, instance, **kwargs):
+        
+    if instance.discount:
+        a = float(instance.price)*float(instance.discount.percentage)/100
+        result = float(instance.price)-float(a)
+        instance.discount_price =result
+        

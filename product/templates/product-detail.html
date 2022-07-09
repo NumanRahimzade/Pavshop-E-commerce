@@ -9,13 +9,14 @@
   <section class="sub-bnr" data-stellar-background-ratio="0.5">
     <div class="position-center-center">
       <div class="container">
-        <h4>WOOD CHAIR</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus maximus vehicula. 
-          Sed feugiat, tellus vel tristique posuere, diam</p>
-        <ol class="breadcrumb">
+        <h4>PAVSHOP PRODUCT</h4>
+        <h5>FROM</h5>
+        <h2>{{ pp.product.brand.name }}</h2>
+        
+        <!-- <ol class="breadcrumb">
           <li><a href="#">Home</a></li>
           <li class="active">Data</li>
-        </ol>
+        </ol>  -->
       </div>
     </div>
   </section>
@@ -37,9 +38,9 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{{ pp.main_image.image.url }}"  alt=""> </li>
-                  <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{% static 'images/large-img-2.jpg' %}"  alt=""> </li>
-                  <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt=""> </li>
+                  <li data-thumb="images/large-img-1.jpg"> <img class="img-responsive" src="{{ pp.main_image.image.url }}"  alt="" height='700' width='710' style="object-fit: cover;"> </li>
+                  <li data-thumb="images/large-img-2.jpg"> <img class="img-responsive" src="{{ pp.main_image.image.url }}"  alt="" height='700' width='710' style="object-fit: cover;"> </li>
+                  <li data-thumb="images/large-img-3.jpg"> <img class="img-responsive" src="{% static 'images/large-img-3.jpg' %}"  alt="" height='700' width='710' style="object-fit: cover;"> </li>
                 </ul>
               </div>
             </div>
@@ -49,8 +50,8 @@
               <h4>{{ pp.title }}</h4>
              {% if pp.discount %}
               
-              <span class="price" id="priceItem" data-value="{{ pp.price }}" style="text-decoration: line-through 2px red;"><small>$</small>{{ pp.price }}</span> 
-              <span class="price" id="priceItem" data-value="{{ pp.price }}"><small>$</small>{{ pp.discount_price }}</span> 
+              <span class="price" style="text-decoration: line-through 2px red;"><small>$</small>{{ pp.price }}</span> 
+              <span class="price" id="priceItem" data-value="{{ pp.discount_price }}"><small>$</small>{{ pp.discount_price }}</span> 
               <input type="hidden" value="{{ pp.id }}" id="Idpro">
               <!-- Sale Tags -->
               <div class="on-sale"> {{pp.discount.percentage }}% <span>OFF</span> </div>
