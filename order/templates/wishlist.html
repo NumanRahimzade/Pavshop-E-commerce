@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% load static tags %}
+{% block content %}
+
+
+<div class="papular-block row single-img-demos"> 
+             
+    <!-- Item -->
+
+    {% for products in wlist %}
+    {% for product in products.productversion.all %}  
+   
+    <div class="col-md-4">
+
+      <div class="item"> 
+        <!-- Item img -->
+        <div class="item-img"> <img class="img-1" src="{{ product.main_image.image.url }}" alt="">
+        <!-- <div class="item-img"> <img class="img-1" src="{{ item.main_version.main_image.image.url }}" alt="" > -->
+          <!-- Overlay -->
+          <div class="overlay">
+            <div class="position-center-center">
+              <div class="inn"><a href="" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
+            </div>
+          </div>
+        </div>
+        <!-- Item Name -->
+        <div class="item-name"> <a href="{{ product.get_absolute_url }}"> {{ product.title }} </a>
+          <p> AAA</p>
+        </div>
+        <!-- Price --> 
+        <span class="price"><small></small> {{ product.price }} </span> 
+        <form action="{% url 'delete-from-wishlist' %}" class="mt-3" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="product-id" value="{{product.id}}">
+          <input type="submit" value="Delete" class="simple-btn body-white">
+          <!-- <button class="btn btn-danger delete-wishlist-item " ><i class="fa fa trash"></i>Remove</button> -->
+        </form>
+      </div>
+
+        
+       
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+
+{% endblock %} 

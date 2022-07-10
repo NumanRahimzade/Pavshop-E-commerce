@@ -151,8 +151,8 @@ class Discount(AbstractModel):
 
     def __str__(self):
         return self.title
-        
 
+        
 class WishList(AbstractModel):
     productversion=models.ManyToManyField(ProductVersion, related_name='wishproduct',blank=True)
     user=models.OneToOneField(User,default="",on_delete=models.CASCADE)

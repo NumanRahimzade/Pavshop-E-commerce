@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from order.models import Order, Basket, BasketItem, BillingDetail
+from order.models import Order, Basket, BasketItem, ShippingDetail
 
 
 @admin.register(Order)
@@ -23,4 +23,4 @@ class BasketItemAdmin(admin.ModelAdmin):
     list_filter = ('basket', 'created_at')
     search_fields = ('productVersion', )
 
-admin.site.register([BillingDetail, ])
+admin.site.register([ShippingDetail, ])

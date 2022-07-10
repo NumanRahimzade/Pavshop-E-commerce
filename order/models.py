@@ -41,7 +41,7 @@ class BasketItem(AbstractModel):
         return str(self.sub_total)
 
 
-class BillingDetail(AbstractModel):
+class ShippingDetail(AbstractModel):
     firstname=models.CharField('FIRST NAME',max_length=70)
     lastname=models.CharField('LAST NAME',max_length=70)
     companyname=models.CharField('COMPANY NAME',max_length=80)

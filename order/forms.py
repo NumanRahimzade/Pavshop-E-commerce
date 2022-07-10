@@ -1,11 +1,11 @@
 from django import forms
-from order.models import BillingDetail
+from order.models import ShippingDetail
 
 
 
-class BillingDetailForm(forms.ModelForm):
+class ShippingDetailForm(forms.ModelForm):
     class Meta:
-        model=BillingDetail
+        model=ShippingDetail
         fields = (
             'firstname',
             'lastname',

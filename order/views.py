@@ -2,13 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import context
 # from order.models import BillingDetail
-from order.forms import BillingDetailForm
+from order.forms import ShippingDetailForm
 
 
 def checkout(request):
-    form=BillingDetailForm()
+    form=ShippingDetailForm()
     if request.method=='POST':  
-        form=BillingDetailForm(data=request.POST)
+        form=ShippingDetailForm(data=request.POST)
         if form.is_valid():
             form.save()
             print('form is valid')
