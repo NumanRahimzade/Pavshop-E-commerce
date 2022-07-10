@@ -17,7 +17,7 @@ async function plus(productVersion, valueId, countItem, priceItem, size) {
         // document.querySelector(`#priceItemm${valueId}`).innerHTML = newCount;
         async function addProducts(){
             console.log('here');
-            let response = await fetch(`http://localhost:8000/api/basketitems/${valueId}/`, {
+            let response = await fetch(`/api/basketitems/${valueId}/`, {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
