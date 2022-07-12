@@ -259,24 +259,6 @@ class ProductDetailView(CreateView, DetailView):
     #     return range(1, 6)
 
 
-############# search
-
-# class SearchView(ListView):
-#     model = ProductVersion
-#     template_name = 'search.html'
-
-#     def get(self, request, *args, **kwargs):
-#         products = None
-#         if request.GET:
-#             if request.GET.get("search_name"):
-#                 products = ProductVersion.objects.filter(title__icontains=request.GET.get("search_name"))
-
-#         context={
-#                 'products':products,
-#         }
-#         return render(request, 'search.html',context)
-
-
 class SearchView(ListView):
     model = ProductVersion
     template_name = 'search.html'
@@ -286,8 +268,9 @@ class SearchView(ListView):
         print(qs, 'buraaaaaaaa')
         if request.GET:
             if request.GET.get("search_name"):
-                qs = ProductVersion.objects.filter(title__icontains=request.GET.get("search_name"))
-                # qs = ProductVersion.objects.filter(product__title__icontains=request.GET.get("search_name"))
+                # qs = ProductVersion.objects.filter(title__icontains=request.GET.get("search_name"))
+                qs = ProductVersion.objects.filter(Q(title__icontains=request.GET.get("search_name")) | 
+                 Q(product__brand__name__icontains=request.GET.get("search_name")))
                 print(qs, 'buraaaaaaaa')
                 # Q(product__brand__icontains=request.GET.get("search_name")) |
         context = {
