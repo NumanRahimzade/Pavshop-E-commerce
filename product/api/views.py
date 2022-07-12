@@ -14,15 +14,16 @@ from rest_framework.status import (
 )
 
 from django.http import Http404
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser 
 
 from product.api.serializers import ( 
     ProductReadSerializer, ProductCreateSerializer, 
     ImageSerializer, SubscriptionSerializer,
     CategorySerializer,CategoryCreateSerializer, 
     ReviewSerializer,PropertyValuesSerializer,
-    PropertySerializer,)
-from product.models import ProductImages, ProductVersion, Category, Review, PropertyValues, PropertyName
+    PropertySerializer, WishlistSerializer,
+    WishlistCreateSerializer)
+from product.models import ProductImages, ProductVersion, Category, Review, PropertyValues, PropertyName, WishList
 from core.models import Subscription
 
 
@@ -111,6 +112,17 @@ class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ProductVersion.objects.all()
     serializer_class = ProductCreateSerializer
 
+
+class WishListCreateAPIView(ListCreateAPIView):
+    queryset = WishList.objects.all()
+    parser_class = [JSONParser, ]
+
+    
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return WishlistSerializer
+        return WishlistCreateSerializer
+    
 
 class ImageListCreateAPIView(ListCreateAPIView):
     queryset = ProductImages.objects.all()

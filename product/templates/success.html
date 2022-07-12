@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{title}} {% endblock %}
+{% block base %}
+<!-- pages-title-start -->
+<div class="pages-title section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="pages-title-text text-center">
+					<h2>Checkout</h2>
+					<ul class="text-left">
+						<li><a href="{% url 'index' %}">Home </a></li>
+						<li><span> // </span>checkout</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="alert alert-success" style="text-align: center;">
+    <h1>Thanks for your order!</h1>
+    <strong>Success!</strong> 
+        We appreciate your business! If you have any questions, please email
+        <a href="mailto:numanrahimzade@gmail.com">info@pavshop.com</a>.
+  </div>
+<!-- Checkout content section end -->
+
+<!-- all js here -->
+{% endblock %}

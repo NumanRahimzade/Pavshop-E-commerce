@@ -3,7 +3,8 @@ from product.api.views import (
     ProductListCreateAPI, ProductRetrieveUpdateDestroyAPIView, 
     ImageListCreateAPIView, SubscriptionView,CategoryView, 
     CategoryRetrieveUpdateDestroyAPIView, ReviewListCreateAPIView, 
-    PropertyValuesSerializerListCreateAPIView, PropertySerializerListCreateAPIView)
+    PropertyValuesSerializerListCreateAPIView, PropertySerializerListCreateAPIView,
+    WishListCreateAPIView)
 # from rest_framework.urlpatterns import format_suffix_patterns
 
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('products/propertyvalue/', PropertyValuesSerializerListCreateAPIView.as_view(),),
     path('products/propertyname/', PropertySerializerListCreateAPIView.as_view(),),
     path('subscriptions/', SubscriptionView.as_view(), ),
+    path('wishlists/', WishListCreateAPIView.as_view(), ),
     path('categories/', CategoryView.as_view(), name='cat'),
     path('categories/<int:pk>/', CategoryRetrieveUpdateDestroyAPIView.as_view(),),
 ]

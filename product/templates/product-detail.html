@@ -120,10 +120,12 @@
                  
                   
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6" id="basketButton"> <a href="#." class="btn">ADD TO CART</a> </li>
+                  
+                  <li class="col-xs-6" id="basketButton"> <a href="{% url 'login' %}" class="btn">ADD TO CART</a> </li>
+                  
                   
                   <!-- LIKE -->
-                  <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>
+                  <li class="col-xs-6"> <a href="#." class="like-us" id="wishyou"><i class="icon-heart"></i></a> </li>
                 </ul>
                 
                 <!-- INFOMATION -->
@@ -214,6 +216,7 @@
               
               
               {% if user.is_authenticated %}
+              <input type="hidden" value="{{ user.id }}" id="Iduser">
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40">ADD REVIEW</h6>
               <form class="contact-form" action="" method="POST" name="detailed_product">
@@ -278,7 +281,10 @@
               <div class="overlay">
                 <div class="position-center-center">
                   <div class="inn"><a href="{% static 'images/product-1.jpg' %}" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
-                    
+                  
+
+
+
                 </div>
               </div>
             </div>

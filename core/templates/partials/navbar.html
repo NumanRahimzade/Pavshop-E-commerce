@@ -232,8 +232,8 @@
                     <div class="search-overlay"></div>
                     <div class="position-center-center">
                       <div class="search">
-                        <form>
-                          <input type="search" placeholder="Search Shop">
+                        <form action="{% url 'search' %}" method="GET"  >
+                          <input type="search" name="search_name" placeholder="Search Shop">
                           <button type="submit"><i class="icon-check"></i></button>
                         </form>
                       </div>

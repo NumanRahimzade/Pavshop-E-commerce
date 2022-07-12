@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import environ
 from pathlib import Path
 import redis
 from datetime import timedelta
@@ -33,7 +33,16 @@ SECRET_KEY = 'django-insecure-d0ifd+%e)(rj^3067@q1%@^3_5zjxni+ofg-3v)@fu=2fkpu!u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+##############
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+
+
+##############
 
 
 ALLOWED_HOSTS = ['*']
@@ -126,11 +135,8 @@ SWAGGER_SETTINGS = {
 }
 
 
-# THUMBNAIL_ALIASES = {
-#     '': {
-#         'avatar': {'size': (700, 710), 'crop': True},
-#     },
-# }
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51LKItGJCAIM0eMjGT3R68v9d2lOmdZytQckdcyRUwGJXRLtFlMzXkyRAv0J0zKwe12wkjCXFqBowexPknEGgKJRr002fR9YgbS'
+STRIPE_SECRET_KEY = 'sk_test_51LKItGJCAIM0eMjGiaRu2vzyznelKM57CClroOVPkPv1BsXY24oW3oRuGTBLNkqPxsVqRcF4XYk3f3x0YHRmdm2C00v7tIO0CN'
 
 
 TEMPLATES = [

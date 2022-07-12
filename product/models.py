@@ -126,6 +126,15 @@ class ProductVersion(AbstractModel):
         })
 
 
+# class Size(AbstractModel):
+#     proversion=models.ForeignKey(ProductVersion,related_name='versionsize',default="", on_delete=models.CASCADE)
+#     title=models.CharField('Title', max_length=80)
+#     count=models.IntegerField('Value', null=True, blank=True)
+
+#     def __str__(self):
+#         return self.title
+
+
 class ProductImages(AbstractModel):
     version=models.ForeignKey(ProductVersion,related_name='productimage',default="", on_delete=models.CASCADE)
 
@@ -155,7 +164,7 @@ class Discount(AbstractModel):
         
 class WishList(AbstractModel):
     productversion=models.ManyToManyField(ProductVersion, related_name='wishproduct',blank=True)
-    user=models.OneToOneField(User,default="",on_delete=models.CASCADE)
+    user=models.ForeignKey(User,default="",on_delete=models.CASCADE)
 
 
 class Review(AbstractModel):

@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.contrib import messages
-
+from product.models import ProductVersion
 from core.models import Contact
 from core.forms import ContactForm, SubscribeForm
 from core.tasks import process_func
+
+
 
 
 def home(request):
@@ -34,6 +36,8 @@ def contact(request):
 def export(request):
     process_func.delay()
     return redirect('/')
+
+
 
 
 

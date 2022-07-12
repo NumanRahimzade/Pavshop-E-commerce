@@ -1,14 +1,19 @@
+from cmath import log
 from unittest import result
 from urllib import request
 from django.template.defaulttags import register
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from product.models import *
 from core.models import Tag
 from product.forms import ReviewForm
 from django.db.models import Count
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from django.db.models import Q, F
 
 # Create your views here.
 
@@ -148,6 +153,8 @@ class ProductDetailView(CreateView, DetailView):
 
         zipped = zip(llist2, llist1)
 
+        
+
         f = ProductVersion.objects.filter(product__category__id= get_pro_id).exclude(id=self.kwargs['pk']).order_by('-created_at')[:3]
         context['related_versions'] = f
         reviews = detailed.reviews.all().order_by('-created_at')
@@ -250,3 +257,45 @@ class ProductDetailView(CreateView, DetailView):
     #     if value < 6:
     #         return range(1, value+1)
     #     return range(1, 6)
+
+
+############# search
+
+# class SearchView(ListView):
+#     model = ProductVersion
+#     template_name = 'search.html'
+
+#     def get(self, request, *args, **kwargs):
+#         products = None
+#         if request.GET:
+#             if request.GET.get("search_name"):
+#                 products = ProductVersion.objects.filter(title__icontains=request.GET.get("search_name"))
+
+#         context={
+#                 'products':products,
+#         }
+#         return render(request, 'search.html',context)
+
+
+class SearchView(ListView):
+    model = ProductVersion
+    template_name = 'search.html'
+
+    def get(self, request, *args, **kwargs):
+        qs = None
+        print(qs, 'buraaaaaaaa')
+        if request.GET:
+            if request.GET.get("search_name"):
+                qs = ProductVersion.objects.filter(title__icontains=request.GET.get("search_name"))
+                # qs = ProductVersion.objects.filter(product__title__icontains=request.GET.get("search_name"))
+                print(qs, 'buraaaaaaaa')
+                # Q(product__brand__icontains=request.GET.get("search_name")) |
+        context = {
+            # 'title': 'Product-list Sellshop',
+            'qs': qs,
+
+            # 'images': ProductImages.objects.filter(is_main=True),
+            'word': request.GET.get("search_name"),
+            # 'quantity': len(qs)
+        }
+        return render(request, 'search.html', context=context)

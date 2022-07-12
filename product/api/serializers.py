@@ -1,11 +1,12 @@
 
 from audioop import reverse
+from enum import unique
 import json
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
-from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages, Review
+from product.models import Product, ProductImages, ProductVersion, Category, Brand, Discount, PropertyValues, PropertyName, ProductImages, Review, WishList
 from core.models import Tag, Subscription
 from account.api.serializers import *
 
@@ -253,8 +254,31 @@ class ReviewSerializer(serializers.ModelSerializer):
             'user',
             'productversion',
             'comment',
-            'reply',
+            # 'reply',
         )
 
 
-# WISHLIST WISHLIST HAS TO BE CREATED
+class WishlistSerializer(serializers.ModelSerializer):
+    user = str(UserSerializer())
+    productversion = ProductReadSerializer(many=True)
+
+    class Meta:
+        model = WishList
+        fields = (
+            'user',
+            'productversion',
+            
+        )
+
+
+class WishlistCreateSerializer(serializers.ModelSerializer):
+    user = str(UserSerializer())
+    productversion = str(ProductReadSerializer(many=True))
+
+    class Meta:
+        model = WishList
+        fields = (
+            'user',
+            'productversion',
+            
+        )

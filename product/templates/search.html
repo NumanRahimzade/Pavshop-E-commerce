@@ -38,7 +38,7 @@
               
               <!-- Item -->
               
-              {% for item in products %}
+              {% for item in qs %}
               <div class="col-md-4">
                 
                 <div class="item" id="mainitem"> 
@@ -107,10 +107,7 @@
               <!-- Category -->
               <h5 class="shop-tittle margin-bottom-30">category</h5>
               <ul class="shop-cate">
-                {% get_categories as categories %}
-                {% for category in categories %}
-                   <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&category_id={{category.id}}"> {{category.name}} <span>{{category.product_count}}</span></a></li>
-                {% endfor %}
+                
 
 
                 <!-- <li><a href="#."> Bag <span>122</span></a></li>
@@ -131,10 +128,7 @@
               <!-- TAGS -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">FILTER BY COLORS</h5>
               <ul class="colors">
-                {% for color in colors %}
-                <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&color_id={{color.id}}" style="background:{{ color.value}}; border: solid 1px black"></a></li>
-
-                {% endfor %}
+                
 
                 <!-- <li><a href="#." style="background:#958170;"></a></li>
                 <li><a href="#." style="background:#c9a688;"></a></li>
@@ -159,9 +153,7 @@
               <!-- TAGS -->
               <h5 class="shop-tittle margin-top-60 margin-bottom-30">PAUPLAR TAGS</h5>
               <ul class="shop-tags">
-                {% for tag in tags %}
-                <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&tag_id={{tag.id}}">{{tag.title }}</a></li>
-                {% endfor %}
+             
                 <!-- <li><a href="#.">Towels</a></li>
                 <li><a href="#.">Chair</a></li>
                 <li><a href="#.">Bedsheets</a></li>
@@ -173,12 +165,6 @@
                 <li><a href="#.">Top Selling</a></li> -->
               </ul>
               
-              <!-- BRAND -->
-              <h5 class="shop-tittle margin-top-60 margin-bottom-30">brands</h5>
-              <ul class="shop-cate">
-                {% for brand in brands %}
-                    <li><a href="{% url 'productlist' %}?{{request.GET.urlencode}}&brand_id={{brand.id}}"> {{brand.name}}</a></li>
-                {% endfor %}
                 <!-- <li><a href="#."> G-Furniture
                   BigYellow</a></li>
                 <li><a href="#."> WoodenBazaar</a></li>
