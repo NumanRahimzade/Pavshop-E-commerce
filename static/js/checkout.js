@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded",  function(){
                 let ids = data[i]['id']
                 total_price += parseFloat(data[i]['count'] * data[i]['price'])
                 eachcard.innerHTML += `
-                    <p>${data[i]['productVersion']['title']}   <span></span> <span> ----------------------- $   ${data[i]['price']} </span></p>
+                    <p >${data[i]['productVersion']['title']}   <span></span> <span> ----------------------- $   ${data[i]['price']} </span></p>
                     
                 `
             }

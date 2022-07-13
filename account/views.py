@@ -138,7 +138,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 
 
 class ResetPasswordView(PasswordResetView):
-    template_name = 'login.html'
+    template_name = 'forget.html'
     form_class = ResetPasswordForm
     email_template_name = 'email/reset-password-mail.html'
     success_url = reverse_lazy('')

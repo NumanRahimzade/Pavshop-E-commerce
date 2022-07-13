@@ -20,10 +20,11 @@ document.addEventListener("DOMContentLoaded",  function(){
             let postData = {
                 
                 "user": userr,
-                "productversion": parseInt(valueId),
+                "productversion": [valueId],
                 
             
             }
+            
             
             let response = await fetch('/api/wishlists/', {
                 credentials: 'include',

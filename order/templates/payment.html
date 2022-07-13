@@ -27,105 +27,7 @@
         <!-- Payments Steps -->
         <div class="shopping-cart"> 
           
-          <!-- SHOPPING INFORMATION -->
-          <div class="cart-ship-info">
-            <div class="row"> 
-              
-              <!-- ESTIMATE SHIPPING & TAX -->
-              <div class="col-sm-7">
-                
-                  
-                  
-                     </ul>
-                  <!-- <ul class="row"> -->
-                    
-                    <!-- Name -->
-                    <!-- <li class="col-md-6">
-                      <label> *FIRST NAME
-                        <input type="text" name="first-name" value="" placeholder="">
-                      </label>
-                    </li> -->
-                    <!-- LAST NAME -->
-                    <!-- <li class="col-md-6">
-                      <label> *LAST NAME
-                        <input type="text" name="last-name" value="" placeholder="">
-                      </label>
-                    </li>
-                    <li class="col-md-6">  -->
-                      <!-- COMPANY NAME -->
-                      <!-- <label>COMPANY NAME
-                        <input type="text" name="company" value="" placeholder="">
-                      </label>
-                    </li>
-                    <li class="col-md-6">  -->
-                      <!-- ADDRESS -->
-                      <!-- <label>*ADDRESS
-                        <input type="text" name="address" value="" placeholder="">
-                      </label>
-                    </li> -->
-                    <!-- TOWN/CITY -->
-                    <!-- <li class="col-md-6"> -->
-                      <!-- <label>*TOWN/CITY
-                        <input type="text" name="town" value="" placeholder="">
-                      </label>
-                    </li> -->
-                    
-                    <!-- COUNTRY -->
-                    <!-- <li class="col-md-6">
-                      <label> COUNTRY
-                        <input type="text" name="contry-state" value="" placeholder="">
-                      </label>
-                    </li>
-                     -->
-                    <!-- EMAIL ADDRESS -->
-                    <!-- <li class="col-md-6">
-                      <label> *EMAIL ADDRESS
-                        <input type="text" name="contry-state" value="" placeholder="">
-                      </label>
-                    </li> -->
-                    <!-- PHONE -->
-                    <!-- <li class="col-md-6">
-                      <label> *PHONE
-                        <input type="text" name="postal-code" value="" placeholder="">
-                      </label>
-                    </li> -->
-                    
-                    <!-- PHONE -->
-                    <!-- <li class="col-md-6">
-                      <button type="submit" class="btn">continue</button>
-                    </li> -->
-                    
-                    <!-- CREATE AN ACCOUNT -->
-                    <!-- <li class="col-md-6">
-                      <div class="checkbox margin-0 margin-top-20">
-                        <input id="checkbox1" class="styled" type="checkbox">
-                        <label for="checkbox1"> Ship to a different address </label>
-                      </div>
-                    </li>
-                  </ul> -->
-                </form>
-                
-                <!-- SHIPPING info -->
-                <h6 class="margin-top-50">SHIPPING info</h6>
-                <form action="" method="POST" name="shipmentt">
-                  
-                  {% csrf_token %}
-                  <ul class="row"> 
-                   {% for field in form %}
-                   
-                      <li class="col-md-6">
-                        <label> *{{field.label}}
-                          {{field}}
-                        </label>
-                        <ul>
-                          {% for error in field.errors %}
-                            <li class="alert-danger">{{ error }}</li>
-                          {% endfor %}
-                        </ul>
-                      </li> 
-                     
-                    {% endfor %}
-                    
+         
                    
                     <!-- Name -->
                     <!-- <li class="col-md-6">
@@ -179,9 +81,7 @@
                     </li>
                      -->
                     <!-- PHONE -->
-                    <li class="col-md-12">
-                      <button type="submit" class="btn">SUBMIT</button>
-                    </li>
+                    
                   </ul>
                 </form>
               </div>
@@ -191,16 +91,16 @@
                 <h6>YOUR ORDER</h6>
                 <div class="order-place">
                   <div class="" id="ship">
-                    {% for i in products %}
+                      {% for i in products %}
+                      
+                    <p>{{i.title}} <span>$ {{i.price}} </span></p>
+                    {% endfor %}
                     
-                  <p>{{i.title}} <span>$ {{i.price}} </span></p>
-                  {% endfor %}
-                  
-                  
-                  <!-- SUB TOTAL -->
-                  <div id="total">
-                    <p class="alltotal" data-value="{{ total }}">TOTAL COST <span> $ {{total}}</span></p>
-                  </div>
+                    
+                    <!-- SUB TOTAL -->
+                    <div id="total">
+                      <p class="alltotal" data-value="{{ total }}">TOTAL COST <span> $ {{total}}</span></p>
+                    </div>
                     
                   </div>
                   <div class="pay-meth">
