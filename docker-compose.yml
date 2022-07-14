@@ -8,17 +8,31 @@ services:
           - "5432:5432"
         volumes:
           - ./pgdb/:/var/lib/postgresql/data
-        environment: 
-          POSTGRES_PASSWORD: 12345
-          POSTGRES_USER: user
-          POSTGRES_DB: tech
+        env_file: .env
 
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8080:8080
 
+    web:
+        build: .
+        command:  python3 manage.py runserver 0.0.0.0:8000
+        ports: 
+            - 8000:8000
+        depends_on:
+            - "db"
+            - "redisdb"
+        env_file: .env
+
+    
+
+    celery:
+        build: 
+            context: .
+            dockerfile: celery.dockerfile
+        command:  celery -A ecommerce worker --beat --scheduler django --loglevel=info
+        depends_on:
+            - "db"
+            - "redisdb"
+        env_file: .env
+    
     redisdb:
         image: redis
         restart: always

@@ -33,16 +33,6 @@ SECRET_KEY = 'django-insecure-d0ifd+%e)(rj^3067@q1%@^3_5zjxni+ofg-3v)@fu=2fkpu!u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-##############
-
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-
-
-
-##############
 
 
 ALLOWED_HOSTS = ['*']
@@ -135,10 +125,6 @@ SWAGGER_SETTINGS = {
 }
 
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51LKItGJCAIM0eMjGT3R68v9d2lOmdZytQckdcyRUwGJXRLtFlMzXkyRAv0J0zKwe12wkjCXFqBowexPknEGgKJRr002fR9YgbS'
-STRIPE_SECRET_KEY = 'sk_test_51LKItGJCAIM0eMjGiaRu2vzyznelKM57CClroOVPkPv1BsXY24oW3oRuGTBLNkqPxsVqRcF4XYk3f3x0YHRmdm2C00v7tIO0CN'
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -178,26 +164,26 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tech',
-        'USER': 'user',
-        'PASSWORD': '12345',
-        'PORT': 5432,
-        'HOST': 'localhost',
+        'NAME': os.environ.get('POSTGRES_DB', 'tech'),
+        'USER': os.environ.get('POSTGRES_USER', 'user'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '12345'),
+        'PORT':  os.environ.get('POSTGRES_PORT', 5432),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
         'DISABLE_SERVER_SIDE_CURSORS': True,
     }
 }
 
 
 # CELERY STUFF
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
+CELERY_RESULT_BACKEND = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Baku'
 
 
-REDIS_BROKER_URL = 'redis://localhost:6379'
+REDIS_BROKER_URL = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
 
 REDIS_CLIENT = redis.Redis.from_url(REDIS_BROKER_URL)
 
